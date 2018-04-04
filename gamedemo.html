@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Warship</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <article class="main">
+      <section class="board">
+        <div class="title">Warship</div>
+        <table>
+          <!-- TODO: fix tr's and td's to be handled server side -->
+          <tr class="numbers">
+            <td></td>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+            <td>7</td>
+            <td>8</td>
+            <td>9</td>
+            <td>10</td>
+            <td>11</td>
+            <td>12</td>
+            <td>13</td>
+            <td>14</td>
+            <td>15</td>
+          </tr>
+          <tr id="row_a">
+            <td class="letters">A</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+          </tr>
+          <tr id="row_b">
+            <td class="letters">B</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+          </tr>
+          <tr id="row_c">
+            <td class="letters">C</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+          </tr>
+          <tr id="row_d">
+            <td class="letters">D</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+          </tr>
+          <tr id="row_e">
+            <td class="letters">E</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+          </tr>
+          <tr id="row_f">
+            <td class="letters">F</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+          </tr>
+          <tr id="row_g">
+            <td class="letters">G</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+          </tr>
+          <tr id="row_h">
+            <td class="letters">H</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+          </tr>
+          <tr id="row_i">
+            <td class="letters">I</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+          </tr>
+          <tr id="row_j">
+            <td class="letters">J</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+          </tr>
+          <tr id="row_k">
+            <td class="letters">K</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+          </tr>
+          <tr id="row_l">
+            <td class="letters">L</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+          </tr>
+          <tr id="row_m">
+            <td class="letters">M</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+          </tr>
+          <tr id="row_n">
+            <td class="letters">N</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+          </tr>
+          <tr id="row_o">
+            <td class="letters">O</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+            <td>░</td>
+          </tr>
+        </table>
+      </section>
+      <section class="alert" >
+        <p>You died!</p>
+        <p>Please wait until game ends!</p>
+      </section>
+      <section class="attack">
+        <form action="" method="post" novalidate>
+          <select name="letter">
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <option value="E">E</option>
+            <option value="F">F</option>
+            <option value="G">G</option>
+            <option value="H">H</option>
+            <option value="I">I</option>
+            <option value="J">J</option>
+            <option value="K">K</option>
+            <option value="L">L</option>
+            <option value="M">M</option>
+            <option value="N">N</option>
+            <option value="O">O</option>
+          </select>
+          <select name="number">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+          </select>
+          <input type="submit" name="submit" value="Submit" />
+        </form>
+      </section>
+      <section class="jump">
+        <a href="welcomedemo.html">top</a>
+        <a href="win.html">win</a>
+        <a href="lose.html">lose</a>
+      </section>
+    </article>
+  </body>
+</html>

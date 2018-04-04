@@ -1,0 +1,50 @@
+body {
+  font-family: Lucida, monospace;
+}
+
+table {
+  border: 1px solid black;
+  border-spacing: 0px;
+}
+
+tr {
+  padding: 0px;
+  border: 0px;
+  margin: 0px;
+}
+
+td {
+  border: 1px solid black;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: center;
+  background-color: #4997d0;
+}
+
+.letters {
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #4f666a;
+}
+
+tr.numbers td {
+  background-color: #4f666a;
+}
+
+.title {
+  font-size: 2.2em;
+  font-weight: bold;
+}
+
+.subtitle {
+  font-size: 1.2em;
+  font-style: italic;
+}
+
+.alert {
+  color: red;
+}
+
+.board {
+  font-size: 1.5em;
+}

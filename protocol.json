@@ -1,0 +1,23 @@
+{
+  "start": false,
+  "id": "name",
+  "username": "un"
+}
+
+{
+  "tag": "abc123",
+  "points": 0,
+  "layout": {
+    "friend": [],
+    "damage": [],
+    "hit": [],
+    "miss": []
+  },
+  "dead": false,
+  "finished": false
+}
+
+{
+  "tag": "abc123",
+  "coord": "a1"
+}
