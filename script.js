@@ -15,6 +15,10 @@ onclick = function(e) {
   e.preventDefault();
 }
 
+onsubmit = function(e) {
+  e.preventDefault();
+}
+
 var hideAll = function() {
   var all = document.getElementsByClassName('hidable');
   // console.log(all);
