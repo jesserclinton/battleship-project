@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+<head>
+    <title>Mailbox</title>
+	<script>
+	function sendMsg() {
+		var name = document.getElementById("in_name").value;
+		var msg = document.getElementById("in_msg").value;
+		var info = {
+			Name: name,
+			Msg: msg
+		};
+		info.name = name.value;
+		info.msg = msg.value;
+		xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = confirmSend;
+		xmlhttp.open("POST", "mailbox_set2.php", true);
+		xmlhttp.send(JSON.stringify(info));
+	}
+	function confirmSend() {
+		if(xmlhttp.readyState == 4 && xmlhttp.status == 200) 
+		{
+			//alert("confirmSend");
+		}
+	}
+	function checkMsg() {
+		xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = HandleData;
+		xmlhttp.open("GET", "mailbox_get.php", true);
+		xmlhttp.send();
+	};
+	
+	function HandleData()  {
+		if(xmlhttp.readyState == 4 && xmlhttp.status == 200) 
+		{
+			//alert(xmlhttp.responseText);
+			//var mailboxes = eval ('(' + xmlhttp.responseText + ')');
+			var mailboxes = JSON.parse(xmlhttp.responseText);
+			var table = document.getElementById("mailboxes");
+			
+			var cnt = 0;
+			for(var key in mailboxes) {
+				document.getElementById("box_table").rows[cnt].cells[0].innerHTML=key;
+				document.getElementById("box_table").rows[cnt].cells[1].innerHTML=mailboxes[key];
+				cnt = cnt + 1;
+			};
+		};
+	};
+	
+	</script>
+</head>
+<body>
+    <H1>Mailbox</H1>
+    <H2>Send Message</H2>
+    <form>
+    Name: <input type="text" name="name" id="in_name" size="30">
+    Message: <input type="text" name="msg" id="in_msg" size="30">
+	<button type="button" onclick="sendMsg()">Send Message</button>
+    </form>
+	
+	<BR>
+	<button type="button" onclick="checkMsg()">Check for Messages</button>
+	<div id="mailboxes">
+	<table cellspacing="10" cellpadding="10" id="box_table">
+		<tr id="row0">
+			<td id="name0">
+			Huey
+			</td>
+			<td id="msg0">
+			Whats up
+			</td>
+		</tr>
+		<tr id="row1">
+			<td id="name1">
+			</td>
+			<td id="msg1">
+			</td>
+		</tr>
+		<tr id="row2">
+			<td id="name2">
+			</td>
+			<td id="msg2">
+			</td>
+		</tr>
+		<tr id="row3">
+			<td id="name3">
+			</td>
+			<td id="msg3">
+			</td>
+		</tr>
+		<tr id="row4">
+			<td id="name4">
+			</td>
+			<td id="msg4">
+			</td>
+		</tr>
+		<tr id="row5">
+			<td id="name5">
+			</td>
+			<td id="msg5">
+			</td>
+		</tr>
+		<tr id="row6">
+			<td id="name6">
+			</td>
+			<td id="msg6">
+			</td>
+		</tr>
+		<tr id="row7">
+			<td id="name7">
+			</td>
+			<td id="msg7">
+			</td>
+		</tr>
+		<tr id="row8">
+			<td id="name8">
+			</td>
+			<td id="msg8">
+			</td>
+		</tr>
+		<tr id="row9">
+			<td id="name9">
+			</td>
+			<td id="msg9">
+			</td>
+		</tr>
+	</table>
+	</div>
+</body>
+</html>
