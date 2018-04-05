@@ -17,8 +17,13 @@ var hideAll = function() {
 }
 
 var goToWaiting = function() {
-  hideAll();
-  document.getElementById('waiting').removeAttribute('hidden');
+  var username = document.getElementById('username').value;
+  if (username == '') {
+    alert('Username Required!');
+  } else {
+    hideAll();
+    document.getElementById('waiting').removeAttribute('hidden');
+  }
 }
 
 var startGame = function() {
