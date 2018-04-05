@@ -1,6 +1,14 @@
 onload = function() {
-  var row = document.getElementById('row_a');
-  console.log(row);
+  var rows = document.getElementsByClassName('tableRow');
+  for (row of rows) {
+    for (var i = 0; i < 15; i++) {
+      var td = document.createElement('td');
+      var wave = document.createTextNode('~');
+      td.appendChild(wave);
+      row.appendChild(td);
+      // console.log('append');
+    }
+  }
 }
 
 onclick = function(e) {
