@@ -15,7 +15,7 @@ onclick = function(e) {
   e.preventDefault();
 }
 
-on = function(e) {
+onsubmit = function(e) {
   e.preventDefault();
 }
 
