@@ -2,6 +2,10 @@ body {
   font-family: Lucida, monospace;
 }
 
+section {
+  padding: 0.2%;
+}
+
 table {
   border: 1px solid black;
   border-spacing: 0px;
@@ -38,10 +42,10 @@ tr.numbers td {
 
 .subtitle {
   font-size: 1.2em;
-  font-style: italic;
+  /* font-style: italic; */
 }
 
-.alert {
+#died {
   color: red;
 }
 

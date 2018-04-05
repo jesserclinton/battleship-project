@@ -3,17 +3,17 @@
   <head>
     <meta charset="utf-8">
     <title>Warship</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css">
     <script src="script.js" type="text/javascript"></script>
   </head>
   <body>
-    <article class="welcome">
+    <article id="welcome" class="hidable">
       <section>
         <div class="title">Welcome to Warship</div>
         <div class="subtitle">(a modified version of Battleship)</div>
       </section>
       <section>
-        <p>
+        <p style="padding-right: 40%;">
           The rules are simple:<br>Tactically attack places on the map
           to sink enemy ships. Landing a hit on an enemy ship scores a
           point for the player <em>(Players do not have to shoot in turn,
@@ -27,14 +27,15 @@
       <section>
         <form class="portal">
           <label for="username">Username: </label><input type="text" id="username" title="username" spellcheck="false" placeholder="Fred">
-          <button type="button" name="submit" onclick="goToWaiting()">Submit</button>
+          <button type="button" name="submit" onclick="goToWaiting()">Join Game</button>
         </form>
       </section>
     </article>
-    <article class="waiting" hidden>
+    <article id="waiting" class="hidable" hidden>
       <section>
         <div class="title">Waiting Room</div>
         <div class="">Players who have already joined:</div>
+        <!-- TODO: get actual players -->
         <ol>
           <li>Bill Nye</li>
           <li>John Wayne</li>
@@ -47,16 +48,16 @@
         </form>
       </section>
     </article>
-    <article class="game" hidden>
+    <article id="game" class="hidable" hidden>
       <section class="board">
         <div class="title">Warship</div>
         <table>
           <!-- TODO: fix tr's and td's to be handled server side -->
           <tr class="numbers">
             <td></td>
-            <td onclick="playerWon()">1</td>
-            <td onclick="playerDied()">2</td>
-            <td onclick="playerLost()">3</td>
+            <td onclick="endGame(false)">1</td>
+            <td>2</td>
+            <td>3</td>
             <td>4</td>
             <td>5</td>
             <td>6</td>
@@ -72,277 +73,52 @@
           </tr>
           <tr id="row_a">
             <td class="letters">A</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>☻</td>
-            <td>☻</td>
-            <td>☻</td>
-            <td>☻</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
           </tr>
           <tr id="row_b">
             <td class="letters">B</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
           </tr>
           <tr id="row_c">
             <td class="letters">C</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>☺︎</td>
           </tr>
           <tr id="row_d">
             <td class="letters">D</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>■</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>☺︎</td>
           </tr>
           <tr id="row_e">
             <td class="letters">E</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>■</td>
-            <td>■</td>
-            <td>■</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>■</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>☻</td>
           </tr>
           <tr id="row_f">
             <td class="letters">F</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>□</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>☻</td>
           </tr>
           <tr id="row_g">
             <td class="letters">G</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>🐅</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>☻</td>
           </tr>
           <tr id="row_h">
             <td class="letters">H</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
           </tr>
           <tr id="row_i">
             <td class="letters">I</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>☺︎</td>
-            <td>☺︎</td>
-            <td>☺︎</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
           </tr>
           <tr id="row_j">
             <td class="letters">J</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
           </tr>
           <tr id="row_k">
             <td class="letters">K</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
           </tr>
           <tr id="row_l">
             <td class="letters">L</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
           </tr>
           <tr id="row_m">
             <td class="letters">M</td>
-            <td>~</td>
-            <td>☺︎</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
           </tr>
           <tr id="row_n">
             <td class="letters">N</td>
-            <td>~</td>
-            <td>☺︎</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
           </tr>
           <tr id="row_o">
             <td class="letters">O</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
-            <td>~</td>
           </tr>
         </table>
       </section>
-      <section class="alert" hidden>
+      <section id="died" class="hidable" hidden>
         <p>You died!</p>
         <p>Please wait until game ends!</p>
       </section>
@@ -382,29 +158,53 @@
             <option value="14">14</option>
             <option value="15">15</option>
           </select>
-          <input type="submit" name="fire" value="Fire!" />
+          <input type="submit" name="fire" value="Fire!">
         </form>
       </section>
     </article>
-    <article class="win" hidden>
-      <section>
+    <article id="scoreboard" class="hidable" hidden>
+      <table>
+        <tr>
+          <td>John Wayne</td>
+          <td>8</td>
+        </tr>
+        <tr>
+          <td>{you}</td>
+          <td>6</td>
+        </tr>
+        <tr>
+          <td>Dirty Harry</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <td>2D</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>Bill Nye</td>
+          <td>0</td>
+        </tr>
+      </table>
+    </article>
+    <!-- ?create a single results page? -->
+    <article id="results" class="hidable" hidden>
+      <section id="win" class="hidable">
         <div class="title">CONGRATULATIONS!</div>
         <div class="subtitle">You won with {points} points!</div>
       </section>
-    </article>
-    <article class="lose" hidden>
-      <section>
+      <section id="lose" class="hidable">
         <div class="title">Sorry...</div>
         <div class="subtitle">You lose...</div>
         <div class="subtitle">You had {points} points, and {winner} had {winner_points} points.</div>
       </section>
-    </article>
-    <article class="again" hidden>
-      <hr />
-      <div class="subtitle">Would you like to play again?</div>
-      <form class="portal">
-        <input type="submit" name="again" value="Play Again!" onclick="playAgain()">
-      </form>
+      </section>
+      <section id="again">
+        <hr>
+        <div class="subtitle">Would you like to play again?</div>
+        <form class="portal" style="padding-top: 5px;">
+          <input type="submit" name="again" value="Play Again!" onclick="playAgain()">
+        </form>
+      </section>
     </article>
   </body>
 </html>

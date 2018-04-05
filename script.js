@@ -1,54 +1,53 @@
+onload = function() {
+  var row = document.getElementById('row_a');
+  console.log(row);
+}
+
 onclick = function(e) {
   e.preventDefault();
 }
 
-var goToWaiting = function() {
-  var article = document.getElementsByClassName('welcome');
-  article[0].setAttribute('hidden','');
-  article = document.getElementsByClassName('waiting');
-  article[0].removeAttribute('hidden');
-}
-
-var startGame = function() {
-  var article = document.getElementsByClassName('waiting');
-  article[0].setAttribute('hidden','');
-  article = document.getElementsByClassName('game');
-  article[0].removeAttribute('hidden');
-}
-
-var playerDied = function() {
-  var section = document.getElementsByClassName('alert');
-  section[0].removeAttribute('hidden');
-}
-
-var playerWon = function() {
-  var article = document.getElementsByClassName('game');
-  article[0].setAttribute('hidden','');
-  article = document.getElementsByClassName('win');
-  article[0].removeAttribute('hidden');
-  article = document.getElementsByClassName('again');
-  article[0].removeAttribute('hidden');
-}
-
-var playerLost = function() {
-  var article = document.getElementsByClassName('game');
-  article[0].setAttribute('hidden','');
-  article = document.getElementsByClassName('lose');
-  article[0].removeAttribute('hidden');
-  article = document.getElementsByClassName('again');
-  article[0].removeAttribute('hidden');
-}
-
-var playAgain = function() {
-  var article = document.getElementsByTagName('article');
-  // console.log(article);
-  for (let item of article) {
+var hideAll = function() {
+  var all = document.getElementsByClassName('hidable');
+  // console.log(all);
+  for (item of all) {
     // console.log(item);
     item.setAttribute('hidden','');
   }
-  var section = document.getElementsByClassName('alert');
-  section[0].setAttribute('hidden','');
+}
+
+var goToWaiting = function() {
+  hideAll();
+  document.getElementById('waiting').removeAttribute('hidden');
+}
+
+var startGame = function() {
+  hideAll();
+  document.getElementById('game').removeAttribute('hidden');
+  document.getElementById('scoreboard').removeAttribute('hidden');
+}
+
+var setScore = function(points) {
+
+}
+
+var playerDied = function() {
+  document.getElementById('died').removeAttribute('hidden');
+}
+
+var endGame = function(win = true) {
+  hideAll();
+  document.getElementById('results').removeAttribute('hidden');
+  if (win) {
+    document.getElementById('win').removeAttribute('hidden');
+  } else {
+    document.getElementById('lose').removeAttribute('hidden');
+  }
+  document.getElementById('scoreboard').removeAttribute('hidden');
+}
+
+var playAgain = function() {
+  hideAll();
   document.getElementById('username').value = '';
-  article = document.getElementsByClassName('welcome');
-  article[0].removeAttribute('hidden');
+  document.getElementById('welcome').removeAttribute('hidden');
 }
