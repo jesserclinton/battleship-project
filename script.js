@@ -33,6 +33,7 @@ var setScore = function(points) {
 
 var playerDied = function() {
   document.getElementById('died').removeAttribute('hidden');
+  document.getElementById('fire_button').setAttribute('disabled');
 }
 
 var endGame = function(win = true) {
@@ -51,3 +52,5 @@ var playAgain = function() {
   document.getElementById('username').value = '';
   document.getElementById('welcome').removeAttribute('hidden');
 }
+
+
