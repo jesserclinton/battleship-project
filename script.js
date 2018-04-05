@@ -1,5 +1,5 @@
 onload = function() {
-  var rows = document.getElementsByClassName('tableRow');
+  var rows = document.getElementsByClassName('table_row');
   for (row of rows) {
     for (var i = 0; i < 15; i++) {
       var td = document.createElement('td');
@@ -65,5 +65,3 @@ var playAgain = function() {
   document.getElementById('username').value = '';
   document.getElementById('welcome').removeAttribute('hidden');
 }
-
-
