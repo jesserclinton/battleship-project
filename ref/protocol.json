@@ -6,6 +6,10 @@
 
 {
   "tag": "abc123",
+  "players": []
+}
+
+{
   "points": 0,
   "layout": {
     "friend": [],
