@@ -50,18 +50,9 @@ var goToWaiting = function() {
 function HandleData()  {
   if(xmlhttp.readyState == 4 && xmlhttp.status == 200)
   {
-    alert(xmlhttp.responseText);
-    var mailboxes = eval ('(' + xmlhttp.responseText + ')');
-    var table = document.getElementById("mailboxes");
-
-    var cnt = 0;
-    for(var key in mailboxes) {
-      document.getElementById("box_table").rows[cnt].cells[0].innerHTML=key;
-      document.getElementById("box_table").rows[cnt].cells[1].innerHTML=mailboxes[key];
-      cnt = cnt + 1;
-    };
+    console.log(xmlhttp.responseText);
   } else {
-    alert("xmlhttp.readyState = " + xmlhttp.readyState + ", xmphttp.status = " + xmlhttp.status);
+    console.log("xmlhttp.readyState = " + xmlhttp.readyState + ", xmphttp.status = " + xmlhttp.status);
   }
 };
 
