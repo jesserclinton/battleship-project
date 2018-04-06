@@ -61,7 +61,7 @@ var endGame = function(win = true) {
   } else {
     document.getElementById('lose').removeAttribute('hidden');
   }
-  document.getElementById('scoreboard').removeAttribute('hidden');
+  document.getElementById('scoreboard2').removeAttribute('hidden');
 }
 
 var playAgain = function() {

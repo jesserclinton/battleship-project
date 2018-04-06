@@ -48,121 +48,152 @@
         </form>
       </section>
     </article>
-    <article id="game" class="hidable" hidden>
-      <section class="board">
-        <div class="title">Warship</div>
-        <table>
-          <!-- TODO: fix tr's and td's to be handled server side -->
-          <tr class="numbers">
-            <td></td>
-            <td onclick="endGame(false)">1</td>
-            <td>2</td>
-            <td>3</td>
-            <td>4</td>
-            <td>5</td>
-            <td>6</td>
-            <td>7</td>
-            <td>8</td>
-            <td>9</td>
-            <td>10</td>
-            <td>11</td>
-            <td>12</td>
-            <td>13</td>
-            <td>14</td>
-            <td>15</td>
-          </tr>
-          <tr id="row_a" class="table_row">
-            <td class="letters">A</td>
-          </tr>
-          <tr id="row_b" class="table_row">
-            <td class="letters">B</td>
-          </tr>
-          <tr id="row_c" class="table_row">
-            <td class="letters">C</td>
-          </tr>
-          <tr id="row_d" class="table_row">
-            <td class="letters">D</td>
-          </tr>
-          <tr id="row_e" class="table_row">
-            <td class="letters">E</td>
-          </tr>
-          <tr id="row_f" class="table_row">
-            <td class="letters">F</td>
-          </tr>
-          <tr id="row_g" class="table_row">
-            <td class="letters">G</td>
-          </tr>
-          <tr id="row_h" class="table_row">
-            <td class="letters">H</td>
-          </tr>
-          <tr id="row_i" class="table_row">
-            <td class="letters">I</td>
-          </tr>
-          <tr id="row_j" class="table_row">
-            <td class="letters">J</td>
-          </tr>
-          <tr id="row_k" class="table_row">
-            <td class="letters">K</td>
-          </tr>
-          <tr id="row_l" class="table_row">
-            <td class="letters">L</td>
-          </tr>
-          <tr id="row_m" class="table_row">
-            <td class="letters">M</td>
-          </tr>
-          <tr id="row_n" class="table_row">
-            <td class="letters">N</td>
-          </tr>
-          <tr id="row_o" class="table_row">
-            <td class="letters">O</td>
-          </tr>
-        </table>
-      </section>
-      <section id="died" class="hidable" hidden>
-        <p>You died!</p>
-        <p>Please wait until game ends!</p>
-      </section>
-      <section class="attack">
-        <form>
-          <select name="letter">
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-            <option value="D">D</option>
-            <option value="E">E</option>
-            <option value="F">F</option>
-            <option value="G">G</option>
-            <option value="H">H</option>
-            <option value="I">I</option>
-            <option value="J">J</option>
-            <option value="K">K</option>
-            <option value="L">L</option>
-            <option value="M">M</option>
-            <option value="N">N</option>
-            <option value="O">O</option>
-          </select>
-          <select name="number">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-          </select>
-          <input id="fire_button" type="submit" name="fire" value="Fire!">
-        </form>
-      </section>
-    </article>
-    <article id="scoreboard" class="hidable" hidden>
+    <div class="game_div">
+      <div class="board_div">
+        <article id="game" class="hidable" hidden>
+          <section class="board">
+            <div class="title">Warship</div>
+            <table>
+              <!-- TODO: fix tr's and td's to be handled server side -->
+              <tr class="numbers">
+                <td></td>
+                <td onclick="endGame(false)">1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+                <td>6</td>
+                <td>7</td>
+                <td>8</td>
+                <td>9</td>
+                <td>10</td>
+                <td>11</td>
+                <td>12</td>
+                <td>13</td>
+                <td>14</td>
+                <td>15</td>
+              </tr>
+              <tr id="row_a" class="table_row">
+                <td class="letters">A</td>
+              </tr>
+              <tr id="row_b" class="table_row">
+                <td class="letters">B</td>
+              </tr>
+              <tr id="row_c" class="table_row">
+                <td class="letters">C</td>
+              </tr>
+              <tr id="row_d" class="table_row">
+                <td class="letters">D</td>
+              </tr>
+              <tr id="row_e" class="table_row">
+                <td class="letters">E</td>
+              </tr>
+              <tr id="row_f" class="table_row">
+                <td class="letters">F</td>
+              </tr>
+              <tr id="row_g" class="table_row">
+                <td class="letters">G</td>
+              </tr>
+              <tr id="row_h" class="table_row">
+                <td class="letters">H</td>
+              </tr>
+              <tr id="row_i" class="table_row">
+                <td class="letters">I</td>
+              </tr>
+              <tr id="row_j" class="table_row">
+                <td class="letters">J</td>
+              </tr>
+              <tr id="row_k" class="table_row">
+                <td class="letters">K</td>
+              </tr>
+              <tr id="row_l" class="table_row">
+                <td class="letters">L</td>
+              </tr>
+              <tr id="row_m" class="table_row">
+                <td class="letters">M</td>
+              </tr>
+              <tr id="row_n" class="table_row">
+                <td class="letters">N</td>
+              </tr>
+              <tr id="row_o" class="table_row">
+                <td class="letters">O</td>
+              </tr>
+            </table>
+          </section>
+          <section id="died" class="hidable" hidden>
+            <p>You died!</p>
+            <p>Please wait until game ends!</p>
+          </section>
+          <section class="attack">
+            <form>
+              <select name="letter">
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+                <option value="G">G</option>
+                <option value="H">H</option>
+                <option value="I">I</option>
+                <option value="J">J</option>
+                <option value="K">K</option>
+                <option value="L">L</option>
+                <option value="M">M</option>
+                <option value="N">N</option>
+                <option value="O">O</option>
+              </select>
+              <select name="number">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+              </select>
+              <input id="fire_button" type="submit" name="fire" value="Fire!">
+            </form>
+          </section>
+        </article>
+      </div>
+      <div class="score_div">
+        <article id="scoreboard" class="hidable" hidden>
+          <table>
+            <tr>
+              <td>John Wayne</td>
+              <td>8</td>
+            </tr>
+            <tr>
+              <td>{you}</td>
+              <td>6</td>
+            </tr>
+            <tr>
+              <td>Dirty Harry</td>
+              <td>5</td>
+            </tr>
+            <tr>
+              <td>2D</td>
+              <td>2</td>
+            </tr>
+            <tr>
+              <td>Bill Nye</td>
+              <td>0</td>
+            </tr>
+          </table>
+        </article>
+      </div>
+    </div>
+    <!-- ?create a single results page? -->
+    <article id="scoreboard2" class="hidable" hidden>
       <table>
         <tr>
           <td>John Wayne</td>
