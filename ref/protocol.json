@@ -1,7 +1,7 @@
 {
   "start": false,
   "id": "name",
-  "username": "un"
+  "username": "Fred"
 }
 
 {
@@ -24,4 +24,9 @@
 {
   "tag": "abc123",
   "coord": "a1"
+}
+
+{
+  "players": [],
+  "win": false
 }
