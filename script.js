@@ -33,15 +33,6 @@ var buildTable = function() {
 }
 
 var goToWaiting = function() {
-
-  xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = HandleData;
-  // xmlhttp.onreadystatechange = function () {
-  //   alert("READY STATE!");
-  // };
-  xmlhttp.open("GET", "get_players.php", true);
-  xmlhttp.send();
-
   var username = document.getElementById('username').value;
   if (username == '') {
     alert('Username Required!');
@@ -55,12 +46,14 @@ function HandleData()  {
   if(xmlhttp.readyState == 4 && xmlhttp.status == 200)
   {
     console.log(xmlhttp.responseText);
-  } else {
-    console.log("xmlhttp.readyState = " + xmlhttp.readyState + ", xmphttp.status = " + xmlhttp.status);
-  }
+  };
 };
 
 var startGame = function() {
+  xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = HandleData;
+  xmlhttp.open("GET", "get_players.php", true);
+  xmlhttp.send();
   hideAll();
   document.getElementById('game').removeAttribute('hidden');
   document.getElementById('scoreboard').removeAttribute('hidden');
