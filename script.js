@@ -1,14 +1,5 @@
 onload = function() {
-  var rows = document.getElementsByClassName('table_row');
-  for (row of rows) {
-    for (var i = 0; i < 15; i++) {
-      var td = document.createElement('td');
-      var wave = document.createTextNode('~');
-      td.appendChild(wave);
-      row.appendChild(td);
-      // console.log('append');
-    }
-  }
+  buildTable();
 }
 
 // onclick = function(e) {
@@ -30,6 +21,33 @@ var hideAll = function() {
 
 var buildTable = function() {
   table = document.getElementById('game_board');
+  var tr = document.createElement('tr');
+  table.appendChild(tr);
+  var td = document.createElement('td');
+  td.setAttribute('class','coords');
+  tr.appendChild(td);
+  for (var i = 1; i < 16; i++) {
+    td = document.createElement('td');
+    td.setAttribute('class','coords');
+    var num = document.createTextNode(i);
+    td.appendChild(num);
+    tr.appendChild(td);
+  }
+  for (var i = 0; i < 15; i++) {
+    tr = document.createElement('tr');
+    td = document.createElement('td');
+    td.setAttribute('class','coords');
+    var letter = document.createTextNode(String.fromCharCode(i+65));
+    td.appendChild(letter);
+    tr.appendChild(td);
+    for (var j = 0; j < 15; j++) {
+      var td = document.createElement('td');
+      var wave = document.createTextNode('~');
+      td.appendChild(wave);
+      tr.appendChild(td);
+    }
+    table.appendChild(tr);
+  }
 }
 
 var goToWaiting = function() {

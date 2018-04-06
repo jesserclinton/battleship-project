@@ -26,14 +26,9 @@ td {
   background-color: #4997d0;
 }
 
-.letters {
-  padding-left: 10px;
-  padding-right: 10px;
+.coords {
   background-color: #4f666a;
-}
-
-tr.numbers td {
-  background-color: #4f666a;
+  text-align: center;
 }
 
 .title {
