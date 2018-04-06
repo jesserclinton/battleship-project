@@ -11,9 +11,9 @@ onload = function() {
   }
 }
 
-onclick = function(e) {
-  e.preventDefault();
-}
+// onclick = function(e) {
+//   e.preventDefault();
+// }
 
 onsubmit = function(e) {
   e.preventDefault();
@@ -26,6 +26,10 @@ var hideAll = function() {
     // console.log(item);
     item.setAttribute('hidden','');
   }
+}
+
+var buildTable = function() {
+  table = document.getElementById('game_board');
 }
 
 var goToWaiting = function() {

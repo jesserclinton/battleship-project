@@ -27,7 +27,8 @@
       <section>
         <form class="portal" onsubmit="goToWaiting()" action="./join_game.php" method="post">
           <label for="username">Username: </label><input type="text" id="username" name="user" title="username" spellcheck="false" placeholder="Fred">
-          <button type="button" name="submit" onclick="goToWaiting()">Join Game</button>
+          <!-- <button type="button" name="submit" onclick="goToWaiting()">Join Game</button> -->
+          <input type="submit" name="submit" value="Join Game">
         </form>
       </section>
     </article>
@@ -53,11 +54,11 @@
         <article id="game" class="hidable" hidden>
           <section class="board">
             <div class="title">Warship</div>
-            <table>
-              <!-- TODO: fix tr's and td's to be handled server side -->
+            <!-- TODO: fix tr's and td's to be handled server side -->
+            <table id="game_board">
               <tr class="numbers">
                 <td></td>
-                <td onclick="endGame(false)">1</td>
+                <td>1</td>
                 <td>2</td>
                 <td>3</td>
                 <td>4</td>
