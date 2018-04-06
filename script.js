@@ -29,6 +29,15 @@ var hideAll = function() {
 }
 
 var goToWaiting = function() {
+
+  xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = HandleData;
+  // xmlhttp.onreadystatechange = function () {
+  //   alert("READY STATE!");
+  // };
+  xmlhttp.open("GET", "get_players.php", true);
+  xmlhttp.send();
+
   var username = document.getElementById('username').value;
   if (username == '') {
     alert('Username Required!');
@@ -37,6 +46,24 @@ var goToWaiting = function() {
     document.getElementById('waiting').removeAttribute('hidden');
   }
 }
+
+function HandleData()  {
+  if(xmlhttp.readyState == 4 && xmlhttp.status == 200)
+  {
+    alert(xmlhttp.responseText);
+    var mailboxes = eval ('(' + xmlhttp.responseText + ')');
+    var table = document.getElementById("mailboxes");
+
+    var cnt = 0;
+    for(var key in mailboxes) {
+      document.getElementById("box_table").rows[cnt].cells[0].innerHTML=key;
+      document.getElementById("box_table").rows[cnt].cells[1].innerHTML=mailboxes[key];
+      cnt = cnt + 1;
+    };
+  } else {
+    alert("xmlhttp.readyState = " + xmlhttp.readyState + ", xmphttp.status = " + xmlhttp.status);
+  }
+};
 
 var startGame = function() {
   hideAll();
