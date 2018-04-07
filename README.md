@@ -9,5 +9,4 @@ _TODO_
 * generate scoreboards via js
 
 _FIXME_
-* locked fire button after death and new game
 * inconsistent naming conventions

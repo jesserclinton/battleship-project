@@ -157,4 +157,5 @@ var playAgain = function() {
   hideAll();
   document.getElementById('username').value = '';
   document.getElementById('welcome').removeAttribute('hidden');
+  document.getElementById('fire_button').removeAttribute('disabled');
 }
