@@ -1,5 +1,5 @@
 onload = function() {
-  // buildTable();
+  // buildGameboard();
 }
 
 onsubmit = function(e) {
@@ -24,7 +24,17 @@ var unhideAll = function() {
   }
 }
 
-function buildTable(size = 15) {
+var goToWaiting = function() {
+  var username = document.getElementById('username').value;
+  if (username == '') {
+    alert('Username Required!');
+  } else {
+    hideAll();
+    document.getElementById('waiting').removeAttribute('hidden');
+  }
+}
+
+function buildGameboard(size = 15) {
   if (size > 26) size = 26;
   if (size < 12) size = 12;
   var section = document.getElementById('gameboard');
@@ -103,14 +113,41 @@ function buildScoreboard(
   section.appendChild(table);
 }
 
-var goToWaiting = function() {
-  var username = document.getElementById('username').value;
-  if (username == '') {
-    alert('Username Required!');
-  } else {
-    hideAll();
-    document.getElementById('waiting').removeAttribute('hidden');
+function buildAttack(size = 15) {
+  if (size > 26) size = 26;
+  if (size < 12) size = 12;
+  var section = document.getElementById('attack');
+  while (section.lastChild) section.removeChild(section.lastChild);
+  var form = document.createElement('form');
+  var select = document.createElement('select');
+  select.setAttribute('id','letter_select');
+  for (var i = 0; i < size; i++) {
+    var letter = String.fromCharCode(i+65);
+    var option = document.createElement('option');
+    option.setAttribute('value',letter);
+    var text = document.createTextNode(letter);
+    option.appendChild(text);
+    select.appendChild(option);
   }
+  form.appendChild(select);
+
+  select = document.createElement('select');
+  select.setAttribute('id','number_select');
+  for (var i = 1; i < size+1; i++) {
+    var option = document.createElement('option');
+    option.setAttribute('value',i);
+    var text = document.createTextNode(i);
+    option.appendChild(text);
+    select.appendChild(option);
+  }
+  form.appendChild(select);
+  var input = document.createElement('input');
+  input.setAttribute('id','fire_button');
+  input.setAttribute('type','submit');
+  input.setAttribute('value','Fire!');
+  input.setAttribute('onclick','attack()');
+  form.appendChild(input);
+  section.appendChild(form);
 }
 
 function HandleData()  {
@@ -127,10 +164,15 @@ var startGame = function() {
   xmlhttp.send();
   hideAll();
   document.getElementById('game').removeAttribute('hidden');
-  buildTable();
-  console.log('table built');
+  buildGameboard();
+  // console.log('table built');
   buildScoreboard();
+  buildAttack();
   // document.getElementById('scoreboard').removeAttribute('hidden');
+}
+
+function attack() {
+  console.log('fire');
 }
 
 var setScore = function(points) {
