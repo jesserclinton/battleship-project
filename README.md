@@ -17,3 +17,6 @@ ___
 
 ### FIXME
 * inconsistent naming conventions
+
+### Suggestions
+* make the display size smaller for larger gameboards
