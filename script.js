@@ -157,18 +157,16 @@ function HandleData()  {
   };
 };
 
-var startGame = function() {
+function startGame(size = 15) {
   xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = HandleData;
   xmlhttp.open("GET", "get_players.php", true);
   xmlhttp.send();
   hideAll();
   document.getElementById('game').removeAttribute('hidden');
-  buildGameboard();
-  // console.log('table built');
+  buildGameboard(size);
   buildScoreboard();
-  buildAttack();
-  // document.getElementById('scoreboard').removeAttribute('hidden');
+  buildAttack(size);
 }
 
 function attack() {

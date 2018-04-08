@@ -53,13 +53,13 @@ td {
 }
 
 #game {
-  padding-right: 50%;
+  /* padding-right: 50%; */
 }
 
 #gameboard {
-  /* float: left; */
+  float: left;
 }
 
 #scoreboard {
-  float: right;
+  /* float: right; */
 }
