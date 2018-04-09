@@ -61,8 +61,14 @@ function buildGameboard(size = 15) {
     tr.appendChild(td);
     for (var j = 0; j < size; j++) {
       var td = document.createElement('td');
-      var wave = document.createTextNode('~');
-      td.appendChild(wave);
+      // var wave = document.createTextNode('🌊');
+      var water = document.createElement('img');
+      water.setAttribute('src','./img/water_still.jpg');
+      water.setAttribute('alt','~');
+      water.setAttribute('width','50');
+      water.setAttribute('height','50');
+      water.setAttribute('style','color: blue;')
+      td.appendChild(water);
       tr.appendChild(td);
     }
     table.appendChild(tr);
