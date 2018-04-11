@@ -32,17 +32,12 @@
       </section>
     </article>
     <article id="waiting" class="hidable" hidden>
-      <section>
+      <section id="players">
         <div class="title">Waiting Room</div>
         <div class="">Players who have already joined:</div>
         <!-- TODO: get actual players -->
-        <ol>
-          <li>Bill Nye</li>
-          <li>John Wayne</li>
-          <li>Dirty Harry</li>
-          <li>2D</li>
-          <li><span name="username"></span></li>
-        </ol>
+      </section>
+      <section>
         <form class="portal" method="post" action="start_game" onsubmit="startGame()">
           <input type="submit" name="start" value="Start Game!">
         </form>

@@ -39,7 +39,20 @@ var unhideAll = function() {
   }
 }
 
+function buildPlayerList() {
+  var section = document.getElementById('players');
+  var ol = document.createElement('ol');
+  for (player of players) {
+    var li = document.createElement('li');
+    var name = document.createTextNode(player.name);
+    li.appendChild(name);
+    ol.appendChild(li);
+  }
+  section.appendChild(ol);
+}
+
 var goToWaiting = function() {
+  buildPlayerList();
   var username = document.getElementById('username').value;
   if (username == '') {
     alert('Username Required!');
