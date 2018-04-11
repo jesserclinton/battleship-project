@@ -21,6 +21,10 @@ var players = [
 }
 ];
 
+onsubmit = function(e) {
+  e.preventDefault();
+}
+
 var hideAll = function() {
   var all = document.getElementsByClassName('hidable');
   // console.log(all);

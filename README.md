@@ -13,8 +13,8 @@
 1. improve css
 
 ### FIXME
+* "refresh" error!!!
 * inconsistent naming conventions
-* "refresh" error
 
 ### Suggestions
 * make the display size smaller for larger gameboards
