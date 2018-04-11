@@ -89,22 +89,25 @@ function buildScoreboard(
   ]
 ) {
   var section = document.getElementById('scoreboard');
-  while (section.lastChild) section.removeChild(section.lastChild);
-  var table = document.createElement('table');
-  for (player of players) {
-    // console.log(player);
-    var tr = document.createElement('tr');
-    var td = document.createElement('td');
-    var name = document.createTextNode(player.name);
-    td.appendChild(name);
-    tr.appendChild(td);
-    td = document.createElement('td');
-    var score = document.createTextNode(player.points);
-    td.appendChild(score);
-    tr.appendChild(td);
-    table.appendChild(tr);
+  var selection = document.getElementsByClassName('scoreboard');
+  for (section of selection) {
+    while (section.lastChild) section.removeChild(section.lastChild);
+    var table = document.createElement('table');
+    for (player of players) {
+      // console.log(player);
+      var tr = document.createElement('tr');
+      var td = document.createElement('td');
+      var name = document.createTextNode(player.name);
+      td.appendChild(name);
+      tr.appendChild(td);
+      td = document.createElement('td');
+      var score = document.createTextNode(player.points);
+      td.appendChild(score);
+      tr.appendChild(td);
+      table.appendChild(tr);
+    }
+    section.appendChild(table);
   }
-  section.appendChild(table);
 }
 
 function buildAttack(size = 15) {
@@ -180,13 +183,13 @@ var playerDied = function() {
 
 var endGame = function(win = true) {
   hideAll();
-  document.getElementById('results').removeAttribute('hidden');
+  document.getElementById('scoreboard2').removeAttribute('hidden');
   if (win) {
     document.getElementById('win').removeAttribute('hidden');
   } else {
     document.getElementById('lose').removeAttribute('hidden');
   }
-  document.getElementById('scoreboard2').removeAttribute('hidden');
+  document.getElementById('results').removeAttribute('hidden');
 }
 
 var playAgain = function() {
