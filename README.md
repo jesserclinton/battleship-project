@@ -12,7 +12,6 @@
 1. add timer update
 1. generate login list with js
 1. improve css
-1. externalize players array
 
 ### FIXME
 * inconsistent naming conventions

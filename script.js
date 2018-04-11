@@ -1,3 +1,26 @@
+var players = [
+  {
+    name: "Bill Nye",
+    points: 0
+ },
+ {
+   name: "John Wayne",
+   points: 3
+ },
+ {
+  name: "Dirty Harry",
+  points: 2
+},
+{
+  name: "Fred",
+  points: 0
+},
+{
+  name: "2D",
+  points: 2
+}
+];
+
 var hideAll = function() {
   var all = document.getElementsByClassName('hidable');
   // console.log(all);
@@ -64,30 +87,7 @@ function buildGameboard(size = 15) {
   section.appendChild(table);
 }
 
-function buildScoreboard(
-  players = [
-    {
-      name: "Bill Nye",
-      points: 0
-   },
-   {
-     name: "John Wayne",
-     points: 3
-   },
-   {
-    name: "Dirty Harry",
-    points: 2
-  },
-  {
-    name: "Fred",
-    points: 0
-  },
-  {
-    name: "2D",
-    points: 2
-  }
-  ]
-) {
+function buildScoreboard() {
   var section = document.getElementById('scoreboard');
   var selection = document.getElementsByClassName('scoreboard');
   for (section of selection) {
