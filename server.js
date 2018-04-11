@@ -9,10 +9,23 @@ app.get('/', function(req, res) {
 
 app.get('/style.css', function(req, res) {
   res.sendFile(__dirname + '/style.css');
-})
+});
 
 app.get('/script.js', function(req, res) {
   res.sendFile(__dirname + '/script.js');
-})
+});
+
+app.post('/join_game.php', function(req, res) {
+  console.log('joined the game');
+  // res.send(JSON.stringify({name: "test", value: 0}));
+});
+
+app.post('/start_game', function(req, res) {
+  console.log('starting game');
+});
+
+app.post('/play_again', function(req, res) {
+  console.log('new game');
+});
 
 app.listen(8012);

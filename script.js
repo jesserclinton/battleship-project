@@ -3,7 +3,7 @@ onload = function() {
 }
 
 onsubmit = function(e) {
-  e.preventDefault();
+  // e.preventDefault();
 }
 
 var hideAll = function() {

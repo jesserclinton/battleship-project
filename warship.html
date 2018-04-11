@@ -25,7 +25,7 @@
         </p>
       </section>
       <section>
-        <form class="portal" onsubmit="goToWaiting()" action="join_game.php" method="post">
+        <form class="portal" action="join_game.php" method="post" onsubmit="goToWaiting()">
           <label for="username">Username: </label><input type="text" id="username" name="user" title="username" spellcheck="false" placeholder="Fred">
           <input type="submit" name="submit" value="Join Game">
         </form>
@@ -43,8 +43,8 @@
           <li>2D</li>
           <li><span name="username"></span></li>
         </ol>
-        <form class="portal">
-          <input type="submit" name="start" value="Start Game!" onclick="startGame()">
+        <form class="portal" method="post" action="start_game" onsubmit="startGame()">
+          <input type="submit" name="start" value="Start Game!">
         </form>
       </section>
     </article>
@@ -97,7 +97,7 @@
       <section id="again">
         <hr>
         <div class="subtitle">Would you like to play again?</div>
-        <form class="portal" style="padding-top: 5px;">
+        <form class="portal" action="play_again" method="post" style="padding-top: 5px;">
           <input type="submit" name="again" value="Play Again!" onclick="playAgain()">
         </form>
       </section>
