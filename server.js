@@ -28,4 +28,8 @@ app.post('/play_again', function(req, res) {
   console.log('new game');
 });
 
+app.post('/fire', function(req, res) {
+  console.log('boom');
+});
+
 app.listen(8012);

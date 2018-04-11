@@ -1,11 +1,3 @@
-onload = function() {
-  // buildGameboard();
-}
-
-onsubmit = function(e) {
-  // e.preventDefault();
-}
-
 var hideAll = function() {
   var all = document.getElementsByClassName('hidable');
   // console.log(all);
@@ -61,13 +53,9 @@ function buildGameboard(size = 15) {
     tr.appendChild(td);
     for (var j = 0; j < size; j++) {
       var td = document.createElement('td');
-      // var wave = document.createTextNode('🌊');
-      var water = document.createElement('img');
-      water.setAttribute('src','./img/water_still.jpg');
-      water.setAttribute('alt','~');
-      water.setAttribute('width','50');
-      water.setAttribute('height','50');
-      water.setAttribute('style','color: blue;')
+      td.setAttribute('id',(String.fromCharCode(i+65)+(j+1)));
+      td.setAttribute('class','game_square');
+      var water = document.createTextNode('~');
       td.appendChild(water);
       tr.appendChild(td);
     }
@@ -147,11 +135,13 @@ function buildAttack(size = 15) {
     select.appendChild(option);
   }
   form.appendChild(select);
+  form.setAttribute('action', 'fire');
+  form.setAttribute('method', 'post');
+  form.setAttribute('onsubmit', 'attack()');
   var input = document.createElement('input');
-  input.setAttribute('id','fire_button');
-  input.setAttribute('type','submit');
-  input.setAttribute('value','Fire!');
-  input.setAttribute('onclick','attack()');
+  input.setAttribute('id', 'fire_button');
+  input.setAttribute('type', 'submit');
+  input.setAttribute('value', 'Fire!');
   form.appendChild(input);
   section.appendChild(form);
 }
