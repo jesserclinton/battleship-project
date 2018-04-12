@@ -10,11 +10,9 @@
   * start_game
   * attack
   * play_again
-1. add timer update
 1. improve css
 
 ### FIXME
-* "refresh" error!!!
 * inconsistent naming conventions
 
 ### Suggestions

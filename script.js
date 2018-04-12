@@ -1,5 +1,7 @@
 var username = 'Fred';
+var key = '';
 var players = [];
+var timer;
 
 onsubmit = function(e) {
   e.preventDefault();
@@ -83,9 +85,7 @@ var buildGameboard = function(size = 15) {
 }
 
 var buildPlayerList = function() {
-  username = document.getElementById('username').value;
-  players.push({name: username, points: 0});
-  console.log(players);
+  // console.log(players);
   var section = document.getElementById('players');
   while (section.lastChild) section.removeChild(section.lastChild);
   var ol = document.createElement('ol');
@@ -147,6 +147,7 @@ function login() {
   if (user.name == '') {
     alert('Username Required!');
   } else {
+    // console.log(user);
     req = new XMLHttpRequest();
     req.onreadystatechange = goToWaiting;
     req.open('post', '/login', true);
@@ -154,29 +155,26 @@ function login() {
   }
 }
 
-
 function goToWaiting() {
-  console.log(req.readyState+':'+req.status);
+  // console.log(req.readyState+':'+req.status);
   if (req.readyState == 4 && req.status == 200) {
-    console.log(JSON.parse(req.responseText));
-    // buildPlayerList();
+    var res = JSON.parse(req.responseText);
+    // console.log(res);
+
+    players = res.players;
+
+    buildPlayerList();
     hideAll();
     document.getElementById('waiting').removeAttribute('hidden');
   }
 }
 
-function HandleData()  {
-  if(xmlhttp.readyState == 4 && xmlhttp.status == 200)
-  {
-    console.log(xmlhttp.responseText);
-  };
-};
-
 function startGame(size = 15) {
-  xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = HandleData;
-  xmlhttp.open("GET", "get_players.php", true);
-  xmlhttp.send();
+  // xmlhttp = new XMLHttpRequest();
+  // xmlhttp.onreadystatechange = HandleData;
+  // xmlhttp.open("GET", "get_players.php", true);
+  // xmlhttp.send();
+  timer = setInterval(ping, 10000);
   hideAll();
   document.getElementById('game').removeAttribute('hidden');
   buildGameboard(size);
@@ -184,8 +182,36 @@ function startGame(size = 15) {
   buildAttack(size);
 }
 
+function ping() {
+  // console.log('ping');
+  req = new XMLHttpRequest();
+  req.onreadystatechange = update;
+  req.open('post', '/game', true);
+  req.send();
+}
+
 function attack() {
-  console.log('fire');
+  var coord = {
+    key: key,
+    letter: document.getElementById('letter_select').value,
+    number: document.getElementById('number_select').value
+  };
+  req = new XMLHttpRequest();
+  req.onreadystatechange = update;
+  req.open('post', '/attack', true);
+  req.send(JSON.stringify(coord));
+}
+
+function update() {
+  // console.log('update', req.readyState+':'+req.status);
+  if (req.readyState == 4 && req.status == 200) {
+    console.log('pong');
+    var res = JSON.parse(req.responseText);
+    // console.log(res.layout.hit);
+    for (var coord of res.layout.hit) {
+      document.getElementById(coord).innerHTML = 'x';
+    }
+  }
 }
 
 var playerDied = function() {
@@ -194,6 +220,7 @@ var playerDied = function() {
 }
 
 var endGame = function(win = true) {
+  clearInterval(timer);
   hideAll();
   document.getElementById('scoreboard2').removeAttribute('hidden');
   if (win) {
