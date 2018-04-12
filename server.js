@@ -18,7 +18,7 @@ app.get('/script.js', function(req, res) {
 app.post('/join_game.php', function(req, res) {
   console.log('joined the game');
   // res.send(JSON.stringify({name: "test", value: 0}));
-  res.sendStatus(200);
+  // res.sendStatus(200);
 });
 
 app.post('/start_game', function(req, res) {
