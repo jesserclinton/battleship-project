@@ -14,6 +14,7 @@
 
 ### FIXME
 * inconsistent naming conventions
+* AJAX not moving information from client to server
 
 ### Suggestions
 * make the display size smaller for larger gameboards
