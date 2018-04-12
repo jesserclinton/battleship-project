@@ -1,6 +1,12 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 
 var app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+var players = [];
 
 app.get('/', function(req, res) {
   console.log("Someone's here!");
@@ -15,10 +21,14 @@ app.get('/script.js', function(req, res) {
   res.sendFile(__dirname + '/script.js');
 });
 
-app.post('/join_game.php', function(req, res) {
+app.post('/login', function(req, res) {
+  console.log(req.body);
   console.log('joined the game');
-  // res.send(JSON.stringify({name: "test", value: 0}));
-  // res.sendStatus(200);
+  var info = {
+    key: 'abcd',
+    players: players
+  };
+  res.send(JSON.stringify(info));
 });
 
 app.post('/start_game', function(req, res) {

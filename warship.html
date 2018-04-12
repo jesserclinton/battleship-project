@@ -13,7 +13,7 @@
         <div class="subtitle">(a modified version of Battleship)</div>
       </section>
       <section>
-        <p style="padding-right: 40%;">
+        <p>
           The rules are simple:<br>Tactically attack places on the map
           to sink enemy ships. Landing a hit on an enemy ship scores a
           point for the player <em>(Players do <strong>not</strong> have to shoot in turn,
@@ -25,7 +25,7 @@
         </p>
       </section>
       <section>
-        <form class="portal" action="join_game.php" method="post" onsubmit="goToWaiting()">
+        <form class="portal" onsubmit="login()">
           <label for="username">Username: </label><input type="text" id="username" name="user" title="username" spellcheck="false" placeholder="Fred">
           <input type="submit" name="submit" value="Join Game">
         </form>

@@ -5,8 +5,6 @@ onsubmit = function(e) {
   e.preventDefault();
 }
 
-// buid code
-
 var buildAttack = function(size = 15) {
   if (size > 26) size = 26;
   if (size < 12) size = 12;
@@ -123,8 +121,6 @@ var buildScoreboard = function() {
   }
 }
 
-// end build code
-
 var hideAll = function() {
   var all = document.getElementsByClassName('hidable');
   // console.log(all);
@@ -143,12 +139,27 @@ var unhideAll = function() {
   }
 }
 
-function goToWaiting() {
-  buildPlayerList();
-  var username = document.getElementById('username').value;
-  if (username == '') {
+function login() {
+  var user = {
+    name: document.getElementById('username').value
+  };
+
+  if (user.name == '') {
     alert('Username Required!');
   } else {
+    req = new XMLHttpRequest();
+    req.onreadystatechange = goToWaiting;
+    req.open('post', '/login', true);
+    req.send(JSON.stringify(user));
+  }
+}
+
+
+function goToWaiting() {
+  console.log(req.readyState+':'+req.status);
+  if (req.readyState == 4 && req.status == 200) {
+    console.log(JSON.parse(req.responseText));
+    // buildPlayerList();
     hideAll();
     document.getElementById('waiting').removeAttribute('hidden');
   }

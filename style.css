@@ -6,6 +6,10 @@ section {
   padding: 0.2%;
 }
 
+p {
+  padding-right: 40%;
+}
+
 table {
   border: 1px solid black;
   border-spacing: 0px;
