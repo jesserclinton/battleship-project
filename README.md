@@ -3,18 +3,21 @@
 
 > A multiplayer (more than 2 players) version of the classic board game Battleship. Will contain the server and client information to be hosted on a server.
 
+## HEADS UP!
+> __I am still working on the jQuery/AJAX stuff. The jQuery fixed the AJAX, but I'm having to rewrite the whole file in order to use it. Thankfully jQuery is incredibly streamlined. I'll have it done before you know it!  - Spencer__
+
 ### TODO
-1. get username from user
 1. server/client communication
-  * load_players
-  * start_game
+  * login
+  * start
   * attack
-  * play_again
+  * ping
+  * restart
 1. improve css
+1. battleship placement algorithm
 
 ### FIXME
 * inconsistent naming conventions
-* AJAX not moving information from client to server
 
 ### Suggestions
 * make the display size smaller for larger gameboards
@@ -23,7 +26,3 @@
 * limit players per pc
 * use a css framework (Bootstrap, etc.)
 * use imgs in game squares
-
-### Proposals
-* separate html into separate files again
-> currently, it is difficult to work with AJAX and node together

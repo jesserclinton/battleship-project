@@ -8,6 +8,20 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 var players = [];
 
+function calcResult() {
+  return {
+    players: players,
+    layout: {
+      friend: [{front: 'A1', back: 'A5'},{front: 'B4', back: 'B7'}],
+      damage: ['A3','A4'],
+      hit: ['E7','A12','G2'],
+      miss: ['G1','G3']
+    },
+    dead: false,
+    done: false
+  };
+}
+
 app.get('/', function(req, res) {
   console.log("Someone's here!");
   res.sendFile(__dirname + '/warship.html');
@@ -21,10 +35,14 @@ app.get('/script.js', function(req, res) {
   res.sendFile(__dirname + '/script.js');
 });
 
+app.get('/main.js', function(req, res) {
+  res.sendFile(__dirname + '/main.js');
+});
+
 app.post('/login', function(req, res) {
   console.log(req.body);
-  console.log('joined the game');
-  players.push({name: 'Fred', points: 0});
+  console.log(req.body.name,'joined the game');
+  players.push(req.body);
   var info = {
     key: 'abcd',
     players: players
@@ -40,33 +58,28 @@ app.post('/game', function(req, res) {
       damage: ['A3','A4'],
       hit: ['E7','A12','G2'],
       miss: ['G1','G3']
-    }
+    },
+    dead: false,
+    done: false
   };
-  
+
   res.send(JSON.stringify(result));
 });
 
 app.post('/attack', function(req, res) {
   console.log('boom');
-  var result = {
-    players: players,
-    layout: {
-      friend: [{front: 'A1', back: 'A5'},{front: 'B4', back: 'B7'}],
-      damage: ['A3','A4'],
-      hit: ['E7','A12','G2'],
-      miss: ['G1','G3']
-    }
-  };
+  var result = calcResult();
 
-  console.log('layout:',layout);
+  console.log('result:',result);
   res.send(JSON.stringify(result));
 });
 
-app.post('/start_game', function(req, res) {
+app.post('/start', function(req, res) {
   console.log('starting game');
 });
 
-app.post('/play_again', function(req, res) {
+app.post('/restart', function(req, res) {
+  players = [];
   console.log('new game');
 });
 

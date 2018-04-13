@@ -8,7 +8,7 @@ onsubmit = function(e) {
 }
 
 var buildAttack = function(size = 15) {
-  if (size > 26) size = 26;
+  // if (size > 26) size = 26;
   if (size < 12) size = 12;
   var section = document.getElementById('attack');
   while (section.lastChild) section.removeChild(section.lastChild);
@@ -47,7 +47,7 @@ var buildAttack = function(size = 15) {
 }
 
 var buildGameboard = function(size = 15) {
-  if (size > 26) size = 26;
+  if (size > 26) console.log('WARNING! SIZES LARGER THAN 26 COULD LEAD TO POOR PERFORMANCE');;
   if (size < 12) size = 12;
   var section = document.getElementById('gameboard');
   while (section.lastChild) section.removeChild(section.lastChild);
@@ -174,7 +174,7 @@ function startGame(size = 15) {
   // xmlhttp.onreadystatechange = HandleData;
   // xmlhttp.open("GET", "get_players.php", true);
   // xmlhttp.send();
-  timer = setInterval(ping, 10000);
+  timer = setInterval(ping, 3000);
   hideAll();
   document.getElementById('game').removeAttribute('hidden');
   buildGameboard(size);

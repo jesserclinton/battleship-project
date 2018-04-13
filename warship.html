@@ -4,7 +4,9 @@
     <meta charset="utf-8">
     <title>Warship</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- <script src="script.js"></script> -->
+    <script src="main.js"></script>
   </head>
   <body>
     <article id="welcome" class="hidable">
@@ -24,8 +26,11 @@
           The player with the most points wins!
         </p>
       </section>
+      <section id="required" class="alert hidable" hidden>
+        <p>Username Required!</p>
+      </section>
       <section>
-        <form class="portal" action="login" method="post" onsubmit="login()">
+        <form id="login" class="portal">
           <label for="username">Username: </label><input type="text" id="username" name="user" title="username" spellcheck="false" placeholder="Fred">
           <input type="submit" name="submit" value="Join Game">
         </form>
@@ -38,14 +43,14 @@
         <!-- TODO: get actual players -->
       </section>
       <section>
-        <form class="portal" method="post" action="start_game" onsubmit="startGame()">
+        <form id="start" class="portal">
           <input type="submit" name="start" value="Start Game!">
         </form>
       </section>
     </article>
     <article id="game" class="hidable" hidden>
       <div class="title" onclick="endGame()">Warship</div>
-      <section id="died" class="hidable" hidden>
+      <section id="died" class="alert hidable" hidden>
         <p>You died!</p>
         <p>Please wait until game ends!</p>
       </section>

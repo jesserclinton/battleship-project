@@ -38,7 +38,7 @@ td {
   /* font-style: italic; */
 }
 
-#died {
+.alert {
   color: red;
 }
 
