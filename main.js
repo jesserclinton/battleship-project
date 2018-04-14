@@ -41,12 +41,34 @@ function buildGameboard(size) {
   section.append(table);
 }
 
+function updateGameboard(layout) {
+  if (layout.damages) {
+    console.log('damage');
+    for (damage of layout.damages) {
+      $('#'+damage).text('☻');
+    }
+  }
+  if (layout.hits) {
+    console.log('hit');
+    for (hit of layout.hits) {
+      console.log(hit);
+      $('#'+hit).text('■');
+    }
+  }
+  if (layout.misses) {
+    console.log('miss');
+    for (miss of layout.misses) {
+      $('#'+miss).text('□');
+    }
+  }
+}
+
 function buildScoreboard(players) {
   var scoreboards = $('.scoreboard');
   scoreboards.empty();
   var table = $(document.createElement('table'));
   for (player of players) {
-    // console.log(player);
+    console.log(player);
     var tr = $(document.createElement('tr'));
     $(document.createElement('td')).text(player.name).appendTo(tr);
     $(document.createElement('td')).text(player.points).appendTo(tr);
@@ -96,13 +118,23 @@ $(function() {
         buildLogins(res.players);
         $('#welcome').hide();
         $('#waiting').show();
+        logins = setInterval(pingLogins, 3000);
       });
     }
   });
 
+  function pingLogins() {
+    $.post('/login', function(data, status) {
+      res = JSON.parse(data);
+      console.log('ping_login:',res);
+      buildLogins(res.players);
+    })
+  }
+
   //-----Start-----
   $('#start').submit(function() {
     $.post('/start', function(data, status) {
+      clearInterval(logins);
       res = JSON.parse(data);
       console.log('start',res);
       buildGameboard(res.size);
@@ -116,11 +148,11 @@ $(function() {
 
   //-----Game-----
   function pingGame() {
-    console.log('syn');
     $.post('/game', function(data, status) {
-      console.log('ack');
       res = JSON.parse(data);
-      console.log('game',res);
+      console.log('ping_game',res);
+      updateGameboard(res.layout);
+      buildScoreboard(res.players);
       if (res.dead) {
         $('#died').show();
         $('#fire_button').attr('disabled','');
@@ -137,7 +169,13 @@ $(function() {
     $.post('/attack',function(data, status) {
       res = JSON.parse(data);
       console.log('attack',res);
-      if (res.dead) $('#died').show();
+      if (res.dead) {
+        $('#died').show();
+        $('#fire_button').attr('disabled','');
+      } else {
+        $('#died').hide();
+        $('#fire_button').removeAttr('disabled');
+      }
     });
   });
 });

@@ -15,10 +15,10 @@ function calcResult() {
   return {
     players: players,
     layout: {
-      friend: [{front: 'A1', back: 'A5'},{front: 'B4', back: 'B7'}],
-      damage: ['A3','A4'],
-      hit: ['E7','A12','G2'],
-      miss: ['G1','G3']
+      friends: [{front: 'A1', back: 'A5'},{front: 'B4', back: 'B7'}],
+      damages: ['A3','A4'],
+      hits: ['E7','A12','G2'],
+      misses: ['G1','G3']
     },
     dead: false,
     done: false
@@ -46,8 +46,10 @@ app.get('/main.js', function(req, res) {
 //-----AJAX Requests-----
 app.post('/login', function(req, res) {
   // console.log(req.body);
-  console.log(req.body.name,'joined the game');
-  players.push(req.body);
+  if (req.body.name) {
+    console.log(req.body.name,'joined the game');
+    players.push(req.body);
+  }
   var info = {
     key: 'abcd',
     players: players
