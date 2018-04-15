@@ -73,11 +73,11 @@
         <div class="subtitle">You had {points} points, and {winner} had {winner_points} points.</div>
       </section>
       </section>
-      <section id="again">
-        <hr>
+      <hr>
+      <section>
         <div class="subtitle">Would you like to play again?</div>
-        <form class="portal" action="play_again" method="post" style="padding-top: 5px;">
-          <input type="submit" name="again" value="Play Again!" onclick="playAgain()">
+        <form id="again" class="portal">
+          <input type="submit" value="Play Again!">
         </form>
       </section>
     </article>

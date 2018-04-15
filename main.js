@@ -15,7 +15,6 @@ function buildLogins(players) {
   section.append(ol);
 }
 
-//-----Start-----
 function buildGameboard(size,layout) {
   if (size > 26) console.log('WARNING! SIZES LARGER THAN 26 COULD LEAD TO POOR PERFORMANCE');
   if (size < 10) size = 10;
@@ -43,38 +42,6 @@ function buildGameboard(size,layout) {
   }
 }
 
-function updateGameboard(layout) {
-  if (layout.damages) {
-    for (damage of layout.damages) {
-      $('#'+damage).text('☻');
-    }
-  }
-  if (layout.hits) {
-    for (hit of layout.hits) {
-      $('#'+hit).text('■');
-    }
-  }
-  if (layout.misses) {
-    for (miss of layout.misses) {
-      $('#'+miss).text('□');
-    }
-  }
-}
-
-function buildScoreboard(players) {
-  var scoreboards = $('.scoreboard');
-  scoreboards.empty();
-  var table = $(document.createElement('table'));
-  for (player of players) {
-    // console.log(player);
-    var tr = $(document.createElement('tr'));
-    $(document.createElement('td')).text(player.name).appendTo(tr);
-    $(document.createElement('td')).text(player.points).appendTo(tr);
-    table.append(tr);
-  }
-  scoreboards.append(table);
-}
-
 function buildAttack(size) {
   if (size < 10) size = 10;
   var section = $('#attack');
@@ -98,6 +65,49 @@ function buildAttack(size) {
   section.append(form);
 }
 
+function buildScoreboard(players) {
+  var scoreboards = $('.scoreboard');
+  scoreboards.empty();
+  var table = $(document.createElement('table'));
+  for (player of players) {
+    // console.log(player);
+    var tr = $(document.createElement('tr'));
+    $(document.createElement('td')).text(player.name).appendTo(tr);
+    $(document.createElement('td')).text(player.points).appendTo(tr);
+    table.append(tr);
+  }
+  scoreboards.append(table);
+}
+
+//-----Game-----
+function updateGameboard(layout) {
+  if (layout.damages) {
+    for (damage of layout.damages) {
+      $('#'+damage).text('☻');
+    }
+  }
+  if (layout.hits) {
+    for (hit of layout.hits) {
+      $('#'+hit).text('■');
+    }
+  }
+  if (layout.misses) {
+    for (miss of layout.misses) {
+      $('#'+miss).text('□');
+    }
+  }
+}
+
+function death(res) {
+  if (res.dead) {
+    $('#died').show();
+    $('#fire_button').attr('disabled','');
+  } else {
+    $('#died').hide();
+    $('#fire_button').removeAttr('disabled');
+  }
+}
+
 //=====jQuery=====
 $(function() {
   //-----Login-----
@@ -117,15 +127,15 @@ $(function() {
         buildLogins(res.players);
         $('#welcome').hide();
         $('#waiting').show();
-        logins = setInterval(pingLogins, 3000);
+        login = setInterval(wait, 3000);
       });
     }
   });
 
-  function pingLogins() {
+  function wait() {
     $.post('/login', function(data, status) {
       res = JSON.parse(data);
-      console.log('ping_login:',res);
+      console.log('wait',res);
       buildLogins(res.players);
     })
   }
@@ -133,7 +143,7 @@ $(function() {
   //-----Start-----
   $('#start').submit(function() {
     $.post('/start', function(data, status) {
-      clearInterval(logins);
+      clearInterval(login);
       res = JSON.parse(data);
       console.log('start',res);
       buildGameboard(res.size,res.layout);
@@ -141,40 +151,37 @@ $(function() {
       buildAttack(res.size);
       $('#waiting').hide();
       $('#game').show();
-      game = setInterval(pingGame, 3000);
+      game = setInterval(ping, 3000);
     });
   });
 
   //-----Game-----
-  function pingGame() {
+  function ping() {
     $.post('/game', function(data, status) {
       res = JSON.parse(data);
-      console.log('ping_game',res);
+      console.log('ping',res);
       updateGameboard(res.layout);
       buildScoreboard(res.players);
-      if (res.dead) {
-        $('#died').show();
-        $('#fire_button').attr('disabled','');
-      } else {
-        $('#died').hide();
-        $('#fire_button').removeAttr('disabled');
-      }
+      death(res);
     });
   }
 
   //-----Attack-----
   $('#attack').submit(function() {
-    console.log('kaboom!');
-    $.post('/attack',function(data, status) {
+    $.post('/game',function(data, status) {
       res = JSON.parse(data);
       console.log('attack',res);
-      if (res.dead) {
-        $('#died').show();
-        $('#fire_button').attr('disabled','');
-      } else {
-        $('#died').hide();
-        $('#fire_button').removeAttr('disabled');
-      }
+      death(res);
     });
+  });
+
+  //-----Again-----
+  $('#again').submit(function() {
+    $.post('/again', function(data, status) {
+      res = JSON.parse(data);
+      console.log('again',res);
+      $('.hidable').hide();
+      $('#welcome').show();
+    })
   });
 });
