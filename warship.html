@@ -26,13 +26,17 @@
           The player with the most points wins!
         </p>
       </section>
-      <section id="required" class="alert hidable" hidden>
+      <section id="required_username" class="alert hidable" hidden>
         <p>Username Required!</p>
+      </section>
+      <section id="required_number" class="alert hidable" hidden>
+        <p>Requires at least 2 users to play!</p>
       </section>
       <section>
         <form id="login" class="portal">
-          <label for="username">Username: </label><input type="text" id="username" name="user" title="username" spellcheck="false" placeholder="Fred">
-          <input type="submit" name="submit" value="Join Game">
+          <div><label for="username">Username: </label><input type="text" id="username" title="username" spellcheck="false" placeholder="Fred"></div>
+          <div><label for="num_players">Number of Players: </label><input type="number" id="num_players" value="4"></div>
+          <div><input type="submit" name="submit" value="Join Game"></div>
         </form>
       </section>
     </article>
@@ -41,16 +45,16 @@
       <section id="players">
         <div class="">Players who have already joined:</div>
       </section>
-      <section>
-        <form id="start" class="portal">
-          <input type="submit" name="start" value="Start Game!">
-        </form>
-      </section>
     </article>
     <article id="game" class="hidable" hidden>
       <div class="title" onclick="endGame()">Warship</div>
       <section id="died" class="alert hidable" hidden>
         <p>You died!</p>
+        <p>Please wait until game ends!</p>
+      </section>
+      <section id="spec" class="alert hidable" hidden>
+        <p>The game has already started!</p>
+        <p>You are only spectating!</p>
         <p>Please wait until game ends!</p>
       </section>
       <section id="gameboard" class="board"></section>

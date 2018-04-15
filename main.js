@@ -7,8 +7,7 @@ onsubmit = function(e) {
 //-----Login-----
 function buildLogins(players) {
   // console.log(players);
-  var section = $('#players');
-  section.empty();
+  (section = $('#players')).empty();
   var ol = $(document.createElement('ol'));
   for (player of players) {
     $(document.createElement('li')).text(player.name).appendTo(ol);
@@ -17,9 +16,9 @@ function buildLogins(players) {
 }
 
 //-----Start-----
-function buildGameboard(size) {
+function buildGameboard(size,layout) {
   if (size > 26) console.log('WARNING! SIZES LARGER THAN 26 COULD LEAD TO POOR PERFORMANCE');
-  if (size < 12) size = 12;
+  if (size < 10) size = 10;
 
   var section = $('#gameboard');
   section.empty();
@@ -39,24 +38,23 @@ function buildGameboard(size) {
     table.append(tr);
   }
   section.append(table);
+  for (friend of layout.friends) {
+    $('#'+friend.front).text('☺︎');
+  }
 }
 
 function updateGameboard(layout) {
   if (layout.damages) {
-    console.log('damage');
     for (damage of layout.damages) {
       $('#'+damage).text('☻');
     }
   }
   if (layout.hits) {
-    console.log('hit');
     for (hit of layout.hits) {
-      console.log(hit);
       $('#'+hit).text('■');
     }
   }
   if (layout.misses) {
-    console.log('miss');
     for (miss of layout.misses) {
       $('#'+miss).text('□');
     }
@@ -68,7 +66,7 @@ function buildScoreboard(players) {
   scoreboards.empty();
   var table = $(document.createElement('table'));
   for (player of players) {
-    console.log(player);
+    // console.log(player);
     var tr = $(document.createElement('tr'));
     $(document.createElement('td')).text(player.name).appendTo(tr);
     $(document.createElement('td')).text(player.points).appendTo(tr);
@@ -78,7 +76,7 @@ function buildScoreboard(players) {
 }
 
 function buildAttack(size) {
-  if (size < 12) size = 12;
+  if (size < 10) size = 10;
   var section = $('#attack');
   section.empty();
 
@@ -104,15 +102,16 @@ function buildAttack(size) {
 $(function() {
   //-----Login-----
   $('#login').submit(function() {
-    var user = {
+    var data = {
       name: $('#username').val(),
-      points: 0
+      num_players: $('#num_players').val()
     };
-    if (!user.name) {
-      $('#required').show();
+    if (!data.name) {
+      $('#required_username').show();
+    } else if (!data.num_players || data.num_players < 2) {
+      $('#required_number').show();
     } else {
-      // console.log(user);
-      $.post('/login', user, function(data, status) {
+      $.post('/login', data, function(data, status) {
         res = JSON.parse(data);
         console.log('login',res);
         buildLogins(res.players);
@@ -137,7 +136,7 @@ $(function() {
       clearInterval(logins);
       res = JSON.parse(data);
       console.log('start',res);
-      buildGameboard(res.size);
+      buildGameboard(res.size,res.layout);
       buildScoreboard(res.players);
       buildAttack(res.size);
       $('#waiting').hide();

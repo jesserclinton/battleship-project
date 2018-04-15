@@ -51,6 +51,7 @@ form {
 
 #died {
   color: red;
+  text-shadow: #ff6666;
 }
 
 .board {

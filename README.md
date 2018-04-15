@@ -7,6 +7,8 @@
 > __I am still working on the jQuery/AJAX stuff. The jQuery fixed the AJAX, but I'm having to rewrite the whole file in order to use it. Thankfully jQuery is incredibly streamlined. I'll have it done before you know it!  - Spencer__
 
 ### TODO
+1. remove $('#start')
+1. battleship placement algorithm
 1. server/client communication
   * login
   * start
@@ -14,9 +16,11 @@
   * ping
   * restart
 1. improve css
-1. battleship placement algorithm
 
 ### FIXME
+1. $('#login')
+1. pingLogins()
+1. buildLogins()
 * inconsistent naming conventions
 
 ### Suggestions
