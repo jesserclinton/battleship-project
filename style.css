@@ -1,5 +1,7 @@
 body {
   font-family: 'Orbitron', sans-serif;
+  font-size: 1.3em;
+  text-shadow: 1px 1px #ccf2ff;
   color: #4dd2ff;
   background-image: url('https://orig00.deviantart.net/5f48/f/2010/248/1/1/starscape_wip_1_by_vaniyz-d2y4g9y.png');
 }
@@ -37,15 +39,14 @@ form {
 .title {
   font-size: 2.2em;
   font-weight: bold;
-  text-shadow: 0px 2px #ccf2ff;
+  text-shadow: 2px 1px #ccf2ff;
   padding: 4px;
 }
 
 .subtitle {
   font-size: 1.2em;
   padding-left: 10px;
-  text-shadow: 0px 1px #ccf2ff;
-  /* font-style: italic; */
+  font-style: italic;
 }
 
 #died {
