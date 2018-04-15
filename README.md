@@ -1,5 +1,5 @@
 # Battleship Project
-## written by Jesse Clinton, Thomas Danek, Jack Dent, & Spencer Dent
+## written by Jesse Clinton, Thomas Danek, Jack Dent, & Spencer Dent (& Kate Wall wrote a couple lines too)
 
 > A multiplayer (more than 2 players) version of the classic board game Battleship. Will contain the server and client information to be hosted on a server.
 
