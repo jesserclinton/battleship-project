@@ -1,5 +1,7 @@
 body {
-  font-family: "Courier New", Courier, monospace;
+  font-family: 'Orbitron', sans-serif;
+  color: #4dd2ff;
+  background-image: url('https://orig00.deviantart.net/5f48/f/2010/248/1/1/starscape_wip_1_by_vaniyz-d2y4g9y.png');
 }
 
 section {
@@ -7,20 +9,24 @@ section {
 }
 
 p {
-  padding-right: 40%;
+  padding: 10px;
 }
 
 table {
-  border: 1px solid black;
+  border: 1px solid ‎#36454F;
   border-spacing: 0px;
 }
 
 td {
-  border: 1px solid black;
+  border: 1px solid #36454F;
   text-align: center;
   min-width: 30px;
   padding: 4px;
-  background-color: #4997d0;
+  background: rgba(4, 20, 33, 0.5);
+}
+
+form {
+  padding-left: 6px;
 }
 
 .coords {
@@ -31,14 +37,18 @@ td {
 .title {
   font-size: 2.2em;
   font-weight: bold;
+  text-shadow: 0px 2px #ccf2ff;
+  padding: 4px;
 }
 
 .subtitle {
   font-size: 1.2em;
+  padding-left: 10px;
+  text-shadow: 0px 1px #ccf2ff;
   /* font-style: italic; */
 }
 
-.alert {
+#died {
   color: red;
 }
 
@@ -57,7 +67,7 @@ td {
 }
 
 .game_square {
-  color: #1057BA;
+  /* color: #1057BA; */
 }
 
 #game {
@@ -66,6 +76,7 @@ td {
 
 #gameboard {
   float: left;
+  padding-left: 6px;
 }
 
 #scoreboard {
