@@ -23,14 +23,13 @@ function genId() {
 function calcResult() {
   return {
     size: 15,
-    players: players,
-    layout: {
-      friends: [{x: 1, y: 'A', m: 0, n: 3},{x: 4, y: 'B', m: 1, n: 4}],
+    users: users,
+    shots: {
       damages: ['A3','A4'],
       hits: ['E7','A12','G2'],
       misses: ['G1','G3']
     },
-    dead: true,
+    dead: false,
     done: false
   };
 }
@@ -74,8 +73,8 @@ app.post('/login', function(req, res) {
     console.log(req.body.name,'joined the game');
 
     if (max == -1) {
-      max = req.body.num_players;
-      size = 2*(req.body.num_players-1)+8;  // Thank you Jack for coming up with this formula!
+      max = req.body.max;
+      size = 2*(req.body.max-1)+8;  // Thank you Jack for coming up with this formula!
       maxSet = true;
     }
     player = {
@@ -84,8 +83,8 @@ app.post('/login', function(req, res) {
       score: 0,
       ships: []
     }
-    if (players.length <= max) {
-      users.push(req.body.name);
+    if (players.length < max) {
+      users.push({name: req.body.name, score: 0});
       players.push(player);
     }
     data.max = max;
@@ -97,8 +96,8 @@ app.post('/login', function(req, res) {
 });
 
 app.post('/game', function(req, res) {
-  // console.log('game',req.body);
-  if (res.body.hasOwnProperty('coord')) {
+  console.log('game',req.body);
+  if (req.body.coord) {
     console.log('sploosh~');
   }
 

@@ -10,8 +10,6 @@
 1. remove $('#start')
 1. battleship placement algorithm
 1. server/client communication
-    * login
-    * wait
     * attack
     * ping
     * restart

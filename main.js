@@ -9,18 +9,20 @@ var id;
 //=====Functions=====
 //-----Login-----
 function buildLogins(res) {
+  console.log('build',res);
+
   (section = $('#players')).empty();
+
   var ol = $(document.createElement('ol'));
   for (player of res.users) {
-    $(document.createElement('li')).text(player.name).appendTo(ol);
+    li = $(document.createElement('li'));
+    li.text(player.name);
+    li.appendTo(ol);
   }
   section.append(ol);
 }
 
 function buildGameboard(data) {
-  if (size > 26) console.log('WARNING! SIZES LARGER THAN 26 COULD LEAD TO POOR PERFORMANCE');
-  if (size < 10) data.size = 10;
-
   var section = $('#gameboard');
   section.empty();
   var table = $(document.createElement('table'));
@@ -39,9 +41,9 @@ function buildGameboard(data) {
     table.append(tr);
   }
   section.append(table);
-  for (friend of layout.friends) {
-    $('#'+friend.front).text('☺︎');
-  }
+  // for (friend of layout.friends) {
+  //   $('#'+friend.front).text('☺︎');
+  // }
 }
 
 function buildAttack(size) {
@@ -75,7 +77,7 @@ function buildScoreboard(players) {
     // console.log(player);
     var tr = $(document.createElement('tr'));
     $(document.createElement('td')).text(player.name).appendTo(tr);
-    $(document.createElement('td')).text(player.points).appendTo(tr);
+    $(document.createElement('td')).text(player.score).appendTo(tr);
     table.append(tr);
   }
   scoreboards.append(table);
@@ -85,17 +87,17 @@ function buildScoreboard(players) {
 function updateGameboard(layout) {
   if (layout.damages) {
     for (damage of layout.damages) {
-      $('#'+damage).text('☻');
+      $('#'+damage).text('☻').addClass('alert');
     }
   }
   if (layout.hits) {
     for (hit of layout.hits) {
-      $('#'+hit).text('■');
+      $('#'+hit).text('■').addClass('alert');
     }
   }
   if (layout.misses) {
     for (miss of layout.misses) {
-      $('#'+miss).text('□');
+      $('#'+miss).text('□').addClass('alert');
     }
   }
 }
@@ -110,17 +112,22 @@ function death(res) {
   }
 }
 
+function remaining(res) {
+  var diff = res.max - res.users.length;
+  $('#remaining').text((diff > 0) ? 'Waiting for ' + ((diff > 1) ? diff + ' more players!' : '1 more player!') : 'Starting soon!')
+}
+
 //=====jQuery=====
 $(function() {
   //-----Login-----
   $('#login').submit(function() {
     var data = {
       name: $('#username').val(),
-      num_players: $('#num_players').val()
+      max: $('#num_players').val()
     };
     if (!data.name) {
       $('#required_username').show();
-    } else if (!data.num_players || data.num_players < 2) {
+    } else if (!data.max || data.max < 2) {
       $('#required_number').show();
     } else {
       $.post('/login', data, function(data, status) {
@@ -128,6 +135,7 @@ $(function() {
         console.log('login',res);
         id = res.player.id;
         buildLogins(res);
+        remaining(res);
         $('#welcome').hide();
         $('#waiting').show();
         login = setInterval(wait, 3000);
@@ -144,29 +152,40 @@ $(function() {
       res = JSON.parse(data);
       console.log('wait',res);
       buildLogins(res);
+      remaining(res);
       if (res.max == res.users.length) {
-        buildGameboard(res.size);
+        buildGameboard({size: res.size, ships: res.player.ships});
+        buildScoreboard(res.users);
         buildAttack(res.size);
         $('#waiting').hide();
-        $('#gameboard').show();
+        $('#game').show();
+        clearInterval(login);
+        game = setInterval(ping, 3000);
       }
     });
   }
 
   //-----Game-----
   function ping() {
-    $.post('/game', function(data, status) {
+    data = {
+      id: id
+    };
+    $.post('/game', data, function(data, status) {
       res = JSON.parse(data);
       console.log('ping',res);
-      updateGameboard(res.layout);
-      buildScoreboard(res.players);
+      updateGameboard(res.shots);
+      buildScoreboard(res.users);
       death(res);
     });
   }
 
   //-----Attack-----
   $('#attack').submit(function() {
-    $.post('/game',function(data, status) {
+    var data = {
+      id: id,
+      coord: $('#letter_select').val() + $('#number_select').val()
+    };
+    $.post('/game', {coord: ''}, function(data, status) {
       res = JSON.parse(data);
       console.log('attack',res);
       death(res);

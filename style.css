@@ -13,7 +13,7 @@ section {
 }
 
 p {
-  padding: 10px;
+  padding-left: 10px;
 }
 
 table {
@@ -34,7 +34,7 @@ form {
 }
 
 .coords {
-  background-color: #4f666a;
+  background-color: #202310;
   text-align: center;
 }
 
@@ -51,7 +51,7 @@ form {
   font-style: italic;
 }
 
-#died {
+.alert {
   color: red;
   text-shadow: 1px 1px #ffcccc;
 }
