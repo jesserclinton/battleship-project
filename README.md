@@ -10,11 +10,11 @@
 1. remove $('#start')
 1. battleship placement algorithm
 1. server/client communication
-  * login
-  * start
-  * attack
-  * ping
-  * restart
+    * login
+    * wait
+    * attack
+    * ping
+    * restart
 1. improve css
 
 ### FIXME

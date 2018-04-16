@@ -3,35 +3,37 @@ onsubmit = function(e) {
   e.preventDefault();
 }
 
+//=====Variables=====
+var id;
+
 //=====Functions=====
 //-----Login-----
-function buildLogins(players) {
-  // console.log(players);
+function buildLogins(res) {
   (section = $('#players')).empty();
   var ol = $(document.createElement('ol'));
-  for (player of players) {
+  for (player of res.users) {
     $(document.createElement('li')).text(player.name).appendTo(ol);
   }
   section.append(ol);
 }
 
-function buildGameboard(size,layout) {
+function buildGameboard(data) {
   if (size > 26) console.log('WARNING! SIZES LARGER THAN 26 COULD LEAD TO POOR PERFORMANCE');
-  if (size < 10) size = 10;
+  if (size < 10) data.size = 10;
 
   var section = $('#gameboard');
   section.empty();
   var table = $(document.createElement('table'));
   var tr = $(document.createElement('tr')).appendTo(table);
   $(document.createElement('td')).attr('class','coords').appendTo(tr);
-  for (var i = 1; i < size+1; i++) {
+  for (var i = 1; i < data.size+1; i++) {
     var td = $(document.createElement('td')).addClass('coords').text(i).appendTo(tr);
   }
   table.append(tr);
-  for (var i = 0; i < size; i++) {
+  for (var i = 0; i < data.size; i++) {
     tr = $(document.createElement('tr'));
     $(document.createElement('td')).addClass('coords').text(String.fromCharCode(i+65)).appendTo(tr);
-    for (var j = 0; j < size; j++) {
+    for (var j = 0; j < data.size; j++) {
       $(document.createElement('td')).attr('id',String.fromCharCode(i+65)+(j+1)).addClass('game_square').text('~').appendTo(tr);
     }
     table.append(tr);
@@ -124,7 +126,8 @@ $(function() {
       $.post('/login', data, function(data, status) {
         res = JSON.parse(data);
         console.log('login',res);
-        buildLogins(res.players);
+        id = res.player.id;
+        buildLogins(res);
         $('#welcome').hide();
         $('#waiting').show();
         login = setInterval(wait, 3000);
@@ -133,27 +136,22 @@ $(function() {
   });
 
   function wait() {
-    $.post('/login', function(data, status) {
+    var data = {
+      id: id
+    };
+    console.log('id',data);
+    $.post('/login', data, function(data, status) {
       res = JSON.parse(data);
       console.log('wait',res);
-      buildLogins(res.players);
-    })
-  }
-
-  //-----Start-----
-  $('#start').submit(function() {
-    $.post('/start', function(data, status) {
-      clearInterval(login);
-      res = JSON.parse(data);
-      console.log('start',res);
-      buildGameboard(res.size,res.layout);
-      buildScoreboard(res.players);
-      buildAttack(res.size);
-      $('#waiting').hide();
-      $('#game').show();
-      game = setInterval(ping, 3000);
+      buildLogins(res);
+      if (res.max == res.users.length) {
+        buildGameboard(res.size);
+        buildAttack(res.size);
+        $('#waiting').hide();
+        $('#gameboard').show();
+      }
     });
-  });
+  }
 
   //-----Game-----
   function ping() {

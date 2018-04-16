@@ -7,7 +7,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //=====Variables=====
+var users = [];
 var players = [];
+var max = -1;
+var size;
 
 //=====Functions=====
 function genId() {
@@ -42,7 +45,6 @@ function placeShips(size = 15) {
 //=====Send Files=====
 app.get('/', function(req, res) {
   console.log("Someone's here!");
-  placeShips();
   res.sendFile(__dirname + '/warship.html');
 });
 
@@ -56,16 +58,42 @@ app.get('/main.js', function(req, res) {
 
 //=====AJAX Requests=====
 app.post('/login', function(req, res) {
-  // console.log('login',req.body);
-  if (req.body.name) {
-    console.log(req.body.name,'joined the game');
-    players.push(req.body);
-  }
-  var info = {
-    id: 'abcd',
-    players: players
+  console.log('login',req.body);
+  var data = {
+    max: max,
+    users: users,
+    size: size
   };
-  res.send(JSON.stringify(info));
+  if (req.body.id) {
+    for (player of players) {
+      if (player.id == req.body.id) {
+        data.player = player;
+      }
+    }
+  } else {
+    console.log(req.body.name,'joined the game');
+
+    if (max == -1) {
+      max = req.body.num_players;
+      size = 2*(req.body.num_players-1)+8;  // Thank you Jack for coming up with this formula!
+      maxSet = true;
+    }
+    player = {
+      id: genId(),
+      name: req.body.name,
+      score: 0,
+      ships: []
+    }
+    if (players.length <= max) {
+      users.push(req.body.name);
+      players.push(player);
+    }
+    data.max = max;
+    data.users = users;
+    data.player = player;
+    data.size = size;
+  }
+  res.send(JSON.stringify(data));
 });
 
 app.post('/game', function(req, res) {
