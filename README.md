@@ -16,9 +16,6 @@
 1. improve css
 
 ### FIXME
-1. $('#login')
-1. pingLogins()
-1. buildLogins()
 * inconsistent naming conventions
 
 ### Suggestions
