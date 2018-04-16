@@ -22,7 +22,7 @@ table {
 }
 
 td {
-  border: 1px solid #36454F;
+  border: 1px solid #202310;
   text-align: center;
   min-width: 30px;
   padding: 4px;
@@ -34,7 +34,7 @@ form {
 }
 
 .coords {
-  background-color: #4f666a;
+  background-color: #404040;
   text-align: center;
 }
 
