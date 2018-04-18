@@ -1,6 +1,4 @@
-var board = [];
-
-function genEmptyTable(size = 12) {
+function genEmptyTable(size = 10) {
   var table = [];
   for (var i = 0; i < size; i++) {
     var row = [];
@@ -9,30 +7,57 @@ function genEmptyTable(size = 12) {
     }
     table.push(row);
   }
-  for (row of table) {
-    console.log(row);
-  }
+  // printBoard(table);
   return table;
 }
 
-function genShips(size = 12) {
-  board = genEmptyTable();
-  ship = {
-    m: false,
-    n: 0,
-    y: 0,
-    x: 0
-  }
-  flag = true;
-  for (var n = 5; n > 1; n--) {
-    ship.m = Math.random() >= 0.5;
-    ship.n = n;
-    ship.y = Math.floor(Math.random()*(ship.m ? size-n : size));
-    ship.x = Math.floor(Math.random()*(!ship.m ? size-n : size)+1);
-    if (n == 3 && flag) {
-      n++;
-      flag = false;
+ function Ship(id, m, n, x, y) {
+  this.id = id;
+  this.m = m;
+  this.n = n;
+  this.place = function(board) {
+    open = true;
+    for (var i = 0; i < n; i++) {
+      open = board[m ? y+i : y][m ? x : x+i] == 0;
+      if (!open) break;
     }
-    console.log(ship);
+    if (open) {
+      for (var i = 0; i < n; i++) board[m ? y+i : y][m ? x : x+i] = this.id;
+      return true;
+    }
+    return false;
+  },
+  this.x = x;
+  this.y = y;
+};
+
+function genShips(id = 'abc123', board = genEmptyTable()) {
+  var ships = [], ship, three = true;
+  for (var n = 5; n > 1; n--) {
+    miss = false;
+    do {
+      ship = new Ship(
+        id,
+        m = Math.random() >= 0.5,
+        n,
+        Math.floor(Math.random()*(!m ? board.length-n : board.length)),
+        Math.floor(Math.random()*(m ? board.length-n : board.length))
+      );
+      if (miss) console.log('miss',ship);
+      if (three && n == 3) {
+        n++;
+        three = false;
+      }
+    } while (miss = !ship.place(board));
+    console.log('place',ship);
+    ships.push(ship);
+  }
+  printBoard(board);
+  return ships;
+}
+
+function printBoard(board) {
+  for (row of board) {
+    console.log(row);
   }
 }
