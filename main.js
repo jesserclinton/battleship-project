@@ -3,6 +3,20 @@ onsubmit = function(e) {
   e.preventDefault();
 }
 
+onload = function() {
+  setInterval(animateBg,80);
+}
+
+var l = 0;
+var s = 1;
+function animateBg() {
+  bg = $('body').css('backgroundPosition',(-l)+'px '+l+'px');
+  l += s;
+  if (Math.abs(l) > 1000) {
+    s = -s;
+  }
+}
+
 //=====Variables=====
 var id;
 
@@ -41,8 +55,8 @@ function buildGameboard(data) {
     table.append(tr);
   }
   section.append(table);
-  // for (friend of layout.friends) {
-  //   $('#'+friend.front).text('☺︎');
+  // for (ship of data.ships) {
+  //   $('#'+ship.x+ship.y).text('☺︎');
   // }
 }
 

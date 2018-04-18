@@ -6,6 +6,7 @@ body {
   text-shadow: 1px 1px #ccf2ff;
   color: #4dd2ff;
   background-image: url('https://orig00.deviantart.net/5f48/f/2010/248/1/1/starscape_wip_1_by_vaniyz-d2y4g9y.png');
+  background-size: cover;
 }
 
 section {
@@ -22,11 +23,12 @@ table {
 }
 
 td {
-  border: 1px solid #202310;
+  border: 1px solid #626260;
   text-align: center;
-  min-width: 30px;
+  min-width: 40px;
+  min-height: 53px;
   padding: 4px;
-  background: rgba(4, 20, 33, 0.5);
+  background: rgba(4, 20, 33, 0.6);
 }
 
 form {
@@ -34,7 +36,7 @@ form {
 }
 
 .coords {
-  background-color: #202310;
+  background-color: #404040;
   text-align: center;
 }
 

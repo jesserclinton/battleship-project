@@ -34,13 +34,6 @@ function calcResult() {
   };
 }
 
-function placeShips(size = 15) {
-  var letter = String.fromCharCode(Math.floor(Math.random()*size+1)+65);
-  var number = Math.floor(Math.random()*size+1);
-  var down = Math.random() >= 0.5;
-  console.log(letter+number,down ? 'down' : 'side');
-}
-
 //=====Send Files=====
 app.get('/', function(req, res) {
   console.log("Someone's here!");
@@ -53,6 +46,10 @@ app.get('/style.css', function(req, res) {
 
 app.get('/main.js', function(req, res) {
   res.sendFile(__dirname + '/main.js');
+});
+
+app.get('/test.js', function(req, res) {
+  res.sendFile(__dirname + '/test.js');
 });
 
 //=====AJAX Requests=====
