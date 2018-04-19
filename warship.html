@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- <script src="script.js"></script> -->
-    <script src="main.js"></script>
+    <script src="client.js"></script>
     <script src="test.js"></script>
   </head>
   <body>
@@ -34,16 +34,18 @@
       </section>
     </article>
     <article id="rooms" class="hidable" hidden>
+      <div class="title">Rooms</div>
+      <div class="subtitle">Please select a room</div>
       <section id="required_username" class="alert hidable" hidden>
         <p>Username Required!</p>
       </section>
-      <section id="required_number" class="alert hidable" hidden>
+      <!-- <section id="required_number" class="alert hidable" hidden>
         <p>Requires at least 2 users to play!</p>
-      </section>
+      </section> -->
       <section>
         <form id="login" class="portal">
           <div><label for="username">Username: </label><input type="text" id="username" title="username" spellcheck="false" placeholder="Fred"></div>
-          <div><label for="num_players">Number of Players: </label><input type="number" id="num_players" value="2" min="2"></div>
+          <!-- <div><label for="num_players">Number of Players: </label><input type="number" id="num_players" value="2" min="2"></div> -->
           <section id="rooms"></section>
           <div><input type="submit" name="submit" value="Join Game"></div>
         </form>

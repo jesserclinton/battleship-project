@@ -44,8 +44,8 @@ app.get('/style.css', function(req, res) {
   res.sendFile(__dirname + '/style.css');
 });
 
-app.get('/main.js', function(req, res) {
-  res.sendFile(__dirname + '/main.js');
+app.get('/client.js', function(req, res) {
+  res.sendFile(__dirname + '/client.js');
 });
 
 app.get('/test.js', function(req, res) {
@@ -53,6 +53,10 @@ app.get('/test.js', function(req, res) {
 });
 
 //=====AJAX Requests=====
+app.post('/begin', function(req, res) {
+  res.send('hello world');
+});
+
 app.post('/login', function(req, res) {
   console.log('login',req.body);
   var data = {

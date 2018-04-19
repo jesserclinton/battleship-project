@@ -21,6 +21,8 @@ function animateBg() {
 var id;
 
 //=====Functions=====
+//-----Rooms-----
+
 //-----Login-----
 function buildLogins(res) {
   console.log('build',res);
@@ -136,8 +138,10 @@ $(function() {
   //-----Begin-----
   $('#begin').submit(function() {
     $.post('/begin', function(data, status) {
-      res = JSON.parse(data);
-      console.log('begin',res);
+      //res = JSON.parse(data);
+      console.log('begin',data);
+      $('#welcome').hide();
+      $('#rooms').show();
     });
   });
 

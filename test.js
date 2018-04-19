@@ -62,3 +62,8 @@ function printBoard(board) {
     console.log(row);
   }
 }
+
+// ----------
+function Room() {
+
+}
