@@ -47,12 +47,18 @@ function RoomList() {
   this.appendTo = function(location = $('body')) {
     var form = $(document.createElement('form')).addClass('portal').attr('id', 'room');
     for (room of this.rooms) {
-      $(document.createElement('input')).attr('id','room_'+room.name).attr('name','room').val(room.name).attr('type', 'radio').appendTo(form);
-      $(document.createElement('label')).attr('for','room_'+room.name).text(' '+room.name).appendTo(form);
+      $(document.createElement('input')).attr('id','rm_'+room.name).attr('name','room').val(room.name).attr('type', 'radio').appendTo(form);
+      $(document.createElement('label')).attr('for','rm_'+room.name).text(' '+room.name+' ').appendTo(form);
+      $(document.createElement('span')).attr('id','rm_'+room.name+'_cur').text(room.players.length).appendTo(form);
+      $(document.createTextNode(' / ')).appendTo(form);
+      $(document.createTextNode(room.max)).appendTo(form);
       $(document.createElement('br')).appendTo(form);
     }
-    here = form.children(':first-child').attr('checked', '');
-    console.log(here);
+    form.children(':first-child').attr('checked', '');
+
+    $(document.createElement('input')).attr('id','new_rm').attr('name','room').attr('type','radio').appendTo(form);
+    $(document.createElement('label')).attr('for','new_rm').text(' new room ').appendTo(form);
+
     location.append(form);
   }
 }
