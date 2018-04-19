@@ -18,6 +18,6 @@ function Coordinate(x, y) {
   }
 
   this.toString = function() {
-    return String.fromCharCode(y+65)+(x+1);
+    return String.fromCharCode(this.y+65)+(this.x+1);
   }
 }

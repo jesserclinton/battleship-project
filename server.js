@@ -128,7 +128,7 @@ function Coordinate(x, y) {
   }
 
   this.toString = function() {
-    return String.fromCharCode(y+65)+(x+1);
+    return String.fromCharCode(this.y+65)+(this.x+1);
   }
 }
 
@@ -187,20 +187,6 @@ function genId() {
   return id.join('');
 }
 
-function calcResult() {
-  return {
-    size: 15,
-    users: users,
-    shots: {
-      damages: ['A3','A4'],
-      hits: ['E7','A12','G2'],
-      misses: ['G1','G3']
-    },
-    dead: false,
-    done: false
-  };
-}
-
 //=====Send Files=====
 app.get('/', function(req, res) {
   console.log("Someone's here!");
@@ -220,6 +206,9 @@ app.get('/test.js', function(req, res) {
 });
 
 //=====AJAX Requests=====
+/**
+ * Move player to lobby
+ */
 app.post('/begin', function(req, res) {
   console.log('Moved to the lobby');
   var data = {
@@ -229,36 +218,60 @@ app.post('/begin', function(req, res) {
   res.send(JSON.stringify(data));
 });
 
+/**
+ * send player lobby updates
+ */
 app.post('/lobby', function(req, res) {
-  // ping lobby to update rooms
+
 });
 
+/**
+ * add a player to a game room
+ */
 app.post('/join', function(req, res) {
-  // join a game room
+
 });
 
+/**
+ * create new room and add to lobby
+ */
 app.post('/new', function(req, res) {
-  // create new room
-})
 
+});
+
+/**
+ * send player waiting room updates
+ */
 app.post('/wait', function(req, res) {
-  // wait in room for other players
+
 });
 
+/**
+ * start the game with a clean gameboard
+ */
 app.post('/start', function(req, res) {
-  // start game with clean gameboard
+
 });
 
+/**
+ * send player game updates
+ */
 app.post('/game', function(req, res) {
-  // ping game for updates
+
 });
 
+/**
+ * launch an attack on a square
+ */
 app.post('/attack', function(req, res) {
-  // launch an attack on a square
+
 });
 
+/**
+ * remove room and send player to lobby
+ */
 app.post('/again', function(req, res) {
-  // remove room and start again
+
 });
 
 app.listen(8012, function() {

@@ -1,3 +1,17 @@
+function calcResult() {
+  return {
+    size: 15,
+    users: users,
+    shots: {
+      damages: ['A3','A4'],
+      hits: ['E7','A12','G2'],
+      misses: ['G1','G3']
+    },
+    dead: false,
+    done: false
+  };
+}
+
 app.post('/login', function(req, res) {
   console.log('login',req.body);
   var data = {
