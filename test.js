@@ -34,8 +34,10 @@ function genEmptyTable(size = 10) {
 function genShips(id = 'abc123', board = genEmptyTable()) {
   var ships = [], ship, three = true;
   for (var n = 5; n > 1; n--) {
+    create:
     miss = false;
     do {
+      if (miss) console.log('miss',ship);
       ship = new Ship(
         id,
         m = Math.random() >= 0.5,
@@ -43,14 +45,13 @@ function genShips(id = 'abc123', board = genEmptyTable()) {
         Math.floor(Math.random()*(!m ? board.length-n : board.length)),
         Math.floor(Math.random()*(m ? board.length-n : board.length))
       );
-      if (miss) console.log('miss',ship);
-      if (three && n == 3) {
-        n++;
-        three = false;
-      }
     } while (miss = !ship.place(board));
     console.log('place',ship);
     ships.push(ship);
+    if (three && n == 3) {
+      n++;
+      three = false;
+    }
   }
   printBoard(board);
   return ships;
