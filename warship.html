@@ -39,9 +39,6 @@
       <section id="required_username" class="alert hidable" hidden>
         <p>Username Required!</p>
       </section>
-      <!-- <section id="required_number" class="alert hidable" hidden>
-        <p>Requires at least 2 users to play!</p>
-      </section> -->
       <section>
         <form id="login" class="portal">
           <div><label for="username">Username: </label><input type="text" id="username" title="username" spellcheck="false" placeholder="Fred"></div>
@@ -51,9 +48,13 @@
       </section>
     </article>
     <article id="creation" class="hidable" hidden>
+      <div class="title">Create a Room</div>
+      <section id="required_number" class="alert hidable" hidden>
+        <p>Requires at least 2 users to play!</p>
+      </section>
       <section>
         <form id="createRoom"class="portal">
-          <div><label for="roomname">Room name: </label><input type="text" id="roomname" title="roomname" spellcheck="false" placeholder="Fred's Room"></div>
+          <div><label for="roomname">Room name: </label><input type="text" id="roomname" title="roomname" spellcheck="false" placeholder="Helen"></div>
           <div><label for="num_players">Number of Players: </label><input type="number" id="num_players" value="2" min="2" max="10"></div>
           <input type="submit" name="submit" value="Create Game">
           <!-- <div><label for="maxplayers">Number of players: </label><input type="text" name="maxplayers" title="maxplayers" placeholder="any number between 2 and 10"> </div> -->

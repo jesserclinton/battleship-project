@@ -5,7 +5,6 @@ onsubmit = function(e) {
 
 onload = function() {
   setInterval(animateBg,80);
-  // displayAll();
 }
 
 var l = 0;
