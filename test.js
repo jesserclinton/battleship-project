@@ -82,9 +82,9 @@ function Gameboard(size = 10) {
   this.appendTo = function(location = $('body')) {
     var table = $(document.createElement('table'));
     var tr = $(document.createElement('tr'));
-    $(document.createElement('th')).attr('class','coords').appendTo(tr);
+    $(document.createElement('th')).appendTo(tr);
     for (var i = 1; i < this.size+1; i++) {
-      var td = $(document.createElement('td')).addClass('coords').text(i).appendTo(tr);
+      var td = $(document.createElement('td')).text(i).appendTo(tr);
     }
     table.append(tr);
     for (var i = 0; i < this.size; i++) {
@@ -95,7 +95,7 @@ function Gameboard(size = 10) {
       }
       table.append(tr);
     }
-    section.append(table);
+    location.append(table);
   }
 }
 
