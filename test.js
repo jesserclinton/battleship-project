@@ -10,13 +10,7 @@ function Player(id, name) {
       miss = false;
       do {
         if (miss) console.log('miss',ship);
-        ship = new Ship(
-          this.id,
-          m = Math.random() >= 0.5,
-          n,
-          Math.floor(Math.random()*(!m ? gameboard.size-n : gameboard.size)),
-          Math.floor(Math.random()*(m ? gameboard.size-n : gameboard.size))
-        );
+        ship = new Ship(this.id, n, gameboard);
       } while (miss = !gameboard.place(ship));
       console.log('place',ship);
       ships.push(ship);
@@ -34,7 +28,7 @@ function Room(name, max) {
   this.name = name;
   this.players = [];
   this.max = max;
-  this.board = genEmptyTable((2*(max-1)+8));
+  this.board = Gameboard((2*(max-1)+8));
 
   this.addPlayer = function(id) {
 
@@ -44,8 +38,22 @@ function Room(name, max) {
 function RoomList() {
   this.rooms = [];
 
-  this.addRoom = function(name, max) {
+  this.addRoom = function(room) {
+    for (r of this.rooms) if (r.name == room.name) return false;
+    this.rooms.push(room);
+    return true;
+  }
 
+  this.appendTo = function(location = $('body')) {
+    var form = $(document.createElement('form')).addClass('portal').attr('id', 'room');
+    for (room of this.rooms) {
+      $(document.createElement('input')).attr('id','room_'+room.name).attr('name','room').val(room.name).attr('type', 'radio').appendTo(form);
+      $(document.createElement('label')).attr('for','room_'+room.name).text(' '+room.name).appendTo(form);
+      $(document.createElement('br')).appendTo(form);
+    }
+    here = form.children(':first-child').attr('checked', '');
+    console.log(here);
+    location.append(form);
   }
 }
 
@@ -56,14 +64,14 @@ function Gameboard(size = 10) {
   this.coords = [];
   for (var i = 0; i < size; i++) {
     var row = [];
-    for (var j = 0; j < size; j++) row.push('~');
+    for (var j = 0; j < size; j++) row.push(0);
     this.coords.push(row);
   }
 
   this.place = function(ship) {
     open = true;
     for (var i = 0; i < ship.n; i++) {
-      open = gameboard.coords[ship.m ? ship.y+i : ship.y][ship.m ? ship.x : ship.x+i] == '~';
+      open = gameboard.coords[ship.m ? ship.y+i : ship.y][ship.m ? ship.x : ship.x+i] == 0;
       if (!open) break;
     }
     if (open) {
@@ -99,12 +107,12 @@ function Gameboard(size = 10) {
   }
 }
 
-function Ship(id, m, n, x, y) {
+function Ship(id, n, gameboard) {
   this.id = id;
-  this.m = m;
+  this.m = m = Math.random() >= 0.5;
   this.n = n;
-  this.x = x;
-  this.y = y;
+  this.x = Math.floor(Math.random()*(!m ? gameboard.size-n : gameboard.size));
+  this.y = Math.floor(Math.random()*(m ? gameboard.size-n : gameboard.size));
 };
 
 //-----Scoreboard-----
