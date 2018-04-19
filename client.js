@@ -29,6 +29,7 @@ function listRooms(data = {rooms: ['a','b','c']}) {
   for (room of data.rooms) {
     $(document.createElement('input')).attr('id','room_'+room).attr('name','room').val(room).attr('type', 'radio').appendTo(form);
     $(document.createElement('label')).attr('for','room_'+room).text(room).appendTo(form);
+    $(document.createElement('br')).appendTo(form);
   }
   here = form.children(':first-child').attr('checked', '');
   console.log(here);
@@ -36,7 +37,7 @@ function listRooms(data = {rooms: ['a','b','c']}) {
 }
 
 //-----Login-----
-function buildLogins(res) {
+function listUsers(res) {
   console.log('build',res);
 
   (section = $('#players')).empty();
@@ -172,7 +173,7 @@ $(function() {
         res = JSON.parse(data);
         console.log('login',res);
         id = res.player.id;
-        buildLogins(res);
+        listUsers(res);
         remaining(res);
         $('#welcome').hide();
         $('#waiting').show();
@@ -189,7 +190,7 @@ $(function() {
     $.post('/login', data, function(data, status) {
       res = JSON.parse(data);
       console.log('wait',res);
-      buildLogins(res);
+      listUsers(res);
       remaining(res);
       if (res.max == res.users.length) {
         buildGameboard({size: res.size, ships: res.player.ships});

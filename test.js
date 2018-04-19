@@ -64,6 +64,65 @@ function printBoard(board) {
 }
 
 // ----------
-function Room() {
+function Room(name, max) {
+  this.name = name;
+  this.max = max;
+}
 
+function Entry(id, name, score) {
+  this.id = id;
+  this.name = name;
+  this.score = score;
+}
+
+function Scoreboard() {
+  this.entries = [];
+
+  this.addEntry = function(id, name) {
+    this.entries.push(new Entry(id, name, 0));
+    return this;
+  }
+
+  this.changeScore = function(id, score) {
+    for (entry of this.entries) {
+      if (entry.id == id) {
+        entry.score = score;
+        return true;
+      }
+    }
+    return false;
+  }
+
+  this.incrementScore = function(id) {
+    for (entry of this.entries) {
+      if (entry.id == id) {
+        entry.score++;
+        return true;
+      }
+    }
+    return false;
+  }
+
+  this.addToScore = function(id, points) {
+    for (entry of this.entries) {
+      if (entry.id == id) {
+        entry.score += points;
+        return true;
+      }
+    }
+    return false;
+  }
+}
+
+function buildSb(
+  sb = ((new Scoreboard()).addEntry('chaos8012','sdent')).addEntry('hatguy76','jdent'),
+  loc = $('body')) {
+  table = $(document.createElement('table')).addClass('scoreboard');
+  for (entry of sb.entries) {
+    tr = $(document.createElement('tr'));
+    $(document.createElement('td')).text(entry.name).appendTo(tr);
+    $(document.createElement('td')).text(entry.score).appendTo(tr);
+    tr.appendTo(table)
+  }
+  table.appendTo(loc);
 }
