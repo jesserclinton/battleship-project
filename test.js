@@ -56,16 +56,14 @@ function Gameboard(size = 10) {
   this.coords = [];
   for (var i = 0; i < size; i++) {
     var row = [];
-    for (var j = 0; j < size; j++) {
-      row.push(0);
-    }
+    for (var j = 0; j < size; j++) row.push('~');
     this.coords.push(row);
   }
 
   this.place = function(ship) {
     open = true;
     for (var i = 0; i < ship.n; i++) {
-      open = gameboard.coords[ship.m ? ship.y+i : ship.y][ship.m ? ship.x : ship.x+i] == 0;
+      open = gameboard.coords[ship.m ? ship.y+i : ship.y][ship.m ? ship.x : ship.x+i] == '~';
       if (!open) break;
     }
     if (open) {
@@ -79,6 +77,25 @@ function Gameboard(size = 10) {
     for (row of this.coords) {
       console.log(row);
     }
+  }
+
+  this.appendTo = function(location = $('body')) {
+    var table = $(document.createElement('table'));
+    var tr = $(document.createElement('tr'));
+    $(document.createElement('th')).attr('class','coords').appendTo(tr);
+    for (var i = 1; i < this.size+1; i++) {
+      var td = $(document.createElement('td')).addClass('coords').text(i).appendTo(tr);
+    }
+    table.append(tr);
+    for (var i = 0; i < this.size; i++) {
+      tr = $(document.createElement('tr'));
+      $(document.createElement('td')).addClass('coords').text(String.fromCharCode(i+65)).appendTo(tr);
+      for (var j = 0; j < this.size; j++) {
+        $(document.createElement('td')).attr('id',String.fromCharCode(i+65)+(j+1)).addClass('game_square').text('~').appendTo(tr);
+      }
+      table.append(tr);
+    }
+    section.append(table);
   }
 }
 
@@ -135,19 +152,17 @@ function Scoreboard() {
     }
     return false;
   }
-}
 
-function appendScoreboard(
-  scoreboard,
-  location = $('body')) {
-  table = $(document.createElement('table')).addClass('scoreboard');
-  for (entry of scoreboard.entries) {
-    tr = $(document.createElement('tr'));
-    $(document.createElement('td')).text(entry.name).appendTo(tr);
-    $(document.createElement('td')).text(entry.score).appendTo(tr);
-    tr.appendTo(table)
+  this.appendTo = function(location = $('body')) {
+    table = $(document.createElement('table')).addClass('scoreboard');
+    for (entry of this.entries) {
+      tr = $(document.createElement('tr'));
+      $(document.createElement('td')).text(entry.name).appendTo(tr);
+      $(document.createElement('td')).text(entry.score).appendTo(tr);
+      tr.appendTo(table)
+    }
+    table.appendTo(location);
   }
-  table.appendTo(location);
 }
 
 //-----Kill-----
