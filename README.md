@@ -4,7 +4,6 @@
 > A multiplayer (more than 2 players) version of the classic board game Battleship. Will contain the server and client information to be hosted on a server.
 
 ## HEADS UP!
-> __I am still working on the jQuery/AJAX stuff. The jQuery fixed the AJAX, but I'm having to rewrite the whole file in order to use it. Thankfully jQuery is incredibly streamlined. I'll have it done before you know it!  - Spencer__
 
 ### TODO
 1. remove $('#start')

@@ -133,6 +133,14 @@ function remaining(res) {
 
 //=====jQuery=====
 $(function() {
+  //-----Begin-----
+  $('#begin').submit(function() {
+    $.post('/begin', function(data, status) {
+      res = JSON.parse(data);
+      console.log('begin',res);
+    });
+  });
+
   //-----Login-----
   $('#login').submit(function() {
     var data = {
