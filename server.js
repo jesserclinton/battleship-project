@@ -55,12 +55,41 @@ app.get('/test.js', function(req, res) {
 
 //=====AJAX Requests=====
 app.post('/begin', function(req, res) {
+  console.log('Moved to the lobby');
   var data = {
     id: genId(),
     rooms: rooms
   };
   res.send(JSON.stringify(data));
 });
+
+app.post('/lobby', function(req, res) {
+  // ping lobby to update rooms
+});
+
+app.post('/join', function(req, res) {
+  // join a game room
+});
+
+app.post('/wait', function(req, res) {
+  // wait in room for other players
+});
+
+app.post('/start', function(req, res) {
+  // start game with clean gameboard
+});
+
+app.post('/game', function(req, res) {
+  // ping game for updates
+});
+
+app.post('/attack', function(req, res) {
+  // launch an attack on a square
+})
+
+app.post('/again', function(req, res) {
+  // remove room and start again
+})
 
 // app.post('/login', function(req, res) {
 //   console.log('login',req.body);
