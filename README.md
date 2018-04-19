@@ -11,7 +11,7 @@
     * attack
     * ping
     * restart
-1. improve css
+1. implement multiple games
 
 ### FIXME
 * inconsistent naming conventions
