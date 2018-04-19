@@ -21,6 +21,10 @@ function animateBg() {
 var id;
 
 //=====Functions=====
+function displayAll() {
+  $('.hidable').show();
+}
+
 //-----Rooms-----
 /*function listRooms(data = {rooms: ['a','b','c']}) {
   var rooms = $('#room');
@@ -153,7 +157,7 @@ $(function() {
     $.post('/begin', function(data, status) {
       res = JSON.parse(data);
       console.log('begin',res);
-      listRooms();
+      // listRooms();
       $('#welcome').hide();
       $('#rooms').show();
     });
