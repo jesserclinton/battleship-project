@@ -5,7 +5,7 @@ onsubmit = function(e) {
 
 onload = function() {
   setInterval(animateBg,80);
-  displayAll();
+  // displayAll();
 }
 
 var l = 0;
@@ -159,6 +159,8 @@ $(function() {
       res = JSON.parse(data);
       console.log('begin',res);
       // listRooms();
+      id = res.id;
+      res.lobby.appendTo($('#lobby'));
       $('#welcome').hide();
       $('#rooms').show();
     });
