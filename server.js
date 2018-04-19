@@ -54,7 +54,10 @@ app.get('/test.js', function(req, res) {
 
 //=====AJAX Requests=====
 app.post('/begin', function(req, res) {
-  res.send('hello world');
+  var data = {
+    id: genId()
+  }
+  res.send(JSON.stringify(data));
 });
 
 app.post('/login', function(req, res) {

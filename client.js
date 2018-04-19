@@ -151,8 +151,9 @@ $(function() {
   //-----Begin-----
   $('#begin').submit(function() {
     $.post('/begin', function(data, status) {
-      //res = JSON.parse(data);
-      console.log('begin',data);
+      res = JSON.parse(data);
+      console.log('begin',res);
+      listRooms();
       $('#welcome').hide();
       $('#rooms').show();
     });

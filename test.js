@@ -1,74 +1,96 @@
-function genEmptyTable(size = 10) {
-  var table = [];
+//-----Room-----
+function Player(id, name) {
+  this.id = id;
+  this.name = name;
+  this.ships = [];
+
+  this.genShips = function(gameboard = new Gameboard()) {
+    var ships = [], ship, three = true;
+    for (var n = 5; n > 1; n--) {
+      miss = false;
+      do {
+        if (miss) console.log('miss',ship);
+        ship = new Ship(
+          this.id,
+          m = Math.random() >= 0.5,
+          n,
+          Math.floor(Math.random()*(!m ? gameboard.size-n : gameboard.size)),
+          Math.floor(Math.random()*(m ? gameboard.size-n : gameboard.size))
+        );
+      } while (miss = !gameboard.place(ship));
+      console.log('place',ship);
+      ships.push(ship);
+      if (three && n == 3) {
+        n++;
+        three = false;
+      }
+    }
+    gameboard.print();
+    this.ships = ships;
+  }
+}
+
+function Room(name, max) {
+  this.name = name;
+  this.players = [];
+  this.max = max;
+  this.board = genEmptyTable((2*(max-1)+8));
+
+  this.addPlayer = function(id) {
+
+  };
+}
+
+function RoomList() {
+  this.rooms = [];
+
+  this.addRoom = function(name, max) {
+
+  }
+}
+
+//-----Gameboard-----
+function Gameboard(size = 10) {
+  var gameboard = this;
+  this.size = size;
+  this.coords = [];
   for (var i = 0; i < size; i++) {
     var row = [];
     for (var j = 0; j < size; j++) {
       row.push(0);
     }
-    table.push(row);
+    this.coords.push(row);
   }
-  // printBoard(table);
-  return table;
-}
 
- function Ship(id, m, n, x, y) {
-  this.id = id;
-  this.m = m;
-  this.n = n;
-  this.place = function(board) {
+  this.place = function(ship) {
     open = true;
-    for (var i = 0; i < n; i++) {
-      open = board[m ? y+i : y][m ? x : x+i] == 0;
+    for (var i = 0; i < ship.n; i++) {
+      open = gameboard.coords[ship.m ? ship.y+i : ship.y][ship.m ? ship.x : ship.x+i] == 0;
       if (!open) break;
     }
     if (open) {
-      for (var i = 0; i < n; i++) board[m ? y+i : y][m ? x : x+i] = this.id;
+      for (var i = 0; i < ship.n; i++) gameboard.coords[ship.m ? ship.y+i : ship.y][ship.m ? ship.x : ship.x+i] = ship.id;
       return true;
     }
     return false;
-  },
+  }
+
+  this.print = function() {
+    for (row of this.coords) {
+      console.log(row);
+    }
+  }
+}
+
+function Ship(id, m, n, x, y) {
+  this.id = id;
+  this.m = m;
+  this.n = n;
   this.x = x;
   this.y = y;
 };
 
-function genShips(id = 'abc123', board = genEmptyTable()) {
-  var ships = [], ship, three = true;
-  for (var n = 5; n > 1; n--) {
-    create:
-    miss = false;
-    do {
-      if (miss) console.log('miss',ship);
-      ship = new Ship(
-        id,
-        m = Math.random() >= 0.5,
-        n,
-        Math.floor(Math.random()*(!m ? board.length-n : board.length)),
-        Math.floor(Math.random()*(m ? board.length-n : board.length))
-      );
-    } while (miss = !ship.place(board));
-    console.log('place',ship);
-    ships.push(ship);
-    if (three && n == 3) {
-      n++;
-      three = false;
-    }
-  }
-  printBoard(board);
-  return ships;
-}
-
-function printBoard(board) {
-  for (row of board) {
-    console.log(row);
-  }
-}
-
-// ----------
-function Room(name, max) {
-  this.name = name;
-  this.max = max;
-}
-
+//-----Scoreboard-----
 function Entry(id, name, score) {
   this.id = id;
   this.name = name;
@@ -79,8 +101,9 @@ function Scoreboard() {
   this.entries = [];
 
   this.addEntry = function(id, name) {
+    for (entry of this.entries) if (entry.id == id) return false;
     this.entries.push(new Entry(id, name, 0));
-    return this;
+    return true;
   }
 
   this.changeScore = function(id, score) {
@@ -114,15 +137,20 @@ function Scoreboard() {
   }
 }
 
-function buildSb(
-  sb = ((new Scoreboard()).addEntry('chaos8012','sdent')).addEntry('hatguy76','jdent'),
-  loc = $('body')) {
+function appendScoreboard(
+  scoreboard,
+  location = $('body')) {
   table = $(document.createElement('table')).addClass('scoreboard');
-  for (entry of sb.entries) {
+  for (entry of scoreboard.entries) {
     tr = $(document.createElement('tr'));
     $(document.createElement('td')).text(entry.name).appendTo(tr);
     $(document.createElement('td')).text(entry.score).appendTo(tr);
     tr.appendTo(table)
   }
-  table.appendTo(loc);
+  table.appendTo(location);
 }
+
+//-----Kill-----
+
+
+//-----Game Over-----
