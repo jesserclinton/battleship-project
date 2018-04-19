@@ -22,7 +22,7 @@ var id;
 
 //=====Functions=====
 //-----Rooms-----
-function listRooms(data = {rooms: ['a','b','c']}) {
+/*function listRooms(data = {rooms: ['a','b','c']}) {
   var rooms = $('#room');
   var form = $(document.createElement('form'));
   form.addClass('portal').attr('id', 'room');
@@ -84,7 +84,7 @@ function buildAttack(size) {
   var select = $(document.createElement('select')).attr('id','letter_select');
   for (var i = 0; i < size; i++) {
     var letter = String.fromCharCode(i+65);
-    var option = $(document.createElement('option')).val(letter).text(letter).appendTo(select);
+    var option = $(document.createElement('option')).val(i).text(letter).appendTo(select);
   }
   form.append(select);
 
@@ -144,7 +144,7 @@ function death(res) {
 function remaining(res) {
   var diff = res.max - res.users.length;
   $('#remaining').text((diff > 0) ? 'Waiting for ' + ((diff > 1) ? diff + ' more players!' : '1 more player!') : 'Starting soon!')
-}
+}*/
 
 //=====jQuery=====
 $(function() {
