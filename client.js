@@ -22,7 +22,19 @@ var id;
 
 //=====Functions=====
 //-----Rooms-----
-
+function listRooms(data) {
+  var rooms = $('#room');
+  var form = $(document.createElement('form'));
+  form.addClass('portal').attr('id', 'room');
+  for (room of data.rooms) {
+    $(document.createElement('input')).val(room).attr('type', 'radio').appendTo(form);
+    $(document.createTextNode(room)).appendTo(form);
+    $(document.createElement('br')).appendTo(form);
+  }
+  here = form.children(':first-child').attr('checked', '');
+  console.log(here);
+  rooms.append(form);
+}
 //-----Login-----
 function buildLogins(res) {
   console.log('build',res);
