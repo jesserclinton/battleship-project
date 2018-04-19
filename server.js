@@ -7,35 +7,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //=====Variables=====
-var rooms = new Lobby();
+var rooms = [];
 var users = [];
 var players = [];
 var max = -1;
 var size;
 
 //=====Functions=====
-function Lobby() {
-  this.rooms = [];
-
-  this.addRoom = function(room) {
-    for (r of this.rooms) if (r.name == room.name) return false;
-    this.rooms.push(room);
-    return true;
-  }
-
-  this.appendTo = function(location = $('body')) {
-    var form = $(document.createElement('form')).addClass('portal').attr('id', 'room');
-    for (room of this.rooms) {
-      $(document.createElement('input')).attr('id','room_'+room.name).attr('name','room').val(room.name).attr('type', 'radio').appendTo(form);
-      $(document.createElement('label')).attr('for','room_'+room.name).text(' '+room.name).appendTo(form);
-      $(document.createElement('br')).appendTo(form);
-    }
-    here = form.children(':first-child').attr('checked', '');
-    console.log(here);
-    location.append(form);
-  }
-}
-
 function genId() {
   var chars = 'QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890';
   (id = []).length = 12;
@@ -79,7 +57,7 @@ app.get('/test.js', function(req, res) {
 app.post('/begin', function(req, res) {
   var data = {
     id: genId(),
-    lobby: new Lobby()
+    rooms: rooms
   };
   res.send(JSON.stringify(data));
 });

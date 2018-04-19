@@ -21,6 +21,34 @@ function animateBg() {
 //=====Variables=====
 var id;
 
+//=====Constructors=====
+function Lobby(rooms) {
+  this.rooms = rooms ? rooms : [];
+
+  this.addRoom = function(room) {
+    for (r of this.rooms) if (r.name == room.name) return false;
+    this.rooms.push(room);
+    return true;
+  }
+
+  this.appendTo = function(location = $('body')) {
+    var form = $(document.createElement('form')).addClass('portal').attr('id', 'room');
+    for (room of this.rooms) {
+      $(document.createElement('input')).attr('id','rm_'+room.name).attr('name','room').val(room.name).attr('type', 'radio').appendTo(form);
+      $(document.createElement('label')).attr('for','rm_'+room.name).text(' '+room.name).appendTo(form);
+      $(document.createElement('span')).attr('id','rm_'+room.name+'_cur').text(room.players.length).appendTo(form);
+      $(document.createTextElement(' / ')).appendTo(form);
+      $(document.createTextElement(room.max)).appendTo(form);
+      $(document.createElement('br')).appendTo(form);
+    }
+    $(document.createElement('input')).attr('type','radio').attr('name','room').attr('id','new_rm').appendTo(form);
+    $(document.createElement('label')).attr('for','new_rm').text(' new room ').appendTo(form);
+    $(document.createElement('br')).appendTo(form);
+    form.children(':first-child').attr('checked', '');
+    location.append(form);
+  }
+}
+
 //=====Functions=====
 function displayAll() {
   $('.hidable').show();
@@ -160,7 +188,7 @@ $(function() {
       console.log('begin',res);
       // listRooms();
       id = res.id;
-      res.lobby.appendTo($('#lobby'));
+      (new Lobby(res.rooms)).appendTo($('#lobby'));
       $('#welcome').hide();
       $('#rooms').show();
     });
