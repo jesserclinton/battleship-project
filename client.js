@@ -269,4 +269,21 @@ $(function() {
   //
   // }
 
+  //-----Restart-----
+  $('#again').submit(function(){
+    $.post('/again', function(data,status){
+      res = JSON.parse(data);
+      console.log('again',data);
+      id = res.id;
+      (new Lobby(res.lobby.rooms)).appendTo($('#rooms'));
+
+      $('#join').submit(join);
+
+      $('#results').hide();
+      $('#lobby').show();
+    });
+  });
+
+  }
+
 });
