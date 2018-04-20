@@ -124,14 +124,8 @@ function Gameboard(size = 10) {
   }
 
   this.updateView = function(coords) {
-    if (coords.friends) {
-      for (friend of coords.friends) {
-        for (var i = 0; i < friend.n; i++) {
-          $('#'+(new Coordinate((friend.m ? friend.x : friend.x+i),(friend.m ? friend.y+i : friend.y))).toString()).text('☺︎').addClass('info');
-        }
-      }
-    }
-    if (coords.damages) for (damage of coords.damages) $('#'+damage).text('☻').addClass('alert');
+    if (coords.friends) for (friend of coords.friends) for (var i = 0; i < friend.n; i++) $('#'+(new Coordinate((friend.m ? friend.x : friend.x+i),(friend.m ? friend.y+i : friend.y))).toString()).text('☺︎').addClass('info');
+    if (coords.damages) for (damage of coords.damages) $('#'+damage).text('☻').removeClass('info').addClass('alert');
     if (coords.hits) for (hit of coords.hits) $('#'+hit).text('■').addClass('info');
     if (coords.misses) for (miss of coords.misses) $('#'+miss).text('□').addClass('alert');
   }
@@ -168,6 +162,16 @@ function Scoreboard() {
       tr.appendTo(table)
     }
     table.appendTo(location);
+  }
+
+  this.changeScore = function(id, score) {
+    for (entry of this.entries) {
+      if (entry.id == id) {
+        entry.score = score;
+        return true;
+      }
+    }
+    return false;
   }
 }
 
@@ -321,7 +325,10 @@ $(function() {
     // console.log(data);
     $.post('/attack',data,function(data, status) {
       var res = JSON.parse(data);
-      console.log(res);
+      console.log('attack',res);
+      gameboard.updateView(res.coords);
+      scoreboard.entries = res.scoreboard;
+        scoreboard.appendTo($('.scoreboard'));
     });
   }
 
