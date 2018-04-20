@@ -254,7 +254,7 @@ app.get('/test.js', function(req, res) {
  * Move player to lobby
  */
 app.post('/begin', function(req, res) {
-  console.log('They moved to the lobby');
+  // console.log('Moved to the lobby');
   var data = {
     id: genId(),
     lobby: lobby
@@ -302,7 +302,8 @@ app.post('/new', function(req, res) {
     res.send(JSON.stringify(data));
   }
   var data = req.body;
-  lobby.addRoom();
+  var room = new Room(data.name,data.max);
+  lobby.addRoom(room);
 
   res.send(JSON.stringify(data));
 });
