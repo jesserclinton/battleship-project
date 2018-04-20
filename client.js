@@ -145,9 +145,6 @@ function Coordinate(x, y) {
     this.x = Number.isInteger(y) ? x : x-1;
     this.y = Number.isInteger(y) ? y : y.charCodeAt(0)-65;
   } else {
-    if ((typeof x) == 'number') {
-      console.log(x);
-    }
     this.x = parseInt(x.substring(1))-1;
     this.y = x.charCodeAt(0)-65;
   }
@@ -268,7 +265,7 @@ $(function() {
       }
 
       player = new Player(id, $('#username').val());
-      console.log(player);
+      // console.log(player);
 
       var data = {
         player: player,
@@ -284,7 +281,7 @@ $(function() {
         $.post('/join', data, function(data, status) {
           var res = JSON.parse(data);
           console.log('join',res);
-          console.log('player',player);
+          // console.log('player',player);
           gameboard = new Gameboard(res.size);
             gameboard.appendTo($('#gameboard'));
             gameboard.updateView({friends: res.coords});
@@ -317,13 +314,12 @@ $(function() {
 
   //-----Attack-----
   var attack = function() {
-    // console.log('poo');
     var data = {
       id: id,
-      coord: new Coordinate($('#number_select'),$('#letter_select'))
+      coord: (new Coordinate($('#letter_select').find(':selected').text()+$('#number_select').find(':selected').text())).toString()
     };
-    console.log(data);
-    $.post('/attack',data,function() {
+    // console.log(data);
+    $.post('/attack',data,function(data, status) {
       var res = JSON.parse(data);
       console.log(res);
     });

@@ -40,7 +40,7 @@ function Lobby() {
   }
 
   this.findPlayer = function(id) {
-    for (room of rooms) for (player of players) if(player.id == id) return room;
+    for (room of this.rooms) for (player of room.players) if(player.id == id) return room;
     return null;
   }
 }
@@ -61,19 +61,24 @@ function Room(name, max) {
     return null;
   }
 
-  this.getPlayersNames = function() {
+  this.getScoreboardInfo = function() {
     var names = [];
     for (player of this.players) names.push({name: player.name, score: 0});
     return names;
+  }
+
+  this.attack = function(id, coord) {
+    var val = this.board.coords[coord.y][coord.x];
+    console.log(val);
   }
 }
 
 //-----Player-----
 function Player(id, name) {
-  var p = this;
   this.id = id;
   this.name = name;
   this.ships = [];
+  this.score = 0;
 
   this.genShips = function(gameboard = new Gameboard()) {
     var ships = [], ship, three = true;
@@ -90,14 +95,13 @@ function Player(id, name) {
         three = false;
       }
     }
-    gameboard.print();
-    p.ships = ships;
+    // gameboard.print();
+    this.ships = ships;
   }
 }
 
 //-----Gameboard-----
 function Gameboard(size = 10) {
-  var gameboard = this;
   this.size = size;
   this.coords = [];
   for (var i = 0; i < size; i++) {
@@ -109,11 +113,11 @@ function Gameboard(size = 10) {
   this.place = function(ship) {
     open = true;
     for (var i = 0; i < ship.n; i++) {
-      open = gameboard.coords[ship.m ? ship.y+i : ship.y][ship.m ? ship.x : ship.x+i] == 0;
+      open = this.coords[ship.m ? ship.y+i : ship.y][ship.m ? ship.x : ship.x+i] == 0;
       if (!open) break;
     }
     if (open) {
-      for (var i = 0; i < ship.n; i++) gameboard.coords[ship.m ? ship.y+i : ship.y][ship.m ? ship.x : ship.x+i] = ship.id;
+      for (var i = 0; i < ship.n; i++) this.coords[ship.m ? ship.y+i : ship.y][ship.m ? ship.x : ship.x+i] = ship.id;
       return true;
     }
     return false;
@@ -161,9 +165,7 @@ function Attack() {
 
 //-----Coordinate-----
 function Coordinate(x, y) {
-  var coord = this;
-
-  if (y) {
+  if (y != undefined && y != null) {
     this.x = Number.isInteger(y) ? x : x-1;
     this.y = Number.isInteger(y) ? y : y.charCodeAt(0)-65;
   } else {
@@ -285,7 +287,7 @@ app.post('/join', function(req, res) {
   var data = {
     size: room.board.size,
     coords: player.ships,
-    players: room.getPlayersNames()
+    players: room.getScoreboardInfo()
   };
 
   res.send(JSON.stringify(data));
@@ -333,10 +335,20 @@ app.post('/game', function(req, res) {
  * launch an attack on a square
  */
 app.post('/attack', function(req, res) {
+  room = lobby.findPlayer(req.body.id);
+  coord = new Coordinate(req.body.coord);
+  console.log((room.getPlayer(req.body.id)).name,'is attacking',coord.toString());
+  // console.log('att room',room);
+  room.attack(req.body.id, coord);
+
   var data = {
-    id: id,
-    coords: req.coord
+    coords: {hits: [], misses: []}
   };
+  // report hit or miss
+  // damage[id]++, info hit
+  // info miss
+  // mark coords as struck
+  // gameboard[coords.x][coords.y] = 0
   res.send(JSON.stringify(data));
 });
 
