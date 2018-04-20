@@ -314,8 +314,9 @@ $(function() {
           $('#attack').submit(attack);
           $('#lobby').hide();
           $('#waiting').show();
-          // $('#game').show();
           pause = setInterval(wait,3000);
+          // $('#game').show();
+          // ping = setInterval(game,3000);
         });
       }
     } else $('#required_username').show();
