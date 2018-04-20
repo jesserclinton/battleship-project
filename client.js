@@ -313,10 +313,10 @@ $(function() {
 
           $('#attack').submit(attack);
           $('#lobby').hide();
-          $('#waiting').show();
-          pause = setInterval(wait,3000);
-          // $('#game').show();
-          // ping = setInterval(game,3000);
+          // $('#waiting').show();
+          // pause = setInterval(wait,3000);
+          $('#game').show();
+          ping = setInterval(game,3000);
         });
       }
     } else $('#required_username').show();
@@ -359,15 +359,20 @@ $(function() {
 
   //-----Game-----
   function game() {
-    data = {
+    var sendData = {
       id: id
     };
-    $.post('/game', data, function(data, status) {
+    $.post('/game', sendData, function(data, status) {
       res = JSON.parse(data);
       console.log('ping',res);
       gameboard.updateView(res.coords);
       scoreboard.entries = res.scoreboard;
         scoreboard.appendTo($('.scoreboard'));
+      if (res.dead) {
+        $('#died').show();
+        $('#fire_button').attr('disabled','');
+        sendData.dead = true;
+      }
     });
   }
 
