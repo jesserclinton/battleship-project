@@ -295,6 +295,12 @@ app.post('/join', function(req, res) {
  * create new room and add to lobby
  */
 app.post('/new', function(req, res) {
+  if (!req.body.id) {
+    var data = {
+      rooms: lobby.getRoomNames()
+    };
+    res.send(JSON.stringify(data));
+  }
   var data = req.body;
   lobby.addRoom();
 
@@ -326,7 +332,11 @@ app.post('/game', function(req, res) {
  * launch an attack on a square
  */
 app.post('/attack', function(req, res) {
-
+  var data = {
+    id: id,
+    coords: req.coord
+  };
+  res.send(JSON.stringify(data));
 });
 
 /**

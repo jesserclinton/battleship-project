@@ -273,8 +273,10 @@ $(function() {
       }
 
       if (data.room == '_new') {
-        $('#lobby').hide();
-        $('#create').show();
+        $.post('/new', function() {
+          $('#lobby').hide();
+          $('#create').show();
+        });
       } else {
         $.post('/join', data, function(data, status) {
           var res = JSON.parse(data);
@@ -301,6 +303,14 @@ $(function() {
   //-----New-----
   $('#createRoom').submit(function() {
     console.log('NEW');
+
+    var data = {
+      id: id
+    }
+
+    $.post('/new',data,function() {
+
+    });
   });
 
   //-----Attack-----
