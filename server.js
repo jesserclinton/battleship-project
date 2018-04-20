@@ -130,7 +130,7 @@ function Ship(id, n, gameboard) {
 };
 
 //-----Attack-----
-function Attack(size = 10) {
+function Attack() {
 
 }
 

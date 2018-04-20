@@ -42,11 +42,7 @@ function Lobby(rooms) {
       $(document.createElement('div'))
         .append($(document.createElement('label')).attr('for','username').text('Username: '))
         .append($(document.createElement('input'))
-          .attr('type','text')
-          .attr('id','username')
-          .attr('title','username')
-          .attr('spellcheck',false)
-          .attr('placeholder','Fred')
+          .attr({'type':'text', 'id':'username', 'title':'username', 'spellcheck':false, 'placeholder':'Fred'})
         )
     );
     for (room of this.rooms) {
@@ -74,9 +70,7 @@ function Lobby(rooms) {
     }
     form.append(
       $(document.createElement('input'))
-        .attr('type','radio')
-        .attr('name','room')
-        .attr('id','new_rm')
+        .attr({'type': 'radio', 'name': 'room', 'id':'new_rm'})
     ).append(
       $(document.createElement('label'))
         .attr('for','new_rm')
@@ -232,7 +226,7 @@ $(function() {
         attack = new Attack(res.board.size);
           attack.appendTo($('#attack'));
         $('#lobby').hide();
-        $('#game').show();
+        $('#waiting').show();
       });
     }
   }
