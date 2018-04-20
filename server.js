@@ -286,7 +286,7 @@ app.post('/wait', function(req, res) {
   var room = lobby.findPlayer(req.body.id);
 
   var data = {
-    size: room.max,
+    room: room,
     players: room.players
   };
 

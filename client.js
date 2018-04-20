@@ -39,6 +39,10 @@ function Lobby(rooms) {
     return true;
   }
 
+  this.hideRoom = function(name) {
+    $('#rm_'+name).hide();
+  }
+
   this.appendTo = function(location = $('body')) {
     location.empty();
     var form = $(document.createElement('form')).addClass('portal').attr('id', 'join');
@@ -376,14 +380,15 @@ $(function() {
     $.post('/wait', data, function(data, status) {
       res = JSON.parse(data);
       console.log('wait',res);
-      var list = new PlayerList({max: res.size});
+      var list = new PlayerList({max: res.room.max});
       console.log('res.players',res.player);
       list.players = res.players;
         // list.addPlayer(player);
         list.appendTo($('#players'));
       // console.log(res.players.length);
       // remaining(res);
-      if (res.size == res.players.length) {
+      if (res.room.max == res.players.length) {
+        $('#rm_'+res.room.name).hide();
         $('#waiting').hide();
         $('#game').show();
         clearInterval(pause);
