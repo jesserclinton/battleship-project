@@ -289,7 +289,9 @@ $(function() {
           scoreboard.entries = res.players;
           scoreboard.appendTo($('.scoreboard'));
           attack = new Attack(res.size);
-          attack.appendTo($('#attack'));
+          attack.appendTo($('#command'));
+          console.log('hello there');
+          $('#attack').submit(attack);
           $('#lobby').hide();
           // $('#waiting').show();
           $('#game').show();
@@ -302,6 +304,16 @@ $(function() {
   $('#createRoom').submit(function() {
     console.log('NEW');
   });
+
+  //-----Attack-----
+  var attack = function() {
+    console.log('poo');
+    var data = {
+      id: id,
+      coord: new Coordinate($('#number_select'),$('#letter_select'))
+    };
+    console.log(data);
+  }
 
   //-----Restart-----
   $('#again').submit(function() {

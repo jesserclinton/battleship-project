@@ -26,11 +26,22 @@ function Lobby() {
     return null;
   }
 
+  this.getRoomNames = function() {
+    var roomNames = [];
+    for (room of rooms) roomNames.push(room.name);
+    return roomNames;
+  }
+
   this.removeRoom = function(name) {
     var index = this.rooms.indexOf(name);
     if(index == -1) return false;
     this.rooms.splice(index, 1);
     return true;
+  }
+
+  this.findPlayer = function(id) {
+    for (room of rooms) for (player of players) if(player.id == id) return room;
+    return null;
   }
 }
 
@@ -285,6 +296,7 @@ app.post('/join', function(req, res) {
  */
 app.post('/new', function(req, res) {
   var data = req.body;
+  lobby.addRoom();
 
   res.send(JSON.stringify(data));
 });
