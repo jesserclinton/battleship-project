@@ -25,6 +25,13 @@ function Lobby() {
     for (room of this.rooms) if (room.name == name) return room;
     return null;
   }
+
+  this.removeRoom = function(name) {
+    var index = this.rooms.indexOf(name);
+    if(index == -1) return false;
+    this.rooms.splice(index, 1);
+    return true;
+  }
 }
 
 //-----Room-----
