@@ -57,6 +57,11 @@ form {
   text-shadow: 1px 1px #ffcccc;
 }
 
+.info {
+  color: #39ff14;
+  text-shadow: 1px 1px #ccffcc;
+}
+
 .board {
   font-size: 1.5em;
 }
