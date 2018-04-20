@@ -298,18 +298,21 @@ $(function() {
   // }
 
   //-----Restart-----
-  $('#again').submit(function(){
+  $('#again').submit(function() {
     id = null;
     player = null;
     players = null;
     gameboard = null;
     attack = null;
     scoreboard = null;
-    $('#results').hide();
-    $('#lobby').show();
+    $.post('/again', function(data,status) {
+      var res = JSON.parse(data);
+      lobby.removeRoom(res.room);
+      $('#results').hide();
+      $('#lobby').show();
+    });
     // console.log("poo");
     // hideAll();
-    // $.post('/again', function(data,status){
     // //   res = JSON.parse(data);
     // //   console.log('again',data);
     // //   id = res.id;
@@ -317,6 +320,5 @@ $(function() {
     // //
     // //   $('#join').submit(join);
     //
-    // });
   });
 });

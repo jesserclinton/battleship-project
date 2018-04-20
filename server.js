@@ -312,7 +312,11 @@ app.post('/attack', function(req, res) {
  * remove room and send player to lobby
  */
 app.post('/again', function(req, res) {
+  var data = {
+    room: 'dummy'
+  };
 
+  res.send(JSON.stringify(data));
 });
 
 app.listen(8012, function() {
