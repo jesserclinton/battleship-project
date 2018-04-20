@@ -272,7 +272,6 @@ $(function() {
         room: $(selected).val()
       }
 
-      // console.log(data);
       if (data.room == '_new') {
         $('#lobby').hide();
         $('#create').show();
@@ -282,7 +281,6 @@ $(function() {
           console.log('join',res);
           console.log('player',player);
           gameboard = new Gameboard(res.size);
-          // gameboard.coords = res.coords;
           gameboard.appendTo($('#gameboard'));
           gameboard.updateView({friends: res.coords});
           scoreboard = new Scoreboard();
@@ -329,14 +327,5 @@ $(function() {
       $('#results').hide();
       $('#lobby').show();
     });
-    // console.log("poo");
-    // hideAll();
-    // //   res = JSON.parse(data);
-    // //   console.log('again',data);
-    // //   id = res.id;
-    // //   (new Lobby(res.lobby.rooms)).appendTo($('#rooms'));
-    // //
-    // //   $('#join').submit(join);
-    //
   });
 });
