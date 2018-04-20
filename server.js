@@ -120,6 +120,15 @@ function Gameboard(size = 10) {
   }
 }
 
+//-----Ship-----
+function Ship(id, n, gameboard) {
+  this.id = id;
+  this.m = m = Math.random() >= 0.5;
+  this.n = n;
+  this.x = Math.floor(Math.random()*(!m ? gameboard.size-n : gameboard.size));
+  this.y = Math.floor(Math.random()*(m ? gameboard.size-n : gameboard.size));
+};
+
 //-----Attack-----
 function Attack(size = 10) {
 
@@ -242,9 +251,12 @@ app.post('/join', function(req, res) {
   console.log(req.body);
   console.log('Joining room:',req.body.room);
   var room = lobby.getRoom(req.body.room);
-  room.addPlayer(new Player(req.body.player.id,req.body.player.name));
+  var player = new Player(req.body.player.id,req.body.player.name);
+  room.addPlayer(player);
+  var ships = player.genShips(room.board);
   console.log(room);
-  res.send(JSON.stringify({test: 'test'}));
+  console.log(ships);
+  res.send(JSON.stringify(room));
 });
 
 /**
