@@ -296,16 +296,7 @@ $(function() {
 
   //-----Lobby-----
   function checkLobby() {
-    // var data = {
-    //   rooms: rooms
-    // };
-    // $.post('/lobby',data,function(data,status) {
-    //   res = JSON.parse(data);
-    //   console.log('/lobby',res);
-    //   for (room of rooms) {
-    //     room.appendTo('#rooms');
-    //   }
-    // });
+    
   }
 
   //-----Join-----
