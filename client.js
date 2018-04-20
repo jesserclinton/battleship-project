@@ -271,7 +271,16 @@ $(function() {
 
   //-----Lobby-----
   function checkLobby() {
+    var data = {
+      rooms: rooms
+    };
+    $.post('/lobby',data,function(data,status) {
+      res = JSON.parse(data);
+      console.log('/lobby',res);
+      for (room of rooms) {
 
+      }
+    });
   }
 
   //-----Join-----
@@ -342,7 +351,6 @@ $(function() {
       room: room,
       player: player
     };
-    var player = player;
     console.log('wait data',data);
     $.post('/wait', data, function(data, status) {
       res = JSON.parse(data);

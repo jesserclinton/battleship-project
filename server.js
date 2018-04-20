@@ -234,7 +234,10 @@ app.post('/begin', function(req, res) {
  * send player lobby updates
  */
 app.post('/lobby', function(req, res) {
-
+  var data = {
+    rooms : rooms
+  };
+  res.send(JSON.stringify(data));
 });
 
 /**
@@ -284,7 +287,7 @@ app.post('/wait', function(req, res) {
     room: room,
     player: player
   };
-  res.send(JSON.stringify(room));
+  res.send(JSON.stringify(data));
 });
 
 /**
