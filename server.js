@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //=====Variables=====
 var lobby = new Lobby();
-var players = [];
+    lobby.addRoom(new Room('Helen',4));
 
 //=====Constructors=====
 //-----Lobby-----
@@ -19,6 +19,11 @@ function Lobby() {
     for (r of this.rooms) if (r.name == room.name) return false;
     this.rooms.push(room);
     return true;
+  }
+
+  this.getRoom = function(name) {
+    for (room of this.rooms) if (room.name == name) return room;
+    return null;
   }
 }
 
@@ -213,7 +218,7 @@ app.post('/begin', function(req, res) {
   console.log('Moved to the lobby');
   var data = {
     id: genId(),
-    rooms: rooms
+    lobby: lobby
   };
   res.send(JSON.stringify(data));
 });
@@ -229,7 +234,10 @@ app.post('/lobby', function(req, res) {
  * add a player to a game room
  */
 app.post('/join', function(req, res) {
-
+  console.log('Joining room:',req.body);
+  var room = lobby.getRoom(req.body.name);
+  room.addPlayer()
+  res.send(JSON.stringify({test: 'test'}));
 });
 
 /**

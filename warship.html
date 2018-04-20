@@ -33,19 +33,13 @@
         </form>
       </section>
     </article>
-    <article id="rooms" class="hidable" hidden>
+    <article id="lobby" class="hidable" hidden>
       <div class="title">Rooms</div>
       <div class="subtitle">Please select a room.</div>
       <section id="required_username" class="alert hidable" hidden>
         <p>Username Required!</p>
       </section>
-      <section>
-        <form id="login" class="portal">
-          <div><label for="username">Username: </label><input type="text" id="username" title="username" spellcheck="false" placeholder="Fred"></div>
-          <section id="lobby"></section>
-          <input type="submit" name="submit" value="Join Game">
-        </form>
-      </section>
+      <section id="rooms"></section>
     </article>
     <article id="creation" class="hidable" hidden>
       <div class="title">Create a Room</div>
@@ -79,7 +73,6 @@
       <section id="attack"></section>
     </article>
     <article id="results" class="hidable" hidden>
-      <section class="scoreboard"></section>
       <section id="win" class="hidable">
         <div class="title">CONGRATULATIONS!</div>
         <div class="subtitle">You won with {points} points!</div>
@@ -89,6 +82,7 @@
         <div class="subtitle">You lose...</div>
         <div class="subtitle">You had {points} points, and {winner} had {winner_points} points.</div>
       </section>
+      <section class="scoreboard"></section>
       <hr>
       <section>
         <div class="subtitle">Would you like to play again?</div>

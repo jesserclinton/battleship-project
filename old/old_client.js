@@ -181,3 +181,27 @@ $('#again').submit(function() {
     $('#welcome').show();
   })
 });
+
+//-----Login-----
+$('#login').submit(function() {
+  var data = {
+    name: $('#username').val(),
+    room: {name: $('#')}
+  };
+  if (!data.name) {
+    $('#required_username').show();
+  } else if (data.room.max == -1) {
+    // make new room
+  } else {
+    $.post('/login', data, function(data, status) {
+      res = JSON.parse(data);
+      console.log('login',res);
+      id = res.player.id;
+      listUsers(res);
+      remaining(res);
+      $('#welcome').hide();
+      $('#waiting').show();
+      login = setInterval(wait, 3000);
+    });
+  }
+});

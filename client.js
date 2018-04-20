@@ -33,19 +33,56 @@ function Lobby(rooms) {
 
   this.appendTo = function(location = $('body')) {
     location.empty();
-    var form = $(document.createElement('form')).addClass('portal').attr('id', 'room');
+    var form = $(document.createElement('form')).addClass('portal').attr('id', 'join');
+    form.append(
+      $(document.createElement('div'))
+        .append($(document.createElement('label')).attr('for','username').text('Username: '))
+        .append($(document.createElement('input'))
+          .attr('type','text')
+          .attr('id','username')
+          .attr('title','username')
+          .attr('spellcheck',false)
+          .attr('placeholder','Fred')
+        )
+    );
     for (room of this.rooms) {
-      $(document.createElement('input')).attr('id','rm_'+room.name).attr('name','room').val(room.name).attr('type', 'radio').appendTo(form);
-      $(document.createElement('label')).attr('for','rm_'+room.name).text(' '+room.name).appendTo(form);
-      $(document.createElement('span')).attr('id','rm_'+room.name+'_cur').text(room.players.length).appendTo(form);
-      $(document.createTextElement(' / ')).appendTo(form);
-      $(document.createTextElement(room.max)).appendTo(form);
-      $(document.createElement('br')).appendTo(form);
+      form.append(
+        $(document.createElement('input'))
+          .attr('id','rm_'+room.name)
+          .attr('name','room')
+          .val(room.name)
+          .attr('type', 'radio')
+      ).append(
+        $(document.createElement('label'))
+          .attr('for','rm_'+room.name)
+          .text(' '+room.name+' ')
+      ).append(
+        $(document.createElement('span'))
+          .attr('id','rm_'+room.name+'_cur')
+          .text(room.players.length)
+      ).append(
+        $(document.createTextNode(' / '))
+      ).append(
+        $(document.createTextNode(room.max))
+      ).append(
+        $(document.createElement('br'))
+      );
     }
-    $(document.createElement('input')).attr('type','radio').attr('name','room').attr('id','new_rm').appendTo(form);
-    $(document.createElement('label')).attr('for','new_rm').text(' new room ').appendTo(form);
-    $(document.createElement('br')).appendTo(form);
-    form.children(':first-child').attr('checked', '');
+    form.append(
+      $(document.createElement('input'))
+        .attr('type','radio')
+        .attr('name','room')
+        .attr('id','new_rm')
+    ).append(
+      $(document.createElement('label'))
+        .attr('for','new_rm')
+        .text(' new room ')
+    ).append(
+      $(document.createElement('br'))
+    ).append(
+      $(document.createElement('input')).attr('type','submit').val('Join Room')
+    )
+    form.children(':first-child').next().attr('checked', '');
     location.append(form);
   }
 }
@@ -109,9 +146,6 @@ function displayAll() {
   $('.hidable').show();
 }
 
-//-----Rooms-----
-
-
 //=====jQuery=====
 $(function() {
   //-----Begin-----
@@ -121,33 +155,41 @@ $(function() {
       console.log('begin',res);
       // listRooms();
       id = res.id;
-      (new Lobby(res.rooms)).appendTo($('#lobby'));
+      (new Lobby(res.lobby.rooms)).appendTo($('#rooms'));
+
+      $('#join').submit(join);
+
       $('#welcome').hide();
-      $('#rooms').show();
+      $('#lobby').show();
     });
   });
 
-  //-----Login-----
-  $('#login').submit(function() {
-    var data = {
-      name: $('#username').val(),
-      room: {name: $('#')}
-    };
-    if (!data.name) {
-      $('#required_username').show();
-    } else if (data.room.max == -1) {
-      // make new room
-    } else {
-      $.post('/login', data, function(data, status) {
-        res = JSON.parse(data);
-        console.log('login',res);
-        id = res.player.id;
-        listUsers(res);
-        remaining(res);
-        $('#welcome').hide();
-        $('#waiting').show();
-        login = setInterval(wait, 3000);
-      });
+  //-----Join-----
+  var join = function() {
+    for (radio of $('#join').children()) {
+      if ($(radio).attr('checked')) {
+        var selected = radio;
+        break;
+      }
     }
-  });
+
+    console.log(selected);
+
+    var data = {
+      player: player,
+      room: selected.val()
+    }
+    data = JSON.stringify(data);
+
+    $.post('/join', data, function(data, status) {
+      var res = JSON.parse(data);
+      console.log('join',res);
+    });
+  }
+
+  //-----Lobby-----
+  // function lobby() {
+  //
+  // }
+
 });
