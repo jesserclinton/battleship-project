@@ -204,8 +204,8 @@ function PlayerList(room) {
   }
 }
 
-//-----Attack-----
-function Attack(size = 10) {
+//-----Command-----
+function Command(size = 10) {
   this.size = size;
 
   this.appendTo = function(location) {
@@ -291,9 +291,9 @@ $(function() {
           scoreboard = new Scoreboard();
           scoreboard.entries = res.players;
           scoreboard.appendTo($('.scoreboard'));
-          attack = new Attack(res.size);
-          attack.appendTo($('#command'));
-          console.log('hello there');
+          command = new Command(res.size);
+          command.appendTo($('#command'));
+          console.log('#attack',$('#attack'));
           $('#attack').submit(attack);
           $('#lobby').hide();
           // $('#waiting').show();
@@ -318,7 +318,7 @@ $(function() {
 
   //-----Attack-----
   var attack = function() {
-    console.log('poo');
+    // console.log('poo');
     var data = {
       id: id,
       coord: new Coordinate($('#number_select'),$('#letter_select'))
