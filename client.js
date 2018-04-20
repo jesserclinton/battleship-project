@@ -195,6 +195,9 @@ function PlayerList(room) {
 
   this.appendTo = function(location) {
     location.empty();
+    location.append(
+      $(document.createElement('div')).addClass('subtitle').text('Players who have already joined:')
+    )
     var ul = $(document.createElement('ul'));
     for (player of players) {
       $(document.createElement('li'))
@@ -334,6 +337,9 @@ $(function() {
     $.post('/join', data, function(data, status) {
       res = JSON.parse(data);
       console.log('wait',res);
+      var list = new PlayerList({max: res.size});
+      list.players = res.players;
+      list.appendTo($('#players'));
       // listUsers(res);
       // remaining(res);
       if (res.max == res.players.length) {
