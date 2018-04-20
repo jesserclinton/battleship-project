@@ -206,6 +206,10 @@ function displayAll() {
   $('.hidable').show();
 }
 
+function hideAll() {
+  $('.hidable').hide();
+}
+
 //=====jQuery=====
 $(function() {
   //-----Begin-----
@@ -268,19 +272,18 @@ $(function() {
 
   //-----Restart-----
   $('#again').submit(function(){
-    $.post('/again', function(data,status){
-      res = JSON.parse(data);
-      console.log('again',data);
-      id = res.id;
-      (new Lobby(res.lobby.rooms)).appendTo($('#rooms'));
-
-      $('#join').submit(join);
-
-      $('#results').hide();
-      $('#lobby').show();
-    });
+    // console.log("poo");
+    // hideAll();
+    $('#results').hide();
+    $('#lobby').show();
+    // $.post('/again', function(data,status){
+    // //   res = JSON.parse(data);
+    // //   console.log('again',data);
+    // //   id = res.id;
+    // //   (new Lobby(res.lobby.rooms)).appendTo($('#rooms'));
+    // //
+    // //   $('#join').submit(join);
+    //
+    // });
   });
-
-  }
-
 });
