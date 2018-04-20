@@ -19,6 +19,7 @@ function animateBg() {
 
 //=====Variables=====
 var id;
+var player;
 
 //=====Constructors=====
 //-----Lobby-----
@@ -141,6 +142,13 @@ function Scoreboard() {
   }
 }
 
+//-----Player-----
+function Player(id, name) {
+  this.id = id;
+  this.name = name;
+  this.ships = [];
+}
+
 //=====Functions=====
 function displayAll() {
   $('.hidable').show();
@@ -166,25 +174,33 @@ $(function() {
 
   //-----Join-----
   var join = function() {
-    for (radio of $('#join').children()) {
-      if ($(radio).attr('checked')) {
-        var selected = radio;
-        break;
+    if (username = !$('#username').val()) {
+      $('#required_username').show();
+    } else {
+      for (radio of $('#join').children()) {
+        if ($(radio).attr('checked')) {
+          var selected = radio;
+          break;
+        }
       }
+
+      // console.log(selected);
+
+      player = new Player(id, username);
+      console.log(player);
+
+      var data = {
+        player: player,
+        room: $(selected).val()
+      }
+      data = JSON.stringify(data);
+
+      console.log(data);
+      // $.post('/join', data, function(data, status) {
+      //   var res = JSON.parse(data);
+      //   console.log('join',res);
+      // });
     }
-
-    console.log(selected);
-
-    var data = {
-      player: player,
-      room: selected.val()
-    }
-    data = JSON.stringify(data);
-
-    $.post('/join', data, function(data, status) {
-      var res = JSON.parse(data);
-      console.log('join',res);
-    });
   }
 
   //-----Lobby-----
