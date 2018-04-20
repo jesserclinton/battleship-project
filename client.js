@@ -324,6 +324,9 @@ $(function() {
       coord: new Coordinate($('#number_select'),$('#letter_select'))
     };
     console.log(data);
+    $.post('/attack',data,function() {
+
+    });
   }
 
   //-----Restart-----
