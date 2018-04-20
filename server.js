@@ -32,7 +32,7 @@ function Room(name, max) {
   this.name = name;
   this.players = [];
   this.max = max;
-  this.board = Gameboard((2*(max-1)+8));
+  this.board = new Gameboard((2*(max-1)+8));
 
   this.addPlayer = function(player) {
     this.players.push(player);
@@ -254,7 +254,7 @@ app.post('/join', function(req, res) {
   var player = new Player(req.body.player.id,req.body.player.name);
   room.addPlayer(player);
   var ships = player.genShips(room.board);
-  console.log(room);
+  console.log('room',room);
   console.log(ships);
   res.send(JSON.stringify(room));
 });

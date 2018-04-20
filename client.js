@@ -20,6 +20,9 @@ function animateBg() {
 //=====Variables=====
 var id;
 var player;
+var gameboard;
+var attack;
+var scoreboard;
 
 //=====Constructors=====
 //-----Lobby-----
@@ -148,6 +151,32 @@ function Player(id, name) {
   this.name = name;
 }
 
+//-----Attack-----
+function Attack(size = 10) {
+  this.size = size;
+
+  this.appendTo = function(location) {
+    location.empty();
+
+    var form = $(document.createElement('form')).attr('id','attack');
+    var select = $(document.createElement('select')).attr('id','letter_select');
+    for (var i = 0; i < size; i++) {
+      var letter = String.fromCharCode(i+65);
+      var option = $(document.createElement('option')).val(i).text(letter).appendTo(select);
+    }
+    form.append(select);
+
+    select = $(document.createElement('select')).attr('id','number_select');
+    for (var i = 1; i < size+1; i++) {
+      var option = $(document.createElement('option')).val(i).text(i).appendTo(select);
+    }
+    form.append(select);
+
+    $(document.createElement('input')).attr({'id': 'fire_button', 'value': 'Fire!', 'type': 'submit'}).appendTo(form);
+    location.append(form);
+  }
+}
+
 //=====Functions=====
 function displayAll() {
   $('.hidable').show();
@@ -195,6 +224,15 @@ $(function() {
       $.post('/join', data, function(data, status) {
         var res = JSON.parse(data);
         console.log('join',res);
+        gameboard = new Gameboard(res.board.size);
+          gameboard.coords = res.board.coords;
+          gameboard.appendTo($('#gameboard'));
+        scoreboard = new Scoreboard();
+          scoreboard.entries.push({id: player.id, name: player.name, score: 0})
+        attack = new Attack(res.board.size);
+          attack.appendTo($('#attack'));
+        $('#lobby').hide();
+        $('#game').show();
       });
     }
   }
