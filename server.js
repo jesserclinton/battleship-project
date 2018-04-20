@@ -64,7 +64,7 @@ function Room(name, max) {
 
   this.getScoreboardInfo = function() {
     var names = [];
-    for (player of this.players) names.push({name: player.name, score: player.shots.hits.length});
+    for (player of this.players) names.push({id: player.id, name: player.name, score: player.shots.hits.length});
     return names;
   }
 
@@ -303,7 +303,11 @@ app.post('/start', function(req, res) {
 /**
  * send player game updates
  */
+var deadPeople = [];
+
 app.post('/game', function(req, res) {
+  console.log(req.body);
+
   room = lobby.findPlayer(req.body.id);
 
   var data = {
@@ -311,7 +315,19 @@ app.post('/game', function(req, res) {
     scoreboard: room.getScoreboardInfo()
   };
 
-  if (data.coords.damages.length == 17) data.dead = true;
+  if (data.coords.damages.length == 17) {
+    data.dead = true;
+    var flag = true;
+    for (person of deadPeople) {
+      if (person == req.body.id) {
+        flag = false
+      }
+    }
+    if (flag) {
+      deadPeople.push(req.body.id);
+    }
+  }
+  if (room.players.length > 1 && deadPeople.length >= room.players.length-1) data.done = true;
 
   res.send(JSON.stringify(data));
 });
