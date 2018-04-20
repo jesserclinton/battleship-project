@@ -317,14 +317,5 @@ $(function() {
       $('#results').hide();
       $('#lobby').show();
     });
-    // console.log("poo");
-    // hideAll();
-    // //   res = JSON.parse(data);
-    // //   console.log('again',data);
-    // //   id = res.id;
-    // //   (new Lobby(res.lobby.rooms)).appendTo($('#rooms'));
-    // //
-    // //   $('#join').submit(join);
-    //
   });
 });
