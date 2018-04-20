@@ -80,10 +80,10 @@ function Player(id, name) {
     for (var n = 5; n > 1; n--) {
       miss = false;
       do {
-        if (miss) console.log('miss',ship);
+        // if (miss) console.log('miss',ship);
         ship = new Ship(this.id, n, gameboard);
       } while (miss = !gameboard.place(ship));
-      console.log('place',ship);
+      // console.log('place',ship);
       ships.push(ship);
       if (three && n == 3) {
         n++;
@@ -254,7 +254,7 @@ app.get('/test.js', function(req, res) {
  * Move player to lobby
  */
 app.post('/begin', function(req, res) {
-  console.log('Moved to the lobby');
+  console.log('They moved to the lobby');
   var data = {
     id: genId(),
     lobby: lobby
@@ -273,14 +273,14 @@ app.post('/lobby', function(req, res) {
  * add a player to a game room
  */
 app.post('/join', function(req, res) {
-  console.log(req.body);
-  console.log('Joining room:',req.body.room);
+  // console.log(req.body);
+  console.log(req.body.player.name,'joined',req.body.room);
   var room = lobby.getRoom(req.body.room);
   var player = new Player(req.body.player.id,req.body.player.name);
   room.addPlayer(player);
   player.genShips(room.board);
-  console.log('room',room);
-  console.log(player.ships);
+  // console.log('room',room);
+  // console.log(player.ships);
 
   var data = {
     size: room.board.size,
