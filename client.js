@@ -150,6 +150,7 @@ function Scoreboard() {
 function Player(id, name) {
   this.id = id;
   this.name = name;
+  this.ships = [];
 }
 
 //-----Player List-----
@@ -248,9 +249,11 @@ $(function() {
       $.post('/join', data, function(data, status) {
         var res = JSON.parse(data);
         console.log('join',res);
+        console.log('player',player);
         gameboard = new Gameboard(res.board.size);
           gameboard.coords = res.board.coords;
           gameboard.appendTo($('#gameboard'));
+          // gameboard.updateView({friends: res.})
         scoreboard = new Scoreboard();
           scoreboard.entries.push({id: player.id, name: player.name, score: 0})
         attack = new Attack(res.board.size);
