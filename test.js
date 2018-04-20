@@ -1,3 +1,8 @@
+//-----Attack-----
+function Attack() {
+
+}
+
 //-----Scoreboard-----
 function Entry(id, name, score) {
   this.id = id;

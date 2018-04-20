@@ -175,11 +175,6 @@ function Ship(id, n, gameboard) {
   this.y = Math.floor(Math.random()*(m ? gameboard.size-n : gameboard.size));
 };
 
-//-----Attack-----
-function Attack() {
-
-}
-
 //-----Coordinate-----
 function Coordinate(x, y) {
   if (y != undefined && y != null) {
