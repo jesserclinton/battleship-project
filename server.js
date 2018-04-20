@@ -283,10 +283,13 @@ app.post('/new', function(req, res) {
  * send player waiting room updates
  */
 app.post('/wait', function(req, res) {
+  var room = lobby.findPlayer(req.body.id);
+
   var data = {
-    room: room,
-    player: player
+    size: room.max,
+    players: room.players
   };
+
   res.send(JSON.stringify(data));
 });
 

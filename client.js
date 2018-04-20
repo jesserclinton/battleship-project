@@ -271,16 +271,16 @@ $(function() {
 
   //-----Lobby-----
   function checkLobby() {
-    var data = {
-      rooms: rooms
-    };
-    $.post('/lobby',data,function(data,status) {
-      res = JSON.parse(data);
-      console.log('/lobby',res);
-      for (room of rooms) {
-
-      }
-    });
+    // var data = {
+    //   rooms: rooms
+    // };
+    // $.post('/lobby',data,function(data,status) {
+    //   res = JSON.parse(data);
+    //   console.log('/lobby',res);
+    //   for (room of rooms) {
+    //     room.appendTo('#rooms');
+    //   }
+    // });
   }
 
   //-----Join-----
@@ -304,6 +304,7 @@ $(function() {
 
       if (data.room == '_new') {
         $.post('/new', function() {
+          res = JSON.parse(data);
           $('#lobby').hide();
           $('#create').show();
         });
@@ -323,10 +324,10 @@ $(function() {
 
           $('#attack').submit(attack);
           $('#lobby').hide();
-          // $('#waiting').show();
-          // pause = setInterval(wait,3000);
-          $('#game').show();
-          ping = setInterval(game,3000);
+          $('#waiting').show();
+          pause = setInterval(wait,3000);
+          // $('#game').show();
+          // ping = setInterval(game,3000);
         });
       }
     } else $('#required_username').show();
@@ -348,21 +349,20 @@ $(function() {
   //-----Waiting-----
   function wait() {
     var data = {
-      room: room,
-      player: player
+      id: id
     };
     console.log('wait data',data);
     $.post('/wait', data, function(data, status) {
       res = JSON.parse(data);
       console.log('wait',res);
       var list = new PlayerList({max: res.size});
-      console.log('res.players',res.players);
+      console.log('res.players',res.player);
       list.players = res.players;
         // list.addPlayer(player);
         list.appendTo($('#players'));
       // console.log(res.players.length);
       // remaining(res);
-      if (res.max == res.players.length) {
+      if (res.size == res.players.length) {
         $('#waiting').hide();
         $('#game').show();
         clearInterval(pause);
