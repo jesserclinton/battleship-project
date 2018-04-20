@@ -120,6 +120,13 @@ function Gameboard(size = 10) {
     }
     location.append(table);
   }
+
+  this.updateView = function(coords) {
+    if (coords.friends) for (friend of coords.friends) $('#'+friend).text('☺︎').addClass('info');
+    if (coords.damages) for (damage of coords.damages) $('#'+damage).text('☻').addClass('alert');
+    if (coords.hits) for (hit of coords.hits) $('#'+hit).text('■').addClass('info');
+    if (coords.misses) for (miss of coords.misses) $('#'+miss).text('□').addClass('alert');
+  }
 }
 
 //-----Scoreboard-----
@@ -150,10 +157,21 @@ function PlayerList(room) {
   this.size = room.max;
   this.players = [];
 
-  this.addPlayer(player){
+  this.addPlayer = function(player) {
     for (p of players) if(p.id == player.id) return false;
     players.push(player);
     return true;
+  }
+
+  this.appendTo = function(location) {
+    location.empty();
+    var ul = $(document.createElement('ul'));
+    for (player of players) {
+      $(document.createElement('li'))
+        .text(player.name)
+        .appendTo(ul)
+    }
+    location.append(ul);
   }
 }
 
