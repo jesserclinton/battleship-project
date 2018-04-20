@@ -324,7 +324,8 @@ $(function() {
     };
     console.log(data);
     $.post('/attack',data,function() {
-
+      var res = JSON.parse(data);
+      console.log(res);
     });
   }
 
