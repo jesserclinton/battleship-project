@@ -145,6 +145,18 @@ function Player(id, name) {
   this.name = name;
 }
 
+//-----Player List-----
+function PlayerList(room) {
+  this.size = room.max;
+  this.players = [];
+
+  this.addPlayer(player){
+    for (p of players) if(p.id == player.id) return false;
+    players.push(player);
+    return true;
+  }
+}
+
 //-----Attack-----
 function Attack(size = 10) {
   this.size = size;
