@@ -146,7 +146,6 @@ function Scoreboard() {
 function Player(id, name) {
   this.id = id;
   this.name = name;
-  this.ships = [];
 }
 
 //=====Functions=====
@@ -174,7 +173,7 @@ $(function() {
 
   //-----Join-----
   var join = function() {
-    if (username = !$('#username').val()) {
+    if (!$('#username').val()) {
       $('#required_username').show();
     } else {
       for (radio of $('#join').children()) {
@@ -184,22 +183,19 @@ $(function() {
         }
       }
 
-      // console.log(selected);
-
-      player = new Player(id, username);
+      player = new Player(id, $('#username').val());
       console.log(player);
 
       var data = {
         player: player,
         room: $(selected).val()
       }
-      data = JSON.stringify(data);
 
       console.log(data);
-      // $.post('/join', data, function(data, status) {
-      //   var res = JSON.parse(data);
-      //   console.log('join',res);
-      // });
+      $.post('/join', data, function(data, status) {
+        var res = JSON.parse(data);
+        console.log('join',res);
+      });
     }
   }
 

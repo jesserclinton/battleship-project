@@ -37,6 +37,11 @@ function Room(name, max) {
   this.addPlayer = function(player) {
     this.players.push(player);
   };
+
+  this.getPlayer = function(id) {
+    for (player of this.players) if (player.id == id) return player;
+    return null;
+  }
 }
 
 //-----Player-----
@@ -234,9 +239,11 @@ app.post('/lobby', function(req, res) {
  * add a player to a game room
  */
 app.post('/join', function(req, res) {
-  console.log('Joining room:',req.body);
-  var room = lobby.getRoom(req.body.name);
-  room.addPlayer()
+  console.log(req.body);
+  console.log('Joining room:',req.body.room);
+  var room = lobby.getRoom(req.body.room);
+  room.addPlayer(new Player(req.body.player.id,req.body.player.name));
+  console.log(room);
   res.send(JSON.stringify({test: 'test'}));
 });
 
