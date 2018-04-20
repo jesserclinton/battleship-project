@@ -344,19 +344,15 @@ app.post('/game', function(req, res) {
 app.post('/attack', function(req, res) {
   room = lobby.findPlayer(req.body.id);
   coord = new Coordinate(req.body.coord);
+
   console.log((room.getPlayer(req.body.id)).name,'is attacking',coord.toString());
-  // console.log('att room',room);
+
   room.attack(req.body.id, coord);
 
   var data = {
     coords: room.getPlayer(req.body.id).shots,
     scoreboard: room.getScoreboardInfo()
   };
-  // report hit or miss
-  // damage[id]++, info hit
-  // info miss
-  // mark coords as struck
-  // gameboard[coords.x][coords.y] = 0
   res.send(JSON.stringify(data));
 });
 
