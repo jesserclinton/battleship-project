@@ -254,8 +254,14 @@ $(function() {
 
       $('#welcome').hide();
       $('#lobby').show();
+      setInterval(checkLobby,3000);
     });
   });
+
+  //-----Lobby-----
+  function checkLobby(){
+
+  }
 
   //-----Join-----
   var join = function() {
@@ -293,10 +299,13 @@ $(function() {
             scoreboard.appendTo($('.scoreboard'));
           command = new Command(res.size);
             command.appendTo($('#command'));
+
           $('#attack').submit(attack);
           $('#lobby').hide();
           // $('#waiting').show();
           $('#game').show();
+          clearInterval(checkLobby);
+          join = setInterval(wait,3000);
         });
       }
     } else $('#required_username').show();
@@ -314,6 +323,43 @@ $(function() {
 
     });
   });
+
+  //-----Waiting-----
+  function wait() {
+    var data = {
+      id: id
+    };
+    console.log('id',data);
+    $.post('/join', data, function(data, status) {
+      res = JSON.parse(data);
+      console.log('wait',res);
+      // listUsers(res);
+      // remaining(res);
+      if (res.max == res.users.length) {
+        // buildGameboard({size: res.size, ships: res.player.ships});
+        // buildScoreboard(res.users);
+        // buildAttack(res.size);
+        $('#waiting').hide();
+        $('#game').show();
+        clearInterval(join);
+        game = setInterval(ping, 3000);
+      }
+    });
+  }
+
+  //-----Game-----
+  function ping() {
+    data = {
+      id: id
+    };
+    $.post('/game', data, function(data, status) {
+      res = JSON.parse(data);
+      console.log('ping',res);
+      updateView(res.shots);
+      // buildScoreboard(res.users);
+      death(res);
+    });
+  }
 
   //-----Attack-----
   var attack = function() {
