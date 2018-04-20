@@ -46,6 +46,7 @@ function Room(name, max) {
 
 //-----Player-----
 function Player(id, name) {
+  var p = this;
   this.id = id;
   this.name = name;
   this.ships = [];
@@ -66,7 +67,7 @@ function Player(id, name) {
       }
     }
     gameboard.print();
-    this.ships = ships;
+    p.ships = ships;
   }
 }
 
@@ -253,10 +254,16 @@ app.post('/join', function(req, res) {
   var room = lobby.getRoom(req.body.room);
   var player = new Player(req.body.player.id,req.body.player.name);
   room.addPlayer(player);
-  var ships = player.genShips(room.board);
+  player.genShips(room.board);
   console.log('room',room);
-  console.log(ships);
-  res.send(JSON.stringify(room));
+  console.log(player.ships);
+
+  var data = {
+    size: room.board.size,
+    coords: player.ships
+  };
+
+  res.send(JSON.stringify(data));
 });
 
 /**
