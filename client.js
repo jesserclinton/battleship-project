@@ -275,10 +275,16 @@ $(function() {
 
   //-----Restart-----
   $('#again').submit(function(){
-    // console.log("poo");
-    // hideAll();
+    id = null;
+    player = null;
+    players = null;
+    gameboard = null;
+    attack = null;
+    scoreboard = null;
     $('#results').hide();
     $('#lobby').show();
+    // console.log("poo");
+    // hideAll();
     // $.post('/again', function(data,status){
     // //   res = JSON.parse(data);
     // //   console.log('again',data);
