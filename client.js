@@ -24,6 +24,10 @@ var gameboard;
 var attack;
 var scoreboard;
 
+var poll;   // refresh lobby
+var pause;  // refresh waitinng room
+var ping;   // refresh game
+
 //=====Constructors=====
 //-----Lobby-----
 function Lobby(rooms) {
@@ -311,8 +315,7 @@ $(function() {
           $('#lobby').hide();
           // $('#waiting').show();
           $('#game').show();
-          // clearInterval(checkLobby);
-          // join = setInterval(wait,3000);
+          pause = setInterval(wait,3000);
         });
       }
     } else $('#required_username').show();
@@ -347,14 +350,14 @@ $(function() {
       if (res.max == res.players.length) {
         $('#waiting').hide();
         $('#game').show();
-        // clearInterval(join);
-        // game = setInterval(ping, 3000);
+        clearInterval(pause);
+        ping = setInterval(game, 3000);
       }
     });
   }
 
   //-----Game-----
-  function ping() {
+  function game() {
     data = {
       id: id
     };
