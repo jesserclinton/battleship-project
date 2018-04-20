@@ -103,6 +103,7 @@ function Gameboard(size = 10) {
   }
 
   this.appendTo = function(location = $('body')) {
+    location.empty();
     var table = $(document.createElement('table'));
     var tr = $(document.createElement('tr'));
     $(document.createElement('th')).appendTo(tr);
@@ -122,10 +123,33 @@ function Gameboard(size = 10) {
   }
 
   this.updateView = function(coords) {
-    if (coords.friends) for (friend of coords.friends) $('#'+friend).text('☺︎').addClass('info');
+    if (coords.friends) {
+      for (friend of coords.friends) {
+        for (var i = 0; i < friend.n; i++) {
+          $('#'+(new Coordinate((friend.m ? friend.x : friend.x+i),(friend.m ? friend.y+i : friend.y))).toString()).text('☺︎').addClass('info');
+        }
+      }
+    }
     if (coords.damages) for (damage of coords.damages) $('#'+damage).text('☻').addClass('alert');
     if (coords.hits) for (hit of coords.hits) $('#'+hit).text('■').addClass('info');
     if (coords.misses) for (miss of coords.misses) $('#'+miss).text('□').addClass('alert');
+  }
+}
+
+//-----Coordinate-----
+function Coordinate(x, y) {
+  var coord = this;
+
+  if (y) {
+    this.x = Number.isInteger(y) ? x : x-1;
+    this.y = Number.isInteger(y) ? y : y.charCodeAt(0)-65;
+  } else {
+    this.x = parseInt(x.substring(1))-1;
+    this.y = x.charCodeAt(0)-65;
+  }
+
+  this.toString = function() {
+    return String.fromCharCode(this.y+65)+(this.x+1);
   }
 }
 
@@ -254,16 +278,16 @@ $(function() {
         var res = JSON.parse(data);
         console.log('join',res);
         console.log('player',player);
-        gameboard = new Gameboard(res.board.size);
-          gameboard.coords = res.board.coords;
+        gameboard = new Gameboard(res.size);
+          // gameboard.coords = res.coords;
           gameboard.appendTo($('#gameboard'));
-          // gameboard.updateView({friends: res.})
+          gameboard.updateView({friends: res.coords});
         scoreboard = new Scoreboard();
           scoreboard.entries.push({id: player.id, name: player.name, score: 0})
-        attack = new Attack(res.board.size);
+        attack = new Attack(res.size);
           attack.appendTo($('#attack'));
         $('#lobby').hide();
-        $('#waiting').show();
+        $('#game').show();
       });
     }
   }
