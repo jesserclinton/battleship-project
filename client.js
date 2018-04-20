@@ -192,8 +192,8 @@ function PlayerList(room) {
   this.players = [];
 
   this.addPlayer = function(player) {
-    for (p of players) if(p.id == player.id) return false;
-    players.push(player);
+    for (p of this.players) if(p.id == player.id) return false;
+    this.players.push(player);
     return true;
   }
 
@@ -205,6 +205,7 @@ function PlayerList(room) {
         .text('Players who have already joined:')
     );
     var ul = $(document.createElement('ul'));
+    console.log(this.players);
     for (player of this.players) {
       $(document.createElement('li'))
         .text(player.name)
@@ -338,15 +339,20 @@ $(function() {
   //-----Waiting-----
   function wait() {
     var data = {
-      name: name
+      room: room,
+      player: player
     };
-    console.log('id',data);
+    var player = player;
+    console.log('wait data',data);
     $.post('/wait', data, function(data, status) {
       res = JSON.parse(data);
       console.log('wait',res);
       var list = new PlayerList({max: res.size});
+      console.log('res.players',res.players);
       list.players = res.players;
-      list.appendTo($('#players'));
+        // list.addPlayer(player);
+        list.appendTo($('#players'));
+      // console.log(res.players.length);
       // remaining(res);
       if (res.max == res.players.length) {
         $('#waiting').hide();

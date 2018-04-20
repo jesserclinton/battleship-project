@@ -281,8 +281,9 @@ app.post('/new', function(req, res) {
  */
 app.post('/wait', function(req, res) {
   var data = {
-    room: lobby.getRoom(req.name)
-  }
+    room: room,
+    player: player
+  };
   res.send(JSON.stringify(room));
 });
 
