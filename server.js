@@ -284,7 +284,9 @@ app.post('/join', function(req, res) {
  * create new room and add to lobby
  */
 app.post('/new', function(req, res) {
+  var data = req.body;
 
+  res.send(JSON.stringify(data));
 });
 
 /**

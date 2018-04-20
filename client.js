@@ -274,10 +274,8 @@ $(function() {
 
       // console.log(data);
       if (data.room == '_new') {
-        $.post('/new', player, function() {
-          $('#lobby').hide();
-          $('#create').show();
-        });
+        $('#lobby').hide();
+        $('#create').show();
       } else {
         $.post('/join', data, function(data, status) {
           var res = JSON.parse(data);
@@ -299,6 +297,11 @@ $(function() {
       }
     } else $('#required_username').show();
   }
+
+  //-----New-----
+  $('#createRoom').submit(function() {
+    console.log('NEW');
+  });
 
   //-----Restart-----
   $('#again').submit(function() {
