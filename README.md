@@ -6,15 +6,9 @@
 <!-- ## HEADS UP! -->
 
 ### TODO
-1. rework to allow for multiple games
-1. make build objects
-    * PlayerList
-    * Attack
 1. server/client communication
-    * attack
     * ping
     * restart
-1. implement multiple games
 
 ### FIXME
 * inconsistent naming conventions
