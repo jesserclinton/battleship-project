@@ -71,6 +71,7 @@ function Lobby(rooms) {
     form.append(
       $(document.createElement('input'))
         .attr({'type': 'radio', 'name': 'room', 'id':'new_rm'})
+        .val('_new')
     ).append(
       $(document.createElement('label'))
         .attr('for','new_rm')
@@ -259,7 +260,7 @@ $(function() {
       $('#required_username').show();
     } else {
       for (radio of $('#join').children()) {
-        if ($(radio).attr('checked')) {
+        if ($(radio).prop('checked')) {
           var selected = radio;
           break;
         }
@@ -294,16 +295,12 @@ $(function() {
           attack = new Attack(res.size);
           attack.appendTo($('#attack'));
           $('#lobby').hide();
+          // $('#waiting').show();
           $('#game').show();
         });
       }
     }
   }
-
-  //-----Lobby-----
-  // function lobby() {
-  //
-  // }
 
   //-----Restart-----
   $('#again').submit(function() {
