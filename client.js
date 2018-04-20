@@ -283,7 +283,7 @@ $(function() {
           gameboard.appendTo($('#gameboard'));
           gameboard.updateView({friends: res.coords});
         scoreboard = new Scoreboard();
-          scoreboard.entries.push({id: player.id, name: player.name, score: 0});
+          scoreboard.entries = res.players;
           scoreboard.appendTo($('.scoreboard'));
         attack = new Attack(res.size);
           attack.appendTo($('#attack'));

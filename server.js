@@ -49,6 +49,12 @@ function Room(name, max) {
     for (player of this.players) if (player.id == id) return player;
     return null;
   }
+
+  this.getPlayersNames = function() {
+    var names = [];
+    for (player of this.players) names.push({name: player.name, score: 0});
+    return names;
+  }
 }
 
 //-----Player-----
@@ -267,7 +273,8 @@ app.post('/join', function(req, res) {
 
   var data = {
     size: room.board.size,
-    coords: player.ships
+    coords: player.ships,
+    players: room.getPlayersNames()
   };
 
   res.send(JSON.stringify(data));
