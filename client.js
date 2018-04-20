@@ -152,7 +152,7 @@ function Coordinate(x, y) {
 function Scoreboard() {
   this.entries = [];
 
-  this.appendTo = function(location = $('body')) {
+  this.appendTo = function(location) {
     location.empty();
     table = $(document.createElement('table')).addClass('scoreboard');
     for (entry of this.entries) {
@@ -306,7 +306,7 @@ $(function() {
           // $('#waiting').show();
           $('#game').show();
           clearInterval(checkLobby);
-          join = setInterval(wait,3000);
+          // join = setInterval(wait,3000);
         });
       }
     } else $('#required_username').show();
@@ -343,7 +343,7 @@ $(function() {
         $('#waiting').hide();
         $('#game').show();
         clearInterval(join);
-        game = setInterval(ping, 3000);
+        // game = setInterval(ping, 3000);
       }
     });
   }
