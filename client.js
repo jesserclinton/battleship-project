@@ -272,7 +272,6 @@ $(function() {
         room: $(selected).val()
       }
 
-      // console.log(data);
       if (data.room == '_new') {
         $('#lobby').hide();
         $('#create').show();
@@ -282,7 +281,6 @@ $(function() {
           console.log('join',res);
           console.log('player',player);
           gameboard = new Gameboard(res.size);
-          // gameboard.coords = res.coords;
           gameboard.appendTo($('#gameboard'));
           gameboard.updateView({friends: res.coords});
           scoreboard = new Scoreboard();
