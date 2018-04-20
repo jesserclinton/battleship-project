@@ -205,7 +205,7 @@ function PlayerList(room) {
         .text('Players who have already joined:')
     );
     var ul = $(document.createElement('ul'));
-    for (player of players) {
+    for (player of this.players) {
       $(document.createElement('li'))
         .text(player.name)
         .appendTo(ul)
@@ -313,8 +313,8 @@ $(function() {
 
           $('#attack').submit(attack);
           $('#lobby').hide();
-          // $('#waiting').show();
-          $('#game').show();
+          $('#waiting').show();
+          // $('#game').show();
           pause = setInterval(wait,3000);
         });
       }
@@ -337,7 +337,7 @@ $(function() {
   //-----Waiting-----
   function wait() {
     var data = {
-      id: id
+      name: name
     };
     console.log('id',data);
     $.post('/wait', data, function(data, status) {

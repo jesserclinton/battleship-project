@@ -280,7 +280,10 @@ app.post('/new', function(req, res) {
  * send player waiting room updates
  */
 app.post('/wait', function(req, res) {
-
+  var data = {
+    room: lobby.getRoom(req.name)
+  }
+  res.send(JSON.stringify(room));
 });
 
 /**
