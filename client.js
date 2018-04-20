@@ -205,10 +205,10 @@ function PlayerList(room) {
         .text('Players who have already joined:')
     );
     var ul = $(document.createElement('ul'));
-    for (player of players) {
+    for (player of this.players) {
       $(document.createElement('li'))
         .text(player.name)
-        .appendTo(ul)
+        .appendTo(ul);
     }
     location.append(ul);
   }
@@ -314,8 +314,9 @@ $(function() {
           $('#attack').submit(attack);
           $('#lobby').hide();
           // $('#waiting').show();
+          // pause = setInterval(wait,3000);
           $('#game').show();
-          pause = setInterval(wait,3000);
+          ping = setInterval(game, 3000);
         });
       }
     } else $('#required_username').show();
@@ -364,9 +365,9 @@ $(function() {
     $.post('/game', data, function(data, status) {
       res = JSON.parse(data);
       console.log('ping',res);
-      // updateView(res.shots);
-      // buildScoreboard(res.users);
-      // death(res);
+      gameboard.updateView(res.coords);
+      scoreboard.entries = res.scoreboard;
+        scoreboard.appendTo($('.scoreboard'));
     });
   }
 
