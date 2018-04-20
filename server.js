@@ -9,6 +9,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //=====Variables=====
 var lobby = new Lobby();
     lobby.addRoom(new Room('Helen',4));
+    lobby.addRoom(new Room('Hughmungus',10));
 
 //=====Constructors=====
 //-----Lobby-----

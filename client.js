@@ -196,8 +196,10 @@ function PlayerList(room) {
   this.appendTo = function(location) {
     location.empty();
     location.append(
-      $(document.createElement('div')).addClass('subtitle').text('Players who have already joined:')
-    )
+      $(document.createElement('div'))
+        .addClass('subtitle')
+        .text('Players who have already joined:')
+    );
     var ul = $(document.createElement('ul'));
     for (player of players) {
       $(document.createElement('li'))
@@ -258,17 +260,18 @@ $(function() {
 
       $('#welcome').hide();
       $('#lobby').show();
-      setInterval(checkLobby,3000);
+      var poll = setInterval(checkLobby,3000);
     });
   });
 
   //-----Lobby-----
-  function checkLobby(){
+  function checkLobby() {
 
   }
 
   //-----Join-----
   var join = function() {
+    clearInterval(poll);
     if ($('#username').val()) {
       for (radio of $('#join').children()) {
         if ($(radio).prop('checked')) {
@@ -308,7 +311,7 @@ $(function() {
           $('#lobby').hide();
           // $('#waiting').show();
           $('#game').show();
-          clearInterval(checkLobby);
+          // clearInterval(checkLobby);
           // join = setInterval(wait,3000);
         });
       }
@@ -334,21 +337,17 @@ $(function() {
       id: id
     };
     console.log('id',data);
-    $.post('/join', data, function(data, status) {
+    $.post('/wait', data, function(data, status) {
       res = JSON.parse(data);
       console.log('wait',res);
       var list = new PlayerList({max: res.size});
       list.players = res.players;
       list.appendTo($('#players'));
-      // listUsers(res);
       // remaining(res);
       if (res.max == res.players.length) {
-        // buildGameboard({size: res.size, ships: res.player.ships});
-        // buildScoreboard(res.users);
-        // buildAttack(res.size);
         $('#waiting').hide();
         $('#game').show();
-        clearInterval(join);
+        // clearInterval(join);
         // game = setInterval(ping, 3000);
       }
     });
