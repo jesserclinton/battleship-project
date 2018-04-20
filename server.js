@@ -297,7 +297,16 @@ app.post('/start', function(req, res) {
  * send player game updates
  */
 app.post('/game', function(req, res) {
+  room = lobby.findPlayer(req.body.id);
 
+  var data = {
+    coords: room.getPlayer(req.body.id).shots,
+    scoreboard: room.getScoreboardInfo()
+  };
+
+  if (data.coords.damages.length == 17) data.dead = true;
+
+  res.send(JSON.stringify(data));
 });
 
 /**

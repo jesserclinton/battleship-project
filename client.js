@@ -208,7 +208,7 @@ function PlayerList(room) {
     for (player of this.players) {
       $(document.createElement('li'))
         .text(player.name)
-        .appendTo(ul)
+        .appendTo(ul);
     }
     location.append(ul);
   }
@@ -364,9 +364,9 @@ $(function() {
     $.post('/game', data, function(data, status) {
       res = JSON.parse(data);
       console.log('ping',res);
-      // updateView(res.shots);
-      // buildScoreboard(res.users);
-      // death(res);
+      gameboard.updateView(res.coords);
+      scoreboard.entries = res.scoreboard;
+        scoreboard.appendTo($('.scoreboard'));
     });
   }
 
