@@ -332,7 +332,7 @@ $(function() {
       console.log('wait',res);
       // listUsers(res);
       // remaining(res);
-      if (res.max == res.users.length) {
+      if (res.max == res.players.length) {
         // buildGameboard({size: res.size, ships: res.player.ships});
         // buildScoreboard(res.users);
         // buildAttack(res.size);
@@ -352,9 +352,9 @@ $(function() {
     $.post('/game', data, function(data, status) {
       res = JSON.parse(data);
       console.log('ping',res);
-      updateView(res.shots);
+      // updateView(res.shots);
       // buildScoreboard(res.users);
-      death(res);
+      // death(res);
     });
   }
 
