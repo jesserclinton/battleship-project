@@ -177,6 +177,27 @@ function Scoreboard() {
     }
     return false;
   }
+
+  this.getHigh = function() {
+    var p = null;
+    var high = 0;
+    for (entry of this.entries) {
+      if (entry.score > high) {
+        high = entry.score;
+        p = entry;
+      }
+    }
+    return p;
+  }
+
+  this.getPlayer = function(id) {
+    for (entry of this.entries) {
+      if (entry.id == id) {
+        return entry;
+      }
+    }
+    return null;
+  }
 }
 
 //-----Player-----
@@ -377,7 +398,15 @@ $(function() {
       if (res.dead) {
         $('#died').show();
         $('#fire_button').attr('disabled','');
-        sendData.dead = true;
+      }
+      if (res.done) {
+        clearInterval(ping);
+
+        $('#points').text(42);
+        $('#game').hide();
+        $('#results').show();
+        $('#win').show();
+        $('#lose').show();
       }
     });
   }
