@@ -141,10 +141,13 @@ function Gameboard(size = 10) {
 function Coordinate(x, y) {
   var coord = this;
 
-  if (y) {
+  if (y != undefined && y != null) {
     this.x = Number.isInteger(y) ? x : x-1;
     this.y = Number.isInteger(y) ? y : y.charCodeAt(0)-65;
   } else {
+    if ((typeof x) == 'number') {
+      console.log(x);
+    }
     this.x = parseInt(x.substring(1))-1;
     this.y = x.charCodeAt(0)-65;
   }
