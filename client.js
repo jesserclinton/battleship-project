@@ -276,7 +276,8 @@ $(function() {
       // console.log(data);
       if (data.room == '_new') {
         $.post('/new', player, function() {
-          
+          $('#lobby').hide();
+          $('#create').show();
         });
       } else {
         $.post('/join', data, function(data, status) {
