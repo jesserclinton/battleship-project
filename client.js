@@ -273,23 +273,29 @@ $(function() {
         room: $(selected).val()
       }
 
-      console.log(data);
-      $.post('/join', data, function(data, status) {
-        var res = JSON.parse(data);
-        console.log('join',res);
-        console.log('player',player);
-        gameboard = new Gameboard(res.size);
+      // console.log(data);
+      if (data.room == '_new') {
+        $.post('/new', player, function() {
+          
+        });
+      } else {
+        $.post('/join', data, function(data, status) {
+          var res = JSON.parse(data);
+          console.log('join',res);
+          console.log('player',player);
+          gameboard = new Gameboard(res.size);
           // gameboard.coords = res.coords;
           gameboard.appendTo($('#gameboard'));
           gameboard.updateView({friends: res.coords});
-        scoreboard = new Scoreboard();
+          scoreboard = new Scoreboard();
           scoreboard.entries = res.players;
           scoreboard.appendTo($('.scoreboard'));
-        attack = new Attack(res.size);
+          attack = new Attack(res.size);
           attack.appendTo($('#attack'));
-        $('#lobby').hide();
-        $('#game').show();
-      });
+          $('#lobby').hide();
+          $('#game').show();
+        });
+      }
     }
   }
 
