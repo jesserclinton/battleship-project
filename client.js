@@ -256,9 +256,7 @@ $(function() {
 
   //-----Join-----
   var join = function() {
-    if (!$('#username').val()) {
-      $('#required_username').show();
-    } else {
+    if ($('#username').val()) {
       for (radio of $('#join').children()) {
         if ($(radio).prop('checked')) {
           var selected = radio;
@@ -299,7 +297,7 @@ $(function() {
           $('#game').show();
         });
       }
-    }
+    } else $('#required_username').show();
   }
 
   //-----Restart-----
