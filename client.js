@@ -42,11 +42,7 @@ function Lobby(rooms) {
       $(document.createElement('div'))
         .append($(document.createElement('label')).attr('for','username').text('Username: '))
         .append($(document.createElement('input'))
-          .attr('type','text')
-          .attr('id','username')
-          .attr('title','username')
-          .attr('spellcheck',false)
-          .attr('placeholder','Fred')
+          .attr({'type':'text', 'id':'username', 'title':'username', 'spellcheck':false, 'placeholder':'Fred'})
         )
     );
     for (room of this.rooms) {
@@ -74,9 +70,7 @@ function Lobby(rooms) {
     }
     form.append(
       $(document.createElement('input'))
-        .attr('type','radio')
-        .attr('name','room')
-        .attr('id','new_rm')
+        .attr({'type': 'radio', 'name': 'room', 'id':'new_rm'})
     ).append(
       $(document.createElement('label'))
         .attr('for','new_rm')
@@ -126,6 +120,13 @@ function Gameboard(size = 10) {
     }
     location.append(table);
   }
+
+  this.updateView = function(coords) {
+    if (coords.friends) for (friend of coords.friends) $('#'+friend).text('☺︎').addClass('info');
+    if (coords.damages) for (damage of coords.damages) $('#'+damage).text('☻').addClass('alert');
+    if (coords.hits) for (hit of coords.hits) $('#'+hit).text('■').addClass('info');
+    if (coords.misses) for (miss of coords.misses) $('#'+miss).text('□').addClass('alert');
+  }
 }
 
 //-----Scoreboard-----
@@ -156,10 +157,21 @@ function PlayerList(room) {
   this.size = room.max;
   this.players = [];
 
-  this.addPlayer(player){
+  this.addPlayer = function(player) {
     for (p of players) if(p.id == player.id) return false;
     players.push(player);
     return true;
+  }
+
+  this.appendTo = function(location) {
+    location.empty();
+    var ul = $(document.createElement('ul'));
+    for (player of players) {
+      $(document.createElement('li'))
+        .text(player.name)
+        .appendTo(ul)
+    }
+    location.append(ul);
   }
 }
 
@@ -244,7 +256,7 @@ $(function() {
         attack = new Attack(res.board.size);
           attack.appendTo($('#attack'));
         $('#lobby').hide();
-        $('#game').show();
+        $('#waiting').show();
       });
     }
   }
