@@ -226,7 +226,7 @@ app.post('/begin', function(req, res) {
   // console.log('Moved to the lobby');
   var data = {
     id: genId(),
-    lobby: lobby
+    rooms: lobby.rooms
   };
   res.send(JSON.stringify(data));
 });
@@ -236,7 +236,7 @@ app.post('/begin', function(req, res) {
  */
 app.post('/lobby', function(req, res) {
   var data = {
-    rooms : rooms
+    rooms : lobby.rooms
   };
   res.send(JSON.stringify(data));
 });

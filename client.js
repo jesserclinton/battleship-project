@@ -22,6 +22,7 @@ const REFRESH = 1000;
 //=====Variables=====
 var id;
 var player;
+var lobby;
 var gameboard;
 var attack;
 var scoreboard;
@@ -94,6 +95,10 @@ function Lobby(rooms) {
     form.children(':first-child').next().attr('checked', '');
     location.append(form);
   }
+
+  this.updateView = function(rooms) {
+
+  };
 }
 
 //-----Gameboard-----
@@ -232,7 +237,6 @@ function PlayerList(room) {
         .text('Players who have already joined:')
     );
     var ul = $(document.createElement('ul'));
-    console.log(this.players);
     for (player of this.players) {
       $(document.createElement('li'))
         .text(player.name)
@@ -286,19 +290,24 @@ $(function() {
       console.log('begin',res);
       // listRooms();
       id = res.id;
-      (new Lobby(res.lobby.rooms)).appendTo($('#rooms'));
+      lobby = new Lobby(res.rooms);
+        lobby.appendTo($('#rooms'));
 
       $('#join').submit(join);
 
       $('#welcome').hide();
       $('#lobby').show();
-      var poll = setInterval(checkLobby,REFRESH);
+      poll = setInterval(checkLobby,REFRESH);
     });
   });
 
   //-----Lobby-----
   function checkLobby() {
-
+    $.post('/lobby', function(data, status) {
+      res = JSON.parse(data);
+      console.log('lobby',res);
+      lobby.updateView(res.rooms);
+    });
   }
 
   //-----Join-----
@@ -313,7 +322,6 @@ $(function() {
       }
 
       player = new Player(id, $('#username').val());
-      // console.log(player);
 
       var data = {
         player: player,
@@ -330,7 +338,6 @@ $(function() {
         $.post('/join', data, function(data, status) {
           var res = JSON.parse(data);
           console.log('join',res);
-          // console.log('player',player);
           gameboard = new Gameboard(res.size);
             gameboard.appendTo($('#gameboard'));
             gameboard.updateView({friends: res.coords});
@@ -353,11 +360,9 @@ $(function() {
 
   //-----New-----
   $('#createRoom').submit(function() {
-    console.log('NEW');
-
     var data = {
       id: id
-    }
+    };
 
     $.post('/new',data,function() {
 
@@ -369,18 +374,13 @@ $(function() {
     var data = {
       id: id
     };
-    console.log('wait data',data);
     $.post('/wait', data, function(data, status) {
       res = JSON.parse(data);
       console.log('wait',res);
       var list = new PlayerList({max: res.room.max});
-      console.log('res.players',res.player);
       list.players = res.players;
-        // list.addPlayer(player);
         list.appendTo($('#players'));
-      // console.log(res.players.length);
-      // remaining(res);
-      if (res.room.max == res.players.length) {
+      if (res.room.max <= res.players.length) {
         $('#rm_'+res.room.name).hide();
         $('#waiting').hide();
         $('#game').show();
@@ -429,7 +429,6 @@ $(function() {
       id: id,
       coord: (new Coordinate($('#letter_select').find(':selected').text()+$('#number_select').find(':selected').text())).toString()
     };
-    // console.log(data);
     $.post('/attack',data,function(data, status) {
       var res = JSON.parse(data);
       console.log('attack',res);
