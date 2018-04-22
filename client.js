@@ -296,7 +296,7 @@ $(function() {
 
   //-----Lobby-----
   function checkLobby() {
-    
+
   }
 
   //-----Join-----
@@ -405,12 +405,18 @@ $(function() {
       }
       if (res.done) {
         clearInterval(ping);
-
-        $('#points').text(42);
+        var winner = scoreboard.getHigh();
+        var player = scoreboard.getPlayer(id);
+        $('.points').text(player.score);
+        if (winner.id == player.id) {
+          $('#win').show();
+        } else {
+          $('#winner').text(winner.name);
+          $('#high').text(winner.score);
+          $('#lose').show();
+        }
         $('#game').hide();
         $('#results').show();
-        $('#win').show();
-        $('#lose').show();
       }
     });
   }

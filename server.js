@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var lobby = new Lobby();
   lobby.addRoom(new Room('duel',2));
   lobby.addRoom(new Room('Helen',4));
-  lobby.addRoom(new Room('Hughmungus',10));
+  lobby.addRoom(new Room('Hugh Mungus',10));
 
 //=====Constructors=====
 //-----Lobby-----
