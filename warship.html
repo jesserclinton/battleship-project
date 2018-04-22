@@ -36,14 +36,14 @@
     <article id="lobby" class="hidable" hidden>
       <div class="title">Rooms</div>
       <div class="subtitle">Please select a room.</div>
-      <section id="required_username" class="alert hidable" hidden>
+      <section id="required_username" class="bad hidable" hidden>
         <p>Username Required!</p>
       </section>
       <section id="rooms"></section>
     </article>
     <article id="create" class="hidable" hidden>
       <div class="title">Create a Room</div>
-      <section id="required_number" class="alert hidable" hidden>
+      <section id="required_number" class="bad hidable" hidden>
         <p>Requires at least 2 users to play!</p>
       </section>
       <section>
@@ -64,7 +64,7 @@
     </article>
     <article id="game" class="hidable" hidden>
       <div class="title" onclick="endGame()">Warship</div>
-      <section id="died" class="alert hidable" hidden>
+      <section id="died" class="bad hidable" hidden>
         <p>You died!</p>
         <p>Please wait until game ends!</p>
       </section>
@@ -75,12 +75,13 @@
     <article id="results" class="hidable" hidden>
       <section id="win" class="hidable" hidden>
         <div class="title">CONGRATULATIONS!</div>
-        <div class="subtitle info">You won with <span class="points"></span> points!</div>
+        <div class="subtitle good">You win!</div>
+        <p>You won with <span class="points"></span> points!</p>
       </section>
       <section id="lose" class="hidable" hidden>
-        <div class="title alert">Sorry...</div>
-        <div class="subtitle alert">You lose...</div>
-        <div class="subtitle info">You had <span class="points"></span> points, and <span id="winner"></span> had <span id="high"></span> points.</div>
+        <div class="title bad">Sorry...</div>
+        <div class="subtitle bad">You lose...</div>
+        <p>You had <span class="points"></span> points, and <span id="winner"></span> had <span id="high"></span> points.</p>
       </section>
       <section class="scoreboard"></section>
       <hr>

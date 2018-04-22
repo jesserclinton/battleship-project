@@ -47,17 +47,17 @@ form {
 }
 
 .subtitle {
-  font-size: 1.2em;
+  font-size: 1.35em;
   padding-left: 10px;
   font-style: italic;
 }
 
-.alert {
+.bad {
   color: red;
   text-shadow: 1px 1px #ffcccc;
 }
 
-.info {
+.good {
   color: #39ff14;
   text-shadow: 1px 1px #ccffcc;
 }
@@ -80,7 +80,7 @@ form {
   /* color: #1057BA; */
 }
 
-#game {
+#game {good
   /* padding-right: 50%; */
 }
 

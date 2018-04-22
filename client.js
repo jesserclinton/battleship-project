@@ -17,6 +17,8 @@ function animateBg() {
   }
 }
 
+const REFRESH = 1000;
+
 //=====Variables=====
 var id;
 var player;
@@ -132,10 +134,10 @@ function Gameboard(size = 10) {
   }
 
   this.updateView = function(coords) {
-    if (coords.friends) for (friend of coords.friends) for (var i = 0; i < friend.n; i++) $('#'+(new Coordinate((friend.m ? friend.x : friend.x+i),(friend.m ? friend.y+i : friend.y))).toString()).text('☺︎').addClass('info');
-    if (coords.damages) for (damage of coords.damages) $('#'+damage).text('☻').removeClass('info').addClass('alert');
-    if (coords.hits) for (hit of coords.hits) $('#'+hit).text('■').addClass('info');
-    if (coords.misses) for (miss of coords.misses) $('#'+miss).text('□').addClass('alert');
+    if (coords.friends) for (friend of coords.friends) for (var i = 0; i < friend.n; i++) $('#'+(new Coordinate((friend.m ? friend.x : friend.x+i),(friend.m ? friend.y+i : friend.y))).toString()).text('☺︎').addClass('good');
+    if (coords.damages) for (damage of coords.damages) $('#'+damage).text('☻').removeClass('good').addClass('bad');
+    if (coords.hits) for (hit of coords.hits) $('#'+hit).text('■').addClass('good');
+    if (coords.misses) for (miss of coords.misses) $('#'+miss).text('□').addClass('bad');
   }
 }
 
@@ -290,7 +292,7 @@ $(function() {
 
       $('#welcome').hide();
       $('#lobby').show();
-      var poll = setInterval(checkLobby,3000);
+      var poll = setInterval(checkLobby,REFRESH);
     });
   });
 
@@ -341,9 +343,9 @@ $(function() {
           $('#attack').submit(attack);
           $('#lobby').hide();
           $('#waiting').show();
-          pause = setInterval(wait,3000);
+          pause = setInterval(wait,REFRESH);
           // $('#game').show();
-          // ping = setInterval(game,3000);
+          // ping = setInterval(game,REFRESH);
         });
       }
     } else $('#required_username').show();
@@ -383,7 +385,7 @@ $(function() {
         $('#waiting').hide();
         $('#game').show();
         clearInterval(pause);
-        ping = setInterval(game, 3000);
+        ping = setInterval(game,REFRESH);
       }
     });
   }
